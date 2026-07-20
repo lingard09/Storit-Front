@@ -1,0 +1,661 @@
+/* 스토릿 - 유저 정보 입력 (공통 시트는 sheet.css) */
+
+/* 제목 블록 (Figma: 194 @ 31, 97 — 시트 기준) */
+.ui-heading {
+  position: absolute;
+  left: 31px;
+  top: 97px;
+  width: 194px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ui-title {
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 35px;
+  color: var(--brown-800);
+}
+
+.ui-desc {
+  width: 288px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--muted);
+}
+
+/* 프로필 배지 (Figma: 105x105 @ 133, 211) */
+.ui-badge {
+  position: absolute;
+  left: 133px;
+  top: 211px;
+  width: 105px;
+  height: 105px;
+}
+
+.ui-badge-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--cta-bg);
+  border: 1px solid var(--yellow);
+}
+
+.ui-avatar {
+  position: absolute;
+  left: 17.5px;
+  top: 17.5px;
+  width: 70px;
+  height: 70px;
+}
+
+/* 편집 배지 — 원 바깥 우하단 (Figma: 30x30 @ 77, 77) */
+.ui-badge-edit {
+  position: absolute;
+  left: 77px;
+  top: 77px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* 입력 카드 (Figma: 330 @ 21, 354) */
+.ui-card {
+  position: absolute;
+  left: 21px;
+  top: 354px;
+  width: 330px;
+  padding: 25px 20px;
+  background: #fff;
+  border: 1px solid var(--yellow-deep);
+  border-radius: 16px;
+}
+
+.ui-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.ui-label {
+  display: block;
+  margin: 0 0 5px 3px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.ui-label .req {
+  color: #e33232;
+}
+
+/* 라벨 + 검증 메시지 (288px 안에서 좌/우 정렬) */
+.ui-label-row {
+  width: 288px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ui-label-row .ui-label {
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.ui-nick-msg {
+  margin-bottom: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ui-nick-msg.is-error {
+  color: #e33232;
+}
+
+.ui-nick-msg.is-ok {
+  color: #43bb65;
+}
+
+/* 입력 필드 (Figma: 288x45) */
+.ui-field {
+  width: 288px;
+  height: 45px;
+  border-radius: 10px;
+  background: #f3ede3;
+  display: flex;
+  align-items: center;
+}
+
+.ui-field-icon {
+  flex-shrink: 0;
+  margin-left: 18px;
+  opacity: 0.5;
+  display: flex;
+}
+
+.ui-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 18px 0 10px;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  color: var(--brown-800);
+}
+
+/* 입력값이 있을 때 (Figma: 12px/700) */
+.ui-input:not(:placeholder-shown) {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.ui-input::placeholder {
+  color: var(--brown-800);
+  opacity: 0.5;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.ui-input:focus {
+  outline: none;
+}
+
+/* 성별 선택 (Figma: 140x45 두 개, 간격 8) */
+.ui-gender {
+  display: flex;
+  gap: 8px;
+}
+
+.ui-gender-btn {
+  width: 140px;
+  height: 45px;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #f3ede3;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  color: var(--brown-800);
+  opacity: 0.5;
+  transition:
+    opacity 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* 선택 시 (Figma: 배경 #FFD95E, 12px/700, opacity 없음) */
+.ui-gender-btn.is-selected {
+  opacity: 1;
+  background: var(--yellow);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+/* 하단 장식 원 띠 */
+.ui-scallop {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+  height: 57px;
+}
+
+/* ── 프로필 설정 모달 ────────────────────── */
+
+.ui-modal[hidden] {
+  display: none;
+}
+
+.ui-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 16, 0, 0.68);
+  border: 0;
+  padding: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* 모달 카드 (Figma: 330x407 @ 21, 203) */
+.ui-modal-card {
+  position: absolute;
+  left: 21px;
+  top: 203px;
+  width: 330px;
+  height: 407px;
+  background: #fff;
+  border-radius: 24px;
+}
+
+/* 닫기 (Figma: 18x18 @ 297, 15) */
+.ui-modal-close {
+  position: absolute;
+  left: 297px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 0;
+}
+
+/* 제목 (Figma: top 24, 20px/700) */
+.ui-modal-title {
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+}
+
+/* 현재 아바타 미리보기 (Figma: 70x70 @ 130, 71) */
+.ui-modal-preview {
+  position: absolute;
+  left: 130px;
+  top: 71px;
+  width: 70px;
+  height: 70px;
+  border-radius: 9999px;
+  background: var(--cta-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-modal-preview svg {
+  width: 50px;
+  height: 50px;
+}
+
+/* 아바타 선택 그리드 (Figma: 271 wide @ 29, 160) */
+.ui-avatar-grid {
+  position: absolute;
+  left: 29px;
+  top: 160px;
+  width: 271px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 15px;
+}
+
+.ui-avatar-option {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.ui-avatar-option svg {
+  width: 42px;
+  height: 42px;
+}
+
+/* 선택 표시 — 초록 체크 배지 */
+.ui-avatar-option.is-selected::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 19px;
+  height: 19px;
+  border-radius: 9999px;
+  background: #43bb65 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19 19'%3E%3Cpath d='M5.5 9.8l2.8 2.8 5.2-5.6' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  border: 2px solid #fff;
+  box-sizing: content-box;
+}
+
+/* 앨범에서 사진 선택 (Figma: 273x40 @ top 270) */
+.ui-modal-album {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 270px;
+  width: 273px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--cta-bg);
+  color: var(--brown-700);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* 확인 (Figma: 270x48 @ top 330) */
+.ui-modal-confirm {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 330px;
+  width: 270px;
+  min-height: 48px;
+  padding: 2px 20px;
+  border: 1px solid var(--yellow);
+  border-radius: 16px;
+  background: var(--yellow);
+  color: var(--brown-700);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* 업로드한 사진 미리보기 */
+.ui-modal-preview img,
+.ui-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+/* ── 출생연도 설정 모달 ──────────────────── */
+
+.by-modal[hidden] {
+  display: none;
+}
+
+.by-modal-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: rgba(28, 16, 0, 0.5);
+  cursor: pointer;
+}
+
+/* 카드 (Figma: 330x268 @ 21, 203) */
+.by-card {
+  position: absolute;
+  left: 21px;
+  top: 203px;
+  width: 330px;
+  height: 268px;
+  background: #fff;
+  border-radius: 24px;
+}
+
+.by-close {
+  position: absolute;
+  left: 297px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 0;
+}
+
+/* 제목 (Figma: 18px/700 @ top 24) */
+.by-title {
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: #000;
+}
+
+/* 연도 휠 — 3행 노출, 가운데가 선택 (Figma: 밴드 96~141) */
+.by-picker {
+  position: absolute;
+  left: 0;
+  top: 51px;
+  width: 100%;
+  height: 135px;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.by-picker::-webkit-scrollbar {
+  display: none;
+}
+
+/* 선택 영역 위/아래 주황 선 (Figma: 123x2.5 @ 96, 141) */
+.by-band {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 123px;
+  height: 2.5px;
+  border-radius: 0.95px;
+  background: var(--orange);
+  pointer-events: none;
+}
+
+.by-band--top {
+  top: 96px;
+}
+
+.by-band--bottom {
+  top: 141px;
+}
+
+.by-list {
+  list-style: none;
+  /* 첫/마지막 항목도 가운데 올 수 있도록 위아래 한 칸씩 여백 */
+  padding: 45px 0;
+}
+
+.by-year {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.by-year.is-current {
+  font-size: 20px;
+  line-height: 28px;
+  color: #1c1000;
+}
+
+/* 확인 버튼 (Figma: 205x48 @ 카드 기준 top 199) */
+.by-confirm {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 199px;
+  min-width: 205px;
+  min-height: 48px;
+  padding: 2px 60px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--yellow);
+  color: var(--brown-800);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* 모달 닫기 아이콘 — 에셋 fill(#888880)에 Figma 스펙의 0.8 알파 적용 */
+.ui-modal-close .ic-close,
+.by-close .ic-close,
+.nt-close .ic-close {
+  opacity: 0.8;
+}
+
+/* ── 알림 권한 모달 ──────────────────────── */
+
+.nt-modal[hidden] {
+  display: none;
+}
+
+.nt-modal-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: rgba(28, 16, 0, 0.68);
+  cursor: pointer;
+}
+
+/* 카드 (Figma: 330x294 @ 21, 252) */
+.nt-card {
+  position: absolute;
+  left: 21px;
+  top: 252px;
+  width: 330px;
+  height: 294px;
+  background: #fff;
+  border-radius: 24px;
+}
+
+.nt-close {
+  position: absolute;
+  left: 297px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 0;
+}
+
+/* 초록 원 + 벨 (Figma: 70x70 @ 130, 17) */
+.nt-icon {
+  position: absolute;
+  left: 130px;
+  top: 17px;
+  width: 70px;
+  height: 70px;
+  border-radius: 9999px;
+  background: var(--green-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+}
+
+.nt-title {
+  position: absolute;
+  left: 0;
+  top: 107px;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+}
+
+.nt-desc {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 145px;
+  width: 283px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000;
+}
+
+.nt-note {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 196px;
+  width: 283px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--muted);
+}
+
+/* 버튼 2개 (Figma: 130x45, 간격 10, @ top 227) */
+.nt-actions {
+  position: absolute;
+  left: 5px;
+  top: 227px;
+  width: 320px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nt-btn {
+  width: 130px;
+  height: 45px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.nt-btn--allow {
+  background: var(--green);
+  color: var(--bg);
+}
+
+.nt-btn--later {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+/* 갈색 CTA 비활성 (Figma: 텍스트 opacity 0.3) */
+.sheet-cta--brown:disabled {
+  cursor: default;
+  opacity: 0.3;
+}

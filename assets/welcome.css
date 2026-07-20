@@ -1,0 +1,97 @@
+/* 스토릿 - 환영 화면 */
+
+.wc-page {
+  background: var(--cta-bg);
+}
+
+/* 배경 (570x856) - 프레임 중앙 정렬 (온보딩1과 동일) */
+.wc-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 570px;
+  height: 856px;
+  object-fit: cover;
+}
+
+/* 로고 그룹 (Figma: 252.02 @ 66, 197, gap 20 — 로고가 위) */
+.wc-brand {
+  position: absolute;
+  left: 66px;
+  top: 197px;
+  width: 252.02px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.wc-logo {
+  width: 253px;
+  height: 57px;
+}
+
+.wc-tagline {
+  align-self: stretch;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+/* 말풍선 (Figma: 그룹 243x130 @ 70, 440 / 이미지 290x185 @ -23, -42) */
+.wc-bubble {
+  position: absolute;
+  left: 47px;
+  top: 398px;
+  width: 290px;
+  height: 185px;
+}
+
+.wc-bubble-text {
+  position: absolute;
+  left: 125px;
+  top: 475px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 30px;
+  color: var(--brown-700);
+}
+
+.wc-bubble-text .accent {
+  color: var(--orange);
+}
+
+/* 마스코트 (Figma: 115x159 @ 248, 520) */
+.wc-mascot {
+  position: absolute;
+  left: 248px;
+  top: 520px;
+  width: 115px;
+  height: 159px;
+}
+
+/* CTA (Figma: 320x56 @ top 672, 갈색) */
+.wc-cta {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 672px;
+  width: 320px;
+  min-height: 56px;
+  padding: 2px 28px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--brown-700);
+  color: var(--yellow);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+}

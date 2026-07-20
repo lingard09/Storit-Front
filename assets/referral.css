@@ -1,0 +1,183 @@
+/* 스토릿 - 초대 코드 입력 (공통 시트는 sheet.css) */
+
+/* 제목 블록 (Figma: 194 @ 31, 97 — 시트 기준) */
+.rf-heading {
+  position: absolute;
+  left: 31px;
+  top: 97px;
+  width: 194px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rf-title {
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 35px;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+.rf-desc {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* 선물 원형 배지 (Figma: 105x105 @ 133, 211) */
+.rf-badge {
+  position: absolute;
+  left: 133px;
+  top: 211px;
+  width: 105px;
+  height: 105px;
+  border-radius: 9999px;
+  background: var(--cta-bg);
+  border: 1px solid var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf-badge svg {
+  width: 65px;
+  height: 65px;
+}
+
+/* 입력 카드 (Figma: 330x140 @ 21, 354) */
+.rf-card {
+  position: absolute;
+  left: 21px;
+  top: 354px;
+  width: 330px;
+  min-height: 140px;
+  padding: 25px 21px;
+  background: #fff;
+  border: 1px solid var(--yellow-deep);
+  border-radius: 16px;
+}
+
+.rf-label {
+  display: block;
+  margin-left: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brown-800);
+}
+
+/* 입력 필드 (Figma: 288x45, 라벨 아래 19px) */
+.rf-field {
+  position: relative;
+  margin-top: 1px;
+  width: 288px;
+  height: 45px;
+  border-radius: 10px;
+  background: #f3ede3;
+  display: flex;
+  align-items: center;
+}
+
+.rf-field-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-left: 12px;
+}
+
+.rf-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 8px 0 10px;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  color: var(--brown-800);
+  text-transform: uppercase;
+}
+
+.rf-input::placeholder {
+  color: var(--brown-800);
+  opacity: 0.5;
+  text-transform: none;
+}
+
+.rf-input:focus {
+  outline: none;
+}
+
+/* 적용 버튼 (Figma: 51x34, 필드 우측 6px 안쪽) */
+.rf-apply {
+  flex-shrink: 0;
+  width: 51px;
+  height: 34px;
+  margin-right: 6px;
+  padding: 1px 14px;
+  border: 0;
+  border-radius: 8.5px;
+  background: var(--brown-700);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 10.63px;
+  font-weight: 700;
+  line-height: 14.88px;
+  cursor: pointer;
+}
+
+/* 미입력 상태 — Figma data-disabled="True" (텍스트 opacity .3) */
+.rf-apply:disabled {
+  cursor: default;
+  opacity: 0.3;
+}
+
+/* 안내 문구 */
+.rf-help {
+  margin-top: 11px;
+  opacity: 0.8;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+/* 적용 결과 메시지 — 안내 문구와 같은 자리·같은 크기, 색만 다름 */
+.rf-msg {
+  margin-top: 11px;
+  opacity: 0.8;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.rf-msg.is-ok {
+  color: #43bb65;
+}
+
+.rf-msg.is-error {
+  color: #e33232;
+}
+
+/* 메시지가 뜨면 기본 안내 문구는 숨김 */
+.rf-card.has-msg .rf-help {
+  display: none;
+}
+
+.rf-card:not(.has-msg) .rf-msg {
+  display: none;
+}
+
+/* 하단 장식 원 띠 */
+.rf-scallop {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+  height: 57px;
+}

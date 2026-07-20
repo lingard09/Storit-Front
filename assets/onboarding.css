@@ -1,0 +1,185 @@
+/* 스토릿 - 온보딩 (1~3) */
+
+.onboarding {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 배경 일러스트 (570x856) - 프레임 중앙 정렬 */
+.ob-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 570px;
+  height: 856px;
+  object-fit: cover;
+}
+
+/* 헤드라인 */
+.ob-title {
+  position: absolute;
+  top: 124px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+  color: var(--brown-700);
+}
+
+.ob-title .accent {
+  color: var(--orange);
+}
+
+/* 서브 카피 */
+.ob-subtitle {
+  position: absolute;
+  top: 254px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--brown-800);
+}
+
+/* 반짝임 */
+.ob-sparkle-lg {
+  position: absolute;
+  left: 91px;
+  top: 107px;
+  width: 25.44px;
+  height: 28px;
+}
+
+.ob-sparkle-sm {
+  position: absolute;
+  left: 285px;
+  top: 150px;
+  width: 17.9px;
+  height: 20px;
+}
+
+/* 마스코트 & 쿠키 */
+.ob-mascot {
+  position: absolute;
+  left: 204px;
+  top: 484px;
+  width: 150px;
+  height: 225px;
+}
+
+.ob-cookie {
+  position: absolute;
+  left: 151px;
+  top: 464px;
+  width: 84px;
+  height: 81px;
+}
+
+/* 말풍선 */
+.ob-bubble {
+  position: absolute;
+  left: 66px;
+  top: 565px;
+  width: 125.2px;
+  height: 96.86px;
+}
+
+.ob-bubble-text {
+  position: absolute;
+  left: 80px;
+  top: 593px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--brown-900);
+}
+
+.ob-bubble-text .accent {
+  color: var(--orange);
+}
+
+/* ── 온보딩 2 ────────────────────────────── */
+
+/* 배경 일러스트 (Figma: 379x858 @ -4, 0) */
+.ob-bg--p2 {
+  left: -4px;
+  top: 0;
+  transform: none;
+  width: 379px;
+  height: 858px;
+}
+
+/* 메인 일러스트 (Figma: 226x206 @ 74, 342) */
+.ob-hero {
+  position: absolute;
+  left: 74px;
+  top: 342px;
+  width: 226px;
+  height: 206px;
+}
+
+.ob-title--p2 {
+  top: 124px;
+}
+
+.ob-subtitle--p2 {
+  top: 211px;
+}
+
+/* ── 온보딩 3 ────────────────────────────── */
+
+/* 배경 일러스트 (407x880) - 프레임 중앙 정렬 */
+.ob-bg--p3 {
+  width: 407px;
+  height: 880px;
+}
+
+/* 메인 일러스트 (Figma: 184x221 @ 83, 394) */
+.ob-hero--p3 {
+  left: 83px;
+  top: 394px;
+  width: 184px;
+  height: 221px;
+}
+
+.ob-title--p3 {
+  top: 82px;
+}
+
+/* 에셋 미도착 자리표시 (Figma 색상 박스) */
+.ob-placeholder {
+  background: rgba(100, 182, 201, 0.91);
+}
+
+/* CTA 버튼 (Figma: 320x56 @ top 672) */
+.ob-cta {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 672px;
+  width: 320px;
+  min-width: 96px;
+  min-height: 56px;
+  padding: 2px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--cta-bg);
+  border-radius: 16px;
+  background: var(--cta-bg);
+  color: var(--brown-700);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+}

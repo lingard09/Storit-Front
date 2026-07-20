@@ -1,0 +1,823 @@
+/* 스토릿 - 메인 화면 */
+
+.mn-page {
+  background: var(--bg);
+}
+
+/* 스크롤 영역 — 콘텐츠가 프레임보다 길다 */
+.mn-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.mn-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── 헤더 (375x84, 하단 라운드 24) ───────── */
+.mn-header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 375px;
+  height: 84px;
+  z-index: 10;
+  background: var(--brown-700);
+  border-radius: 0 0 24px 24px;
+}
+
+/* 프로필 (Figma: 43x43 @ 13, 20) */
+/* 에셋(45x45)에 노란 원·흰 테두리가 포함돼 있어 중심을 맞춰 배치 */
+.mn-avatar {
+  position: absolute;
+  left: 12px;
+  top: 19px;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.mn-avatar img {
+  width: 45px;
+  height: 45px;
+}
+
+/* 레벨 + 경험치 (Figma: 81x49 @ 66, 17) */
+.mn-level {
+  position: absolute;
+  left: 66px;
+  top: 17px;
+  width: 81px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mn-level-name {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+
+/* 경험치 바 (Figma: 79x15, 흰 트랙 + 노란 채움) */
+.mn-xp {
+  position: relative;
+  width: 79px;
+  height: 15px;
+  border-radius: 29px;
+  background: #fff;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.mn-xp-fill {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  height: 15px;
+  width: calc((79px - 4px) * var(--pct));
+  border-radius: 29px;
+  background: var(--yellow);
+}
+
+.mn-xp-label {
+  position: absolute;
+  left: 49px;
+  top: 0;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-700);
+}
+
+/* 하트 (Figma: 62 @ 161, 19) */
+.mn-hearts {
+  position: absolute;
+  left: 161px;
+  top: 19px;
+  width: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.mn-hearts-row {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mn-hearts-row img {
+  width: 17.88px;
+  height: 16.03px;
+}
+
+/* 헤더 기준 y=44 (.mn-hearts 가 19px 이므로 25px) */
+.mn-hearts-pill {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 62px;
+  height: 22px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: var(--yellow);
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-700);
+  white-space: nowrap;
+}
+
+/* 말풍선 꼬리 (7x6) — 상단 중앙 */
+.mn-hearts-pill::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 6px;
+  background: url("pill_tail.svg") center / contain no-repeat;
+}
+
+/* 쿠키 보유량 (Figma: 64x25 @ 241, 29) */
+.mn-cookies {
+  position: absolute;
+  left: 241px;
+  top: 29px;
+  width: 64px;
+  height: 25px;
+  padding: 3px 7px 3px 8px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--yellow);
+  color: var(--brown-700);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.mn-cookies img {
+  width: 17px;
+  height: 17px;
+}
+
+/* 알림 (Figma: 43x25 @ 319, 29) */
+.mn-bell {
+  position: absolute;
+  left: 319px;
+  top: 29px;
+  width: 43px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.mn-bell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 안 읽은 알림 점 (Figma: 8x8 @ 37, -3) */
+.mn-bell.has-new::after {
+  content: "";
+  position: absolute;
+  left: 37px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #e33232;
+  border: 0.5px solid var(--brown-700);
+}
+
+/* 본문 컨테이너 (Figma: 343 @ 16, 92) */
+.mn-body {
+  width: 343px;
+  /* 하단 여백은 네비게이션(84px) 만큼 확보 */
+  margin: 92px auto 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── 히어로 배너 (340x142) ───────────────── */
+.mn-hero {
+  position: relative;
+  align-self: stretch;
+  height: 142px;
+}
+
+.mn-hero-bg {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  width: 340px;
+  height: 142px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.mn-hero-mascot {
+  position: absolute;
+  left: 171px;
+  top: 10px;
+  width: 110px;
+  height: 118px;
+}
+
+.mn-hero-copy {
+  position: absolute;
+  left: 27px;
+  top: 30px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25px;
+  color: var(--brown-700);
+}
+
+.mn-hero-copy .accent {
+  color: var(--orange);
+}
+
+/* 오늘의 미션 보기 버튼 */
+.mn-hero-cta {
+  position: absolute;
+  left: 27px;
+  top: 90px;
+  width: 130px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 17px;
+  background: var(--brown-700);
+  color: var(--cta-bg);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.mn-hero-cta img {
+  width: 11px;
+  height: 11px;
+}
+
+/* 페이지 인디케이터 1/3 */
+.mn-hero-count {
+  position: absolute;
+  left: 293px;
+  top: 10px;
+  padding: 5px 10px;
+  border-radius: 11px;
+  background: var(--brown-800);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+}
+
+/* ── 퀵 메뉴 4개 (82x77, gap 5) ──────────── */
+.mn-tiles {
+  align-self: stretch;
+  display: flex;
+  gap: 5px;
+}
+
+/* 82 x 4 + gap 5 x 3 = 343 (컨테이너 폭에 정확히 맞춤) */
+.mn-tile {
+  width: 82px;
+  height: 76.5px;
+  padding: 0;
+  border: 0.85px solid #faefdf;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4.25px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 8.5px;
+  font-weight: 600;
+  color: #222;
+}
+
+.mn-tile img {
+  height: 38px;
+  width: auto;
+}
+
+/* ── 오늘의 퀴즈 바 (60px) ───────────────── */
+.mn-quizbar {
+  position: relative;
+  align-self: stretch;
+  height: 60px;
+  border-radius: 10px;
+  background: var(--cta-bg);
+  overflow: hidden;
+}
+
+.mn-quizbar-cookie {
+  position: absolute;
+  left: 16px;
+  top: 13px;
+  width: 35px;
+  height: 34px;
+}
+
+.mn-quizbar-money {
+  position: absolute;
+  left: 281px;
+  top: 11px;
+  width: 47px;
+  height: 35px;
+}
+
+.mn-quizbar-title {
+  position: absolute;
+  left: 70px;
+  top: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-quizbar-free {
+  position: absolute;
+  left: 58px;
+  top: 30px;
+  width: 73px;
+  height: 19px;
+  padding: 2px 8px;
+  border-radius: 11px;
+  background: var(--yellow);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+.mn-quizbar-lead {
+  position: absolute;
+  left: 141px;
+  top: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-quizbar-sub {
+  position: absolute;
+  left: 141px;
+  top: 32.5px;
+  width: 121px;
+  opacity: 0.7;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+/* ── 요일 탭 ─────────────────────────────── */
+.mn-days {
+  align-self: stretch;
+  display: flex;
+  gap: 5px;
+}
+
+.mn-day {
+  width: 38px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-day::after {
+  content: "";
+  height: 3px;
+  border-radius: 0.95px;
+  background: #f3ede3;
+}
+
+.mn-day.is-active::after {
+  background: var(--yellow);
+}
+
+/* ── 웹툰 목록 ───────────────────────────── */
+.mn-list {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mn-card {
+  padding: 10px 9px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mn-card-thumb {
+  width: 65px;
+  height: 59px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mn-card-main {
+  width: 181px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mn-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #222;
+}
+
+.mn-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mn-card-meta img {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.mn-tag {
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--cta-bg);
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: var(--brown-800);
+}
+
+.mn-card-cta {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--cta-bg);
+  color: var(--brown-800);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  cursor: pointer;
+}
+
+/* ── 첫 진입 튜토리얼 코치 ───────────────── */
+.mn-coach[hidden] {
+  display: none;
+}
+
+.mn-coach {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+}
+
+/* 코치마크 하이라이트 (Figma: 71x72 @ 281, 436) */
+/* 링 내부는 뚫린 채로, box-shadow 로 바깥만 어둡게 (스포트라이트) */
+.mn-coach-ring {
+  position: absolute;
+  left: 281px;
+  top: 440px;
+  width: 71px;
+  height: 72px;
+  border: 3px solid var(--yellow);
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: 0 0 0 9999px rgba(28, 16, 0, 0.35);
+}
+
+/* 말풍선 (Figma: 123x34 @ 224, 384.5) */
+.mn-coach-tip {
+  position: absolute;
+  left: 224px;
+  top: 384.5px;
+  width: 123px;
+  height: 34px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+/* 말풍선 아래 화살표 (Figma: 8x16 삼각형 @ 약 323, 426) */
+.mn-coach-tip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--yellow);
+}
+
+/* 하단 시트 (Figma: 372x281 @ top 530.75) */
+.mn-sheet {
+  position: absolute;
+  left: 0;
+  top: 530.75px;
+  width: 372px;
+  min-height: 281px;
+  padding-bottom: 30px;
+  background: #fff;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mn-sheet-handle {
+  margin: 16px 0;
+  width: 48px;
+  height: 4px;
+  border-radius: 40px;
+  background: #e5e8eb;
+}
+
+.mn-sheet-body {
+  width: 308px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.mn-sheet-copy {
+  width: 188px;
+}
+
+.mn-sheet-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--brown-800);
+}
+
+.mn-sheet-desc {
+  margin-top: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brown-800);
+}
+
+.mn-sheet-mascot {
+  width: 114px;
+  height: 128px;
+  object-fit: contain;
+}
+
+.mn-sheet-cta {
+  margin-top: 16px;
+  padding: 10px 32px;
+  border: 0;
+  border-radius: 50px;
+  background: var(--yellow);
+  color: var(--brown-800);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* ── 하단 네비게이션 (375x84, 상단 라운드 24) ── */
+.mn-nav {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+  height: 84px;
+  z-index: 10;
+  background: var(--yellow);
+  border-radius: 24px 24px 0 0;
+}
+
+/* 항목 4개 (Figma: @ 46, 20, gap 62) */
+.mn-nav-items {
+  position: absolute;
+  left: 46px;
+  top: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 62px;
+}
+
+.mn-nav-item {
+  width: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--brown-700);
+  opacity: 0.4;
+  white-space: nowrap;
+}
+
+.mn-nav-item.is-active {
+  color: var(--brown-800);
+  opacity: 1;
+}
+
+/* 아이콘 색은 currentColor 를 따름 */
+.mn-nav-icon {
+  width: 25px;
+  height: 25px;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+/* 상점 아이콘만 23x23 + 라벨 간격 2px */
+.mn-nav-item--shop .mn-nav-icon {
+  width: 23px;
+  height: 23px;
+  margin-bottom: 2px;
+}
+
+/* 홈 인디케이터 (Figma: 72px @ 151, 70) */
+.mn-nav-indicator {
+  position: absolute;
+  left: 151px;
+  top: 70px;
+  width: 72px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--brown-700);
+}
+
+/* ── 오늘의 응원 한마디 ──────────────────── */
+.mn-cheer {
+  position: relative;
+  width: 340px;
+  height: 260px;
+  border-radius: 10px;
+  background: var(--cta-bg);
+}
+
+.mn-cheer-title {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brown-900);
+}
+
+.mn-cheer-icon {
+  position: absolute;
+  left: 263px;
+  top: 5px;
+  width: 48px;
+  height: 47px;
+}
+
+.mn-cheer-list {
+  position: absolute;
+  left: 10px;
+  top: 45px;
+  width: 321px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 빈 상태 (첫 응원 유도) */
+.mn-cheer-empty {
+  position: absolute;
+  left: 9.5px;
+  top: 45px;
+  width: 321px;
+  min-height: 54px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mn-cheer-empty-msg {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-cheer-empty-tag {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--cta-bg);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-cheer-row {
+  padding: 8px 20px;
+  border-radius: 8px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* 내 글 강조 */
+.mn-cheer-row.is-mine {
+  background: var(--yellow);
+}
+
+.mn-cheer-msg {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-cheer-who {
+  flex-shrink: 0;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: var(--muted);
+}

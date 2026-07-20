@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 이용약관 동의</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/sheet.css" />
+    <link rel="stylesheet" href="assets/terms.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame terms-page">
+      <div class="terms-sheet">
+        <div class="terms-header">
+          <button
+            type="button"
+            class="terms-back"
+            aria-label="뒤로 가기"
+          ></button>
+        </div>
+
+        <div class="terms-heading">
+          <h1 class="terms-title">스토릿<br />이용약관 동의</h1>
+          <p class="terms-desc">
+            스토릿 서비스 시작 및 가입을 위해<br />정보 제공에 동의해주세요!
+          </p>
+        </div>
+
+        <button type="button" class="terms-all">
+          <span class="terms-check"></span>
+          전체 약관동의
+        </button>
+
+        <div class="terms-list">
+          <div class="terms-row">
+            <button type="button" class="terms-row-main" data-required="true">
+              <span class="terms-check"></span>
+              [필수] 서비스 이용약관
+            </button>
+            <a class="terms-more" href="terms-service.html">더보기</a>
+          </div>
+
+          <div class="terms-row">
+            <button type="button" class="terms-row-main" data-required="true">
+              <span class="terms-check"></span>
+              [필수] 14세 이상입니다
+            </button>
+            <a class="terms-more" href="terms-age.html">더보기</a>
+          </div>
+
+          <div class="terms-row">
+            <button type="button" class="terms-row-main">
+              <span class="terms-check"></span>
+              [선택] 개인정보 수집 및 이용동의
+            </button>
+            <a class="terms-more" href="terms-privacy.html">더보기</a>
+          </div>
+
+          <div class="terms-row">
+            <button type="button" class="terms-row-main">
+              <span class="terms-check"></span>
+              [선택] 이벤트 및 마케팅 수신 동의
+            </button>
+            <a class="terms-more" href="terms-marketing.html">더보기</a>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="terms-cta" onclick="location.href='referral.html'">
+        다음
+      </button>
+    </div>
+
+    <script src="assets/terms.js"></script>
+  </body>
+</html>

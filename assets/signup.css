@@ -1,0 +1,106 @@
+/* 스토릿 - 회원가입 */
+
+/* 상단 장식 원 띠 (Ellipse 4~9를 합친 375x79 밴드) */
+.su-scallop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 375px;
+  height: 79px;
+}
+
+/* 마스코트 (Figma: 95x201 @ 140, 30) */
+.su-mascot {
+  position: absolute;
+  left: 140px;
+  top: 30px;
+  width: 95px;
+  height: 201px;
+}
+
+/* 로고 그룹 (Figma: 252.02 @ 61, 280) */
+.su-brand {
+  position: absolute;
+  left: 61px;
+  top: 280px;
+  width: 252.02px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.su-tagline {
+  align-self: stretch;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--brown-800);
+}
+
+.su-logo {
+  width: 253px;
+  height: 57px;
+}
+
+/* 소셜 회원가입 버튼 (Figma: 270 @ 52, 417) */
+.su-socials {
+  position: absolute;
+  left: 52px;
+  top: 417px;
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.su-social {
+  width: 100%;
+  height: 50px;
+  padding: 12px 30px;
+  border: 0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* 아이콘 + 라벨 (Figma: 200px 행, 라벨 175px) */
+.su-social-inner {
+  width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+/* 인라인 SVG — 광고차단기가 파일 요청을 막는 것을 피하기 위함 */
+.su-social-inner img,
+.su-social-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.su-social-label {
+  width: 175px;
+  text-align: center;
+}
+
+.su-social--kakao {
+  background: #fee500;
+  color: #1c1000;
+}
+
+.su-social--naver {
+  background: #00c500;
+  color: #fff;
+}
+
+.su-social--google {
+  background: #fff;
+  color: #1c1000;
+}

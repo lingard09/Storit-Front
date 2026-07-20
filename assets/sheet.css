@@ -1,0 +1,108 @@
+/* 스토릿 - 공통 시트 레이아웃 (노란 배경 위 크림 시트 + 헤더 + 뒤로가기) */
+/* .terms-* 는 기존 약관 페이지 호환용 별칭 */
+
+.sheet-page,
+.terms-page {
+  background: var(--yellow);
+}
+
+/* 시트 (Figma: top 16, 상단 라운드 20) */
+.sheet,
+.terms-sheet {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 375px;
+  bottom: 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+}
+
+/* 헤더 */
+.sheet-header,
+.terms-header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 60px;
+}
+
+.sheet-back,
+.terms-back {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* 아이콘 24x24 @ 9, 13 (Figma 좌표) */
+.sheet-back::before,
+.terms-back::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 13px;
+  width: 24px;
+  height: 24px;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+/* 헤더 타이틀 (Figma: 272x22 @ 50, 19) */
+.sheet-title,
+.terms-header-title {
+  position: absolute;
+  left: 50px;
+  top: 19px;
+  width: 272px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #1c1000;
+}
+
+/* 하단 CTA (Figma: 320x56 @ top 672) */
+.sheet-cta,
+.terms-cta {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 672px;
+  width: 320px;
+  min-height: 56px;
+  padding: 2px 28px;
+  border: 1px solid var(--cta-bg);
+  border-radius: 16px;
+  background: var(--cta-bg);
+  color: var(--brown-700);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* 노란 활성 상태 */
+.sheet-cta.is-active,
+.terms-cta.is-active {
+  background: var(--yellow);
+  border-color: var(--orange);
+}
+
+/* 갈색 CTA (초대코드 페이지 등) */
+.sheet-cta--brown {
+  background: var(--brown-700);
+  border-color: var(--brown-700);
+  color: var(--yellow);
+}

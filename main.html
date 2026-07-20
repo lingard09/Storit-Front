@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame mn-page">
+      <header class="mn-header">
+        <button type="button" class="mn-avatar" aria-label="프로필">
+          <img src="assets/avatar_profile.svg" alt="" />
+        </button>
+
+        <div class="mn-level">
+          <p class="mn-level-name">감자도리 LV.8</p>
+          <div class="mn-xp" style="--pct: 0.42">
+            <span class="mn-xp-fill"></span>
+            <span class="mn-xp-label">42%</span>
+          </div>
+        </div>
+
+        <div class="mn-hearts">
+          <div class="mn-hearts-row">
+            <img src="assets/icon_heart.svg" alt="" />
+            <img src="assets/icon_heart.svg" alt="" />
+          </div>
+          <span class="mn-hearts-pill">하트 MAX!!</span>
+        </div>
+
+        <button type="button" class="mn-cookies">
+          <img src="assets/icon_cookie_sm.svg" alt="" />602
+        </button>
+
+        <button type="button" class="mn-bell has-new" aria-label="알림">
+          <img src="assets/icon_bell_header.svg" alt="" />
+        </button>
+      </header>
+
+      <div class="mn-scroll">
+        <div class="mn-body">
+          <!-- 히어로 배너 -->
+          <section class="mn-hero">
+            <img class="mn-hero-bg" src="assets/hero_bg.png" alt="" />
+            <img class="mn-hero-mascot" src="assets/hero_mascot.svg" alt="" />
+
+            <p class="mn-hero-copy">
+              매일 퀴즈 풀고<br />
+              <span class="accent">쿠키</span> 받아가세요
+            </p>
+
+            <button type="button" class="mn-hero-cta">
+              오늘의 미션 보기
+              <img src="assets/icon_arrow_next.svg" alt="" />
+            </button>
+
+            <span class="mn-hero-count">1/3</span>
+          </section>
+
+          <!-- 퀵 메뉴 -->
+          <nav class="mn-tiles">
+            <button type="button" class="mn-tile">
+              <img src="assets/tile_mission.svg" alt="" />오늘의 미션
+            </button>
+            <button type="button" class="mn-tile">
+              <img src="assets/tile_attendance.svg" alt="" />출석체크
+            </button>
+            <button type="button" class="mn-tile">
+              <img src="assets/tile_invite.svg" alt="" />친구 초대
+            </button>
+            <button type="button" class="mn-tile">
+              <img src="assets/tile_myquiz.svg" alt="" />내 퀴즈
+            </button>
+          </nav>
+
+          <!-- 오늘의 퀴즈 -->
+          <section class="mn-quizbar">
+            <img class="mn-quizbar-cookie" src="assets/icon_cookie_lg.svg" alt="" />
+            <p class="mn-quizbar-title">오늘의 퀴즈</p>
+            <span class="mn-quizbar-free">무료 기회 2회</span>
+            <p class="mn-quizbar-lead">웹툰 퀴즈 풀면 최대 5,000원!</p>
+            <p class="mn-quizbar-sub">30분 마다 무료 기회 1회</p>
+            <img class="mn-quizbar-money" src="assets/icon_money.svg" alt="" />
+          </section>
+
+          <!-- 요일 탭 -->
+          <div class="mn-days" role="tablist">
+            <button type="button" class="mn-day">전체</button>
+            <button type="button" class="mn-day is-active">월</button>
+            <button type="button" class="mn-day">화</button>
+            <button type="button" class="mn-day">수</button>
+            <button type="button" class="mn-day">목</button>
+            <button type="button" class="mn-day">금</button>
+            <button type="button" class="mn-day">토</button>
+            <button type="button" class="mn-day">일</button>
+          </div>
+
+          <!-- 웹툰 목록 -->
+          <div class="mn-list"></div>
+
+          <!-- 오늘의 응원 한마디 -->
+          <section class="mn-cheer">
+            <h2 class="mn-cheer-title">오늘의 응원 한마디</h2>
+            <img class="mn-cheer-icon" src="assets/icon_cheer.svg" alt="" />
+
+            <div class="mn-cheer-list">
+              <div class="mn-cheer-row is-mine">
+                <span class="mn-cheer-msg">오늘 1등 내가 한다. 쿠키 오천냥 냠~</span>
+                <span class="mn-cheer-who">무케대마왕</span>
+              </div>
+              <div class="mn-cheer-row">
+                <span class="mn-cheer-msg">오늘 내가 1등한데 오천냥 냠~</span>
+                <span class="mn-cheer-who">불꽃소녀</span>
+              </div>
+              <div class="mn-cheer-row">
+                <span class="mn-cheer-msg">미쳣다 오늘 왜이렄에 어려움</span>
+                <span class="mn-cheer-who">행복전도사</span>
+              </div>
+              <div class="mn-cheer-row">
+                <span class="mn-cheer-msg">행운의 쿠키 제발..</span>
+                <span class="mn-cheer-who">열정베이커</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- 첫 진입 튜토리얼 코치 -->
+      <div class="mn-coach" hidden>
+        <div class="mn-coach-ring"></div>
+        <div class="mn-coach-tip">여기를 눌러서 시작!</div>
+
+        <div class="mn-sheet">
+          <span class="mn-sheet-handle"></span>
+
+          <div class="mn-sheet-body">
+            <div class="mn-sheet-copy">
+              <p class="mn-sheet-title">오늘의 퀴즈부터<br />가볍게 시작해볼까요?</p>
+              <p class="mn-sheet-desc">
+                웹툰을 읽고 퀴즈를 풀면<br />점수와 쿠키를 얻을 수 있어요!!
+              </p>
+            </div>
+            <img class="mn-sheet-mascot" src="assets/coach_mascot.svg" alt="" />
+          </div>
+
+          <button type="button" class="mn-sheet-cta">알겠어요!</button>
+        </div>
+      </div>
+
+      <nav class="mn-nav">
+        <div class="mn-nav-items">
+          <button type="button" class="mn-nav-item is-active">
+            <span class="mn-nav-icon" style="--icon: url('nav_home.svg')"></span>
+            홈
+          </button>
+          <button type="button" class="mn-nav-item">
+            <span class="mn-nav-icon" style="--icon: url('nav_ranking.svg')"></span>
+            랭킹
+          </button>
+          <button type="button" class="mn-nav-item mn-nav-item--shop">
+            <span class="mn-nav-icon" style="--icon: url('nav_gift.svg')"></span>
+            상점
+          </button>
+          <button type="button" class="mn-nav-item">
+            <span class="mn-nav-icon" style="--icon: url('nav_profile.svg')"></span>
+            마이페이지
+          </button>
+        </div>
+
+        <span class="mn-nav-indicator"></span>
+      </nav>
+    </div>
+
+    <script src="assets/main.js"></script>
+  </body>
+</html>

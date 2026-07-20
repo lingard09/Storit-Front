@@ -1,0 +1,88 @@
+/* 스토릿 - 공통 리셋 & 디자인 토큰 */
+
+@font-face {
+  font-family: "Jalnan 2";
+  src:
+    url("../fonts/Jalnan2.woff2") format("woff2"),
+    url("../fonts/Jalnan2.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* 프레임 규격 */
+  --frame-w: 375px;
+  --frame-h: 812px;
+
+  /* 컬러 */
+  --bg: #fefaf4;
+  --brown-900: #322814;
+  --brown-800: #3d2000;
+  --brown-700: #5d3300;
+  --orange: #ef9f27;
+  --yellow: #ffd95e;
+  --yellow-deep: #fed16a;
+  --gray: #8b95a1;
+  --cta-bg: #fef4d2;
+  --muted: rgba(136, 136, 128, 0.8);
+  --green: #43bb65;
+  --green-soft: #d7ffc2;
+  --ink: #191f28;
+
+  /* 폰트 */
+  --font-display: "Jalnan 2", "JalnanGothic", "Noto Sans KR", sans-serif;
+  --font-body: "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  background: var(--bg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* 375x880 모바일 프레임 (Figma 기준) */
+.frame {
+  position: relative;
+  width: var(--frame-w);
+  height: var(--frame-h);
+  margin: 0 auto;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* 하단 페이지 인디케이터 (온보딩 3단계 공통) */
+.dots {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 771px; /* Figma 좌표 기준 (812 프레임에서 하단 29px) */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+.dot.is-active {
+  background: var(--brown-700);
+}

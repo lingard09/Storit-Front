@@ -1,0 +1,164 @@
+/* 스토릿 - 이용약관 (공통 시트는 sheet.css) */
+
+/* 시트 (Figma: top 16, 상단 라운드 20) */
+
+/* 헤더 */
+
+/* 아이콘 24x24 @ 9, 13 (Figma 좌표) */
+
+/* 헤더 타이틀 (Figma: 272x22 @ 50, 19) */
+
+/* ── 약관 전문 페이지 ────────────────────── */
+
+/* 스크롤 영역 (Figma: 324 @ 24, 78 — CTA 위까지) */
+.terms-doc {
+  position: absolute;
+  left: 24px;
+  top: 78px;
+  width: 324px;
+  bottom: 156px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.terms-doc-card {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+}
+
+.terms-doc-card h2 {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.terms-doc-card section + section {
+  margin-top: 18px;
+}
+
+/* 제목 블록 (Figma: 194 @ 31, 97) */
+.terms-heading {
+  position: absolute;
+  left: 31px;
+  top: 97px;
+  width: 194px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.terms-title {
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 35px;
+  color: var(--brown-800);
+}
+
+.terms-desc {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--muted);
+  /* 컨테이너(194px)보다 길어 자동 줄바꿈되므로, <br> 위치에서만 끊기도록 */
+  white-space: nowrap;
+}
+
+/* 전체 동의 (Figma: 320 @ 22, 250) */
+.terms-all {
+  position: absolute;
+  left: 22px;
+  top: 250px;
+  width: 320px;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--bg);
+}
+
+/* 개별 약관 목록 (Figma: 320 @ 22, 304) */
+.terms-list {
+  position: absolute;
+  left: 22px;
+  top: 304px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terms-row {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terms-row-main {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--muted);
+  text-align: left;
+}
+
+/* 체크박스 (Figma: 25x25, opacity 0.4는 체크 여부와 무관하게 항상 유지) */
+/* 체크 여부는 색으로만 표현 — currentColor를 따라감 */
+.terms-check {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 3px;
+  background: currentColor;
+  -webkit-mask: url("icon_check.svg") center / contain no-repeat;
+  mask: url("icon_check.svg") center / contain no-repeat;
+  opacity: 0.4;
+}
+
+/* 체크 시: 라벨 · 체크 · 더보기 모두 #3D2000 */
+.terms-all.is-checked,
+.terms-row.is-checked .terms-row-main,
+.terms-row.is-checked .terms-more {
+  color: var(--brown-800);
+}
+
+/* 더보기 */
+.terms-more {
+  border: 0;
+  padding: 0;
+  background: none;
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0.6;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--muted);
+  border-bottom: 1px solid currentColor;
+}
+
+/* 하단 CTA */
+
+/* 필수 약관 동의 완료 시 */
