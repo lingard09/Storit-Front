@@ -1,0 +1,546 @@
+/* 스토릿 - 퀴즈 풀이 화면 */
+
+.qz-page {
+  background: var(--yellow);
+}
+
+/* 상단바 아래 크림 본문 (Figma: 375x736 @ top 76) */
+.qz-body {
+  position: absolute;
+  left: 0;
+  top: 76px;
+  width: 375px;
+  height: 736px;
+  background: var(--bg);
+}
+
+/* ── 상단바 (375x60 @ top 16, 상단 라운드 20) ── */
+.qz-topbar {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 375px;
+  height: 60px;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+
+.qz-back {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.qz-title {
+  width: 272px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #1c1000;
+}
+
+/* ── 진행바 (@ left 27, top 87) ───────────── */
+.qz-progress {
+  position: absolute;
+  left: 27px;
+  top: 87px;
+  width: 321px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+}
+
+.qz-progress-track {
+  flex: 1;
+  height: 10px;
+  border-radius: 4px;
+  background: #edebe7;
+  overflow: hidden;
+}
+
+.qz-progress-fill {
+  height: 10px;
+  width: calc(100% * var(--qz-pct, 0.2));
+  border-radius: 4px;
+  background: var(--yellow-deep);
+}
+
+.qz-progress-label {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--muted);
+}
+
+.qz-progress-label .cur {
+  color: var(--orange);
+}
+
+/* ── 문제 카드 (330 @ left 21, top 127) ────── */
+.qz-card {
+  position: absolute;
+  left: 21px;
+  top: 127px;
+  width: 330px;
+  height: 685px;
+  background: #fff;
+  border-radius: 24px;
+}
+
+/* 질문 영역 (@ left 15, top 17) */
+.qz-q {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  width: 300px;
+}
+
+.qz-q-num {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--orange);
+}
+
+/* 유저 제작 배지 (Figma: 130x20 @ 47, 5, 아래 꼬리) */
+.qz-badge[hidden] {
+  display: none;
+}
+
+.qz-badge {
+  position: absolute;
+  left: 47px;
+  top: 5px;
+  height: 20px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-700);
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.qz-badge::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  bottom: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--yellow);
+}
+
+.qz-q-text {
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #1c1000;
+}
+
+/* 칩 줄 (@ top 147) */
+.qz-chips {
+  position: absolute;
+  left: 0;
+  top: 147px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qz-chip {
+  height: 27px;
+  padding: 0 9px;
+  border-radius: 5px;
+  background: var(--cta-bg);
+  display: flex;
+  align-items: center;
+  gap: 4.5px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+.qz-chip-timer {
+  padding: 0 7px;
+}
+
+.qz-chip-timer svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 68화 칩과 보러가기 칩은 우측 정렬 */
+.qz-chips-right {
+  position: absolute;
+  right: 0;
+  top: 147px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.qz-chip-link {
+  border: 0;
+  font-family: var(--font-body);
+  cursor: pointer;
+  background: var(--brown-800);
+  color: var(--cta-bg);
+}
+
+/* 보기 목록 (@ left 12, top 228) */
+.qz-options {
+  position: absolute;
+  left: 12px;
+  top: 228px;
+  width: 305px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qz-option {
+  width: 300px;
+  height: 50px;
+  padding: 10px 20px;
+  border: 1px solid #faefdf;
+  border-radius: 15px;
+  background: var(--bg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--brown-800);
+  text-align: center;
+  cursor: pointer;
+}
+
+.qz-option.is-selected {
+  background: var(--yellow-deep);
+  border-color: var(--orange);
+}
+
+/* ── 하단 장식 (노란 원 스캘럽 + 쿠키 마스코트) ── */
+/* 프레임 하단 물결 노란 테두리 — 원 96.58, 22.2 겹침, 프레임 밖으로 넘겨 클립 */
+.qz-scallop {
+  position: absolute;
+  left: -52px;
+  top: 755px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.qz-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+/* 원끼리 22.2px 겹침 */
+.qz-scallop span + span {
+  margin-left: -22.2px;
+}
+
+/* 쿠키 마스코트 (Figma: 117x146 @ 127, 643) */
+.qz-mascot {
+  position: absolute;
+  left: 127px;
+  top: 643px;
+  width: 117px;
+  height: 146px;
+  z-index: 3;
+}
+
+/* ── 첫 진입 튜토리얼 코치 ───────────────── */
+.qz-coach[hidden] {
+  display: none;
+}
+
+.qz-coach {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+}
+
+/* 딤 레이어 — 둥근 사각형 구멍을 뚫어 하이라이트 내부는 밝게 유지 */
+.qz-dim {
+  position: absolute;
+  inset: 0;
+  width: 375px;
+  height: 812px;
+}
+
+/* 코치마크 하이라이트 링 (딤 위에 노란 테두리만) */
+.qz-ring {
+  position: absolute;
+  height: 48px;
+  border: 3px solid var(--yellow);
+  border-radius: 10px;
+  background: transparent;
+}
+
+.qz-ring--timer {
+  left: 27px;
+  top: 280.5px;
+  width: 80px;
+}
+
+.qz-ring--link {
+  left: 218px;
+  top: 280.5px;
+  width: 130px;
+}
+
+/* 말풍선 (@ top 231.5) */
+.qz-tip {
+  position: absolute;
+  top: 231.5px;
+  width: 130px;
+  height: 34px;
+  border-radius: 12px;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+.qz-tip--timer {
+  left: 24px;
+}
+
+.qz-tip--link {
+  left: 218px;
+}
+
+/* 말풍선 아래 화살표 */
+.qz-tip::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 24px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--yellow);
+}
+
+/* 웹툰 이동 말풍선은 꼬리를 중앙에 */
+.qz-tip--link::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── 이탈 확인 모달 (뒤로가기) ─────────────── */
+.qz-exit {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qz-exit[hidden] {
+  display: none;
+}
+
+.qz-exit-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: rgba(28, 16, 0, 0.7);
+  cursor: pointer;
+}
+
+.qz-exit-card {
+  position: relative;
+  width: 330px;
+  padding: 20px 20px 25px;
+  background: #fff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.qz-exit-close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 0;
+}
+
+.qz-exit-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 9999px;
+  background: var(--cta-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qz-exit-icon svg {
+  width: 50px;
+  height: 50px;
+}
+
+.qz-exit-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.qz-exit-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+}
+
+.qz-exit-desc {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000;
+}
+
+.qz-exit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.qz-exit-btn {
+  width: 130px;
+  height: 45px;
+  border: 0;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.qz-exit-leave {
+  background: var(--cta-bg);
+  color: var(--orange);
+}
+
+.qz-exit-stay {
+  background: var(--orange);
+  color: #fefaf4;
+}
+
+/* 바텀시트 (Figma: 372x281 @ top 530.75) */
+.qz-sheet {
+  position: absolute;
+  left: 0;
+  top: 530.75px;
+  width: 372px;
+  min-height: 281px;
+  padding-bottom: 30px;
+  background: #fff;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qz-sheet-handle {
+  margin: 16px 0;
+  width: 48px;
+  height: 4px;
+  border-radius: 40px;
+  background: #e5e8eb;
+}
+
+.qz-sheet-body {
+  width: 308px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.qz-sheet-copy {
+  width: 199px;
+}
+
+.qz-sheet-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--brown-800);
+}
+
+.qz-sheet-desc {
+  margin-top: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--brown-800);
+}
+
+.qz-sheet-mascot {
+  width: 99px;
+  height: 115px;
+  object-fit: contain;
+}
+
+.qz-sheet-cta {
+  margin-top: 16px;
+  padding: 10px 32px;
+  border: 0;
+  border-radius: 50px;
+  background: var(--yellow);
+  color: var(--brown-800);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+}

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/quiz.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame qz-page">
+      <div class="qz-body"></div>
+
+      <!-- 상단바 -->
+      <header class="qz-topbar">
+        <button type="button" class="qz-back" aria-label="뒤로">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15 4.5 7.5 12 15 19.5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <h1 class="qz-title">66666년 만에 환생한 흑마법사</h1>
+      </header>
+
+      <!-- 진행바 -->
+      <div class="qz-progress">
+        <div class="qz-progress-track">
+          <div class="qz-progress-fill"></div>
+        </div>
+        <div class="qz-progress-label">
+          <span class="cur">1</span> / <span class="qz-total">5</span>문항
+        </div>
+      </div>
+
+      <!-- 문제 카드 (내용은 quiz.js 가 문항마다 채움) -->
+      <section class="qz-card">
+        <div class="qz-q">
+          <div class="qz-q-num"></div>
+
+          <!-- 유저 제작 퀴즈일 때만 표시 -->
+          <div class="qz-badge" hidden><span class="qz-badge-text"></span></div>
+
+          <div class="qz-q-text"></div>
+
+          <div class="qz-chips">
+            <span class="qz-chip qz-chip-timer">
+              <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <circle cx="9" cy="9.75" r="6.75" stroke="#EF9F27" stroke-width="1.8" />
+                <path d="M9 6.5v3.25" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+              <span class="qz-timer"></span>
+            </span>
+          </div>
+
+          <div class="qz-chips-right">
+            <span class="qz-chip qz-ep"></span>
+            <button type="button" class="qz-chip qz-chip-link">보러가기</button>
+          </div>
+        </div>
+
+        <div class="qz-options"></div>
+      </section>
+
+      <!-- 하단 장식: 노란 원 스캘럽 + 쿠키 마스코트 -->
+      <div class="qz-scallop">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <img class="qz-mascot" src="assets/quiz_cookie.svg" alt="" />
+
+      <!-- 첫 진입 튜토리얼 코치 -->
+      <div class="qz-coach" hidden>
+        <svg class="qz-dim" viewBox="0 0 375 812" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <mask id="qz-holes">
+              <rect width="375" height="812" fill="#fff" />
+              <rect x="27" y="280.5" width="80" height="48" rx="10" fill="#000" />
+              <rect x="218" y="280.5" width="130" height="48" rx="10" fill="#000" />
+            </mask>
+          </defs>
+          <rect width="375" height="812" fill="rgba(28,16,0,0.35)" mask="url(#qz-holes)" />
+        </svg>
+        <div class="qz-ring qz-ring--timer"></div>
+        <div class="qz-ring qz-ring--link"></div>
+        <div class="qz-tip qz-tip--timer">문항마다 30초 제한!</div>
+        <div class="qz-tip qz-tip--link">누르면 웹툰으로 이동</div>
+
+        <div class="qz-sheet">
+          <span class="qz-sheet-handle"></span>
+
+          <div class="qz-sheet-body">
+            <div class="qz-sheet-copy">
+              <p class="qz-sheet-title">웹툰마다 5개 문제<br />30초 안에 풀어야해요!</p>
+              <p class="qz-sheet-desc">
+                제한 시간 안에 빠르게 풀수록 더 높은 점수를 받을 수 있어요. 시간 안에 답을 선택하지
+                못하면 오답 처리돼요.
+              </p>
+            </div>
+            <img class="qz-sheet-mascot" src="assets/quiz_mascot.svg" alt="" />
+          </div>
+
+          <button type="button" class="qz-sheet-cta">문제 풀기</button>
+        </div>
+      </div>
+
+      <!-- 이탈 확인 모달 (뒤로가기) -->
+      <div class="qz-exit" hidden>
+        <button type="button" class="qz-exit-overlay" aria-label="닫기"></button>
+        <div class="qz-exit-card" role="dialog" aria-modal="true" aria-labelledby="qz-exit-title">
+          <button type="button" class="qz-exit-close" aria-label="닫기">
+            <svg viewBox="0 0 18 18" fill="none">
+              <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <div class="qz-exit-icon">
+            <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
+              <path d="M25 12v18" stroke="#EF9F27" stroke-width="6" stroke-linecap="round" />
+              <circle cx="25" cy="39" r="3.5" fill="#EF9F27" />
+            </svg>
+          </div>
+
+          <div class="qz-exit-text">
+            <h2 id="qz-exit-title" class="qz-exit-title">
+              퀴즈를 푸는 중입니다.<br />정말 나가시겠습니까?
+            </h2>
+            <p class="qz-exit-desc">
+              완료하지 않고 페이지를 벗어날 경우,<br />현재까지 맞춘 퀴즈로 계산됩니다.
+            </p>
+          </div>
+
+          <div class="qz-exit-actions">
+            <button type="button" class="qz-exit-btn qz-exit-leave">이동하기</button>
+            <button type="button" class="qz-exit-btn qz-exit-stay">계속풀기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/quiz.js"></script>
+  </body>
+</html>

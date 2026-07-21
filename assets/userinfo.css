@@ -385,6 +385,15 @@
 
 /* ── 출생연도 설정 모달 ──────────────────── */
 
+.by-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .by-modal[hidden] {
   display: none;
 }
@@ -399,11 +408,9 @@
   cursor: pointer;
 }
 
-/* 카드 (Figma: 330x268 @ 21, 203) */
+/* 카드 (Figma: 330x268) — 화면 중앙 배치 */
 .by-card {
-  position: absolute;
-  left: 21px;
-  top: 203px;
+  position: relative;
   width: 330px;
   height: 268px;
   background: #fff;
@@ -528,6 +535,15 @@
 
 /* ── 알림 권한 모달 ──────────────────────── */
 
+.nt-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .nt-modal[hidden] {
   display: none;
 }
@@ -542,11 +558,9 @@
   cursor: pointer;
 }
 
-/* 카드 (Figma: 330x294 @ 21, 252) */
+/* 카드 (Figma: 330x294) — 화면 중앙 배치 */
 .nt-card {
-  position: absolute;
-  left: 21px;
-  top: 252px;
+  position: relative;
   width: 330px;
   height: 294px;
   background: #fff;

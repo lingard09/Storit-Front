@@ -109,24 +109,16 @@
             <h2 class="mn-cheer-title">오늘의 응원 한마디</h2>
             <img class="mn-cheer-icon" src="assets/icon_cheer.svg" alt="" />
 
-            <div class="mn-cheer-list">
-              <div class="mn-cheer-row is-mine">
-                <span class="mn-cheer-msg">오늘 1등 내가 한다. 쿠키 오천냥 냠~</span>
-                <span class="mn-cheer-who">무케대마왕</span>
-              </div>
-              <div class="mn-cheer-row">
-                <span class="mn-cheer-msg">오늘 내가 1등한데 오천냥 냠~</span>
-                <span class="mn-cheer-who">불꽃소녀</span>
-              </div>
-              <div class="mn-cheer-row">
-                <span class="mn-cheer-msg">미쳣다 오늘 왜이렄에 어려움</span>
-                <span class="mn-cheer-who">행복전도사</span>
-              </div>
-              <div class="mn-cheer-row">
-                <span class="mn-cheer-msg">행운의 쿠키 제발..</span>
-                <span class="mn-cheer-who">열정베이커</span>
-              </div>
+            <!-- 빈 상태: 첫 응원 유도 (스토릿 버튼으로 입력) -->
+            <div class="mn-cheer-empty">
+              <span class="mn-cheer-empty-msg">
+                오늘의 첫 응원을 기다리고 있어요<br />퀴즈를 풀고 작품에 첫 응원을 남겨보세요!
+              </span>
+              <button type="button" class="mn-cheer-empty-tag">스토릿</button>
             </div>
+
+            <!-- 목록 상태 (응원 등록 후 JS 가 채움) -->
+            <div class="mn-cheer-list" hidden></div>
           </section>
         </div>
       </div>

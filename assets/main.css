@@ -470,7 +470,8 @@
 }
 
 .mn-card-main {
-  width: 181px;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -481,6 +482,7 @@
   font-weight: 600;
   line-height: 20px;
   color: #222;
+  white-space: nowrap;
 }
 
 .mn-card-meta {
@@ -522,6 +524,11 @@
   cursor: pointer;
 }
 
+/* 눌렀을 때: 크림 → 노란색 강조 */
+.mn-card-cta:active {
+  background: var(--yellow);
+}
+
 /* ── 첫 진입 튜토리얼 코치 ───────────────── */
 .mn-coach[hidden] {
   display: none;
@@ -537,10 +544,10 @@
 /* 링 내부는 뚫린 채로, box-shadow 로 바깥만 어둡게 (스포트라이트) */
 .mn-coach-ring {
   position: absolute;
-  left: 281px;
-  top: 440px;
-  width: 71px;
-  height: 72px;
+  left: 278px;
+  top: 437px;
+  width: 77px;
+  height: 78px;
   border: 3px solid var(--yellow);
   border-radius: 10px;
   background: transparent;
@@ -571,7 +578,7 @@
 .mn-coach-tip::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 75%;
   bottom: -7px;
   transform: translateX(-50%);
   border-left: 8px solid transparent;
@@ -758,6 +765,12 @@
   gap: 6px;
 }
 
+/* display:flex 가 기본 [hidden] 을 덮으므로 명시적으로 숨김 처리 */
+.mn-cheer-empty[hidden],
+.mn-cheer-list[hidden] {
+  display: none;
+}
+
 /* 빈 상태 (첫 응원 유도) */
 .mn-cheer-empty {
   position: absolute;
@@ -784,12 +797,36 @@
 .mn-cheer-empty-tag {
   flex-shrink: 0;
   padding: 3px 10px;
+  border: 0;
   border-radius: 6px;
   background: var(--cta-bg);
+  font-family: var(--font-body);
   font-size: 9px;
   font-weight: 700;
   line-height: 14px;
   color: var(--brown-800);
+  cursor: pointer;
+}
+
+/* 응원 입력창 (스토릿 버튼 클릭 시) */
+.mn-cheer-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.mn-cheer-input::placeholder {
+  color: rgba(61, 32, 0, 0.45);
+}
+
+.mn-cheer-input:focus {
+  outline: none;
 }
 
 .mn-cheer-row {
