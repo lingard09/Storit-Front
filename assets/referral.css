@@ -174,10 +174,24 @@
 }
 
 /* 하단 장식 원 띠 */
+/* 원 6개를 이어붙인 띠 (quiz 와 동일 방식) — 아래로 삐져나가 위 모서리가 물결 */
 .rf-scallop {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 375px;
-  height: 57px;
+  left: -46.74px;
+  bottom: -39.58px; /* 96.58 - 57 → 57px 만 보임 */
+  display: flex;
+  align-items: center;
+}
+
+.rf-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+/* 원끼리 22.2px 겹침 */
+.rf-scallop span + span {
+  margin-left: -22.2px;
 }

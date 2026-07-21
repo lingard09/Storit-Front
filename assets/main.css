@@ -121,6 +121,11 @@
   width: 17.88px;
   height: 16.03px;
 }
+/* 리필 중인 작은 하트 (줄어든 상태에서만) */
+.mn-hearts-row img.mn-heart-sm {
+  width: 13px;
+  height: 13px;
+}
 
 /* 헤더 기준 y=44 (.mn-hearts 가 19px 이므로 25px) */
 .mn-hearts-pill {

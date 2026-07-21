@@ -20,6 +20,20 @@
   if (title) set(".rs-title", title);
   set(".rs-score-num", String(score));
 
+  // 점수 69점 이하: 아쉬움 상태 (말풍선 문구 + 마스코트 이미지 교체)
+  if (score <= 69) {
+    const heroMsg = document.querySelector(".rs-hero-msg");
+    if (heroMsg) {
+      heroMsg.innerHTML =
+        '아쉬워요!<br /><span class="accent-y">다른 웹툰</span>도<br />풀어볼까요!';
+    }
+    const heroMascot = document.querySelector(".rs-hero-mascot");
+    if (heroMascot) {
+      heroMascot.src = "assets/mascot_low.png";
+      heroMascot.classList.add("is-low");
+    }
+  }
+
   // 원형 프로그레스 링 — 점수(100점 만점) 비율만큼 채움 (둥근 끝)
   const fill = document.querySelector(".rs-ring-fill");
   if (fill) {
@@ -49,9 +63,21 @@
     cheerBtn.addEventListener("click", () => {
       const v = cheerInput.value.trim();
       if (!v) return;
+
+      const nickname = localStorage.getItem("storit.nickname") || "나";
       // TODO: 백엔드 연동 시 응원 등록 API
-      cheerInput.value = "";
-      cheerInput.placeholder = "응원을 남겼어요! 고마워요 :)";
+      localStorage.setItem("storit.myCheer", v); // 메인 응원 피드에 반영
+
+      // 입력창·꼬리·버튼 숨기고 → 작성한 응원 문구(100% 너비) 표시
+      const tail = document.querySelector(".rs-cheer-tail");
+      const result = document.querySelector(".rs-cheer-result");
+      if (result) {
+        result.textContent = `${v}_${nickname}`;
+        result.hidden = false;
+      }
+      cheerInput.hidden = true;
+      cheerBtn.hidden = true;
+      if (tail) tail.hidden = true;
     });
   }
 

@@ -44,13 +44,13 @@
     });
   }
 
-  // ── 오늘의 응원 한마디 ──────────────────
-  // 첫 방문: 빈 상태(첫 응원 유도) → 스토릿 버튼으로 입력 → 목록
+  // ── 오늘의 응원 한마디 (읽기 전용 피드) ──────────────────
+  // 응원 "입력"은 퀴즈 완료 후 결과 화면에서만. 메인은 커뮤니티 응원을 보여주기만 함.
   (function initCheer() {
     const section = document.querySelector(".mn-cheer");
     if (!section) return;
-    const empty = section.querySelector(".mn-cheer-empty");
     const listEl = section.querySelector(".mn-cheer-list");
+    if (!listEl) return;
 
     // 커뮤니티 응원 (백엔드 연동 시 목록 API 응답으로 교체)
     const COMMUNITY = [
@@ -60,52 +60,96 @@
     ];
 
     const nickname = localStorage.getItem("storit.nickname") || "나";
-
     const esc = (s) =>
       s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-    // 내 응원을 맨 위(강조) + 커뮤니티 순으로 렌더
-    function renderList(mine) {
-      const rows = [{ msg: mine, who: nickname, mine: true }, ...COMMUNITY];
-      listEl.innerHTML = rows
-        .map(
-          (r) => `
+    // 결과 화면에서 남긴 내 응원이 있으면 맨 위(강조)에, 그 뒤 커뮤니티 응원
+    const saved = localStorage.getItem("storit.myCheer");
+    const rows = saved
+      ? [{ msg: saved, who: nickname, mine: true }, ...COMMUNITY]
+      : COMMUNITY;
+
+    listEl.innerHTML = rows
+      .map(
+        (r) => `
         <div class="mn-cheer-row${r.mine ? " is-mine" : ""}">
           <span class="mn-cheer-msg">${esc(r.msg)}</span>
           <span class="mn-cheer-who">${esc(r.who)}</span>
         </div>`,
-        )
-        .join("");
-      empty.hidden = true;
-      listEl.hidden = false;
+      )
+      .join("");
+    listEl.hidden = false;
+  })();
+
+  // ── 헤더 하트 / 리필 타이머 ──────────────────
+  // MAX 이면 "하트 MAX!!", 하트가 줄면 채운+빈 하트 + 작은 하트 + "MM:SS 남음" 카운트다운
+  (function initHearts() {
+    const wrap = document.querySelector(".mn-hearts");
+    if (!wrap) return;
+    const row = wrap.querySelector(".mn-hearts-row");
+    const pill = wrap.querySelector(".mn-hearts-pill");
+    if (!row || !pill) return;
+
+    const MAX = 2;
+    const REFILL_SEC = 30 * 60; // 하트 1개 리필 30분
+
+    // 현재 하트 (백엔드/localStorage 연동). 미설정 시 데모로 줄어든 상태(1) 표시
+    const storedHearts = localStorage.getItem("storit.hearts");
+    let hearts = storedHearts === null ? 1 : Number(storedHearts);
+    if (!Number.isFinite(hearts)) hearts = 1;
+    hearts = Math.max(0, Math.min(MAX, hearts));
+
+    function renderHearts() {
+      let html = "";
+      for (let i = 0; i < MAX; i++) {
+        const src = i < hearts ? "assets/icon_heart.svg" : "assets/icon_heart_empty.svg";
+        html += `<img src="${src}" alt="" />`;
+      }
+      // 줄어든 상태: 리필 중인 작은 하트 표시
+      if (hearts < MAX) {
+        html += `<img class="mn-heart-sm" src="assets/icon_heart.svg" alt="" />`;
+      }
+      row.innerHTML = html;
     }
 
-    const saved = localStorage.getItem("storit.myCheer");
-    if (saved) {
-      renderList(saved);
-      return;
+    const fmt = (s) => {
+      const m = Math.floor(s / 60);
+      const ss = s % 60;
+      return `${String(m).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
+    };
+
+    let remain = 28 * 60 + 45; // 시안값 28:45 (데모). 실제로는 서버 리필 시각 기준
+    let timer = null;
+
+    function showMax() {
+      pill.textContent = "하트 MAX!!";
+      pill.classList.remove("is-timer");
     }
 
-    // 스토릿 버튼 → 입력창으로 전환
-    empty.querySelector(".mn-cheer-empty-tag").addEventListener("click", () => {
-      empty.innerHTML = `
-        <input class="mn-cheer-input" type="text" maxlength="40"
-               placeholder="응원 한마디를 남겨보세요!" />
-        <button type="button" class="mn-cheer-empty-tag">등록</button>`;
-      const input = empty.querySelector(".mn-cheer-input");
-      input.focus();
+    function tick() {
+      if (hearts >= MAX) {
+        showMax();
+        if (timer) clearInterval(timer);
+        return;
+      }
+      pill.classList.add("is-timer");
+      pill.textContent = `${fmt(remain)} 남음`;
+      if (remain <= 0) {
+        hearts = Math.min(MAX, hearts + 1);
+        renderHearts();
+        remain = REFILL_SEC;
+      } else {
+        remain -= 1;
+      }
+    }
 
-      const submit = () => {
-        const msg = input.value.trim();
-        if (!msg) return;
-        localStorage.setItem("storit.myCheer", msg);
-        renderList(msg);
-      };
-      empty.querySelector(".mn-cheer-empty-tag").addEventListener("click", submit);
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") submit();
-      });
-    });
+    renderHearts();
+    if (hearts >= MAX) {
+      showMax();
+    } else {
+      tick();
+      timer = setInterval(tick, 1000);
+    }
   })();
 
   // 첫 진입 튜토리얼 코치 (welcome 에서 넘어온 경우 표시)

@@ -57,7 +57,7 @@
 /* 본문 (크림) */
 .rs-body {
   min-height: 100%;
-  padding: 20px 16px 24px;
+  padding: 5px 16px 24px;
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -69,8 +69,20 @@
 .rs-hero {
   position: relative;
   width: 246px;
-  height: 290px;
-  margin: 6px 0 10px;
+  height: 267px; /* 점수 뱃지 하단(top210+57)에 맞춤 → 빈 공간 제거 */
+  margin: 6px 0 0; /* 하단 여백 제거 → rs-body gap(10px)만 적용 */
+}
+/* 히어로 배경 이미지 (링/점수 뒤) */
+.rs-hero-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% - 20px));
+  width: 350px;
+  height: 264px;
+  max-width: none; /* 전역 img{max-width:100%} 해제 → 부모(246px)보다 넓게 */
+  z-index: 0;
+  pointer-events: none;
 }
 /* 크림 안쪽 원 — 링(프로그레스) 두께 18px */
 .rs-hero-inner {
@@ -89,22 +101,26 @@
   top: 0;
   width: 246px;
   height: 246px;
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
 }
 .rs-ring-track,
 .rs-ring-fill {
   fill: none;
   stroke-width: 18;
 }
+/* 미채움(track) = 링 내부 원과 같은 크림색 → 안 보이게, 그림자도 없음 */
 .rs-ring-track {
-  stroke: #f3e7cd;
+  stroke: var(--cta-bg);
 }
 .rs-ring-fill {
   stroke: var(--yellow-deep);
   stroke-linecap: round;
-  transform: rotate(-90deg); /* 12시부터 시작 */
+  /* 12시에서 시작해 반시계 방향으로 채움 (rotate로 12시 시작 + scaleX(-1)로 방향 반전) */
+  transform: scaleX(-1) rotate(-90deg);
   transform-origin: 123px 123px;
   transition: stroke-dashoffset 0.5s ease;
+  /* 채워진 arc 에만 그림자. transform(scaleX(-1) rotate(-90)) 로 오프셋이 회전되므로
+     화면상 아래(0,4)로 보이도록 로컬 오프셋 (-4,0) 로 보정 */
+  filter: drop-shadow(-4px 0 4px rgba(0, 0, 0, 0.25));
 }
 /* 캐릭터 (Figma: 110x165 @ 68,38 — 가로 중앙) */
 .rs-hero-mascot {
@@ -115,6 +131,13 @@
   height: auto;
   object-fit: contain;
   z-index: 1;
+}
+/* 아쉬움(69점 이하) 마스코트 — 첨부 이미지(책 보는 쿠키), 링 안에 맞춤 */
+.rs-hero-mascot.is-low {
+  width: 127px;
+  height: 147px;
+  left: 59.5px; /* (246-127)/2 → 가로 중앙 */
+  top: 49.5px; /* 링 중심 y=123 기준 세로 중앙 (123-147/2) */
 }
 /* 축하 문구 말풍선 (에셋, Figma: 120x88 @ -24,22) */
 .rs-hero-bubble {
@@ -147,6 +170,10 @@
 .rs-hero-msg .accent {
   color: var(--orange);
 }
+/* 아쉬움 문구 강조 — 노란색(흰 말풍선에서 읽히는 진한 노랑) */
+.rs-hero-msg .accent-y {
+  color: #eab308;
+}
 /* 점수 뱃지 (Figma: 125x57 @ top 210, 가로 중앙) */
 .rs-score {
   position: absolute;
@@ -154,12 +181,16 @@
   top: 210px;
   transform: translateX(-50%);
   min-width: 125px;
-  padding: 12px 28px;
+  height: 57px;
+  box-sizing: border-box;
+  padding: 0 28px;
   background: var(--cta-bg);
   border: 5px solid var(--yellow-deep);
   border-radius: 25px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--brown-700);
   white-space: nowrap;
 }
@@ -171,6 +202,8 @@
 .rs-score-unit {
   font-size: 20px;
   font-weight: 700;
+  position: relative;
+  top: 5px;
 }
 
 /* ── 통계 바 (맞춘문제 / 걸린시간 / 경험치) ── */
@@ -236,6 +269,7 @@
 /* 응원 입력 */
 .rs-cheer {
   position: relative;
+  height: 114px;
 }
 .rs-cheer-mascot {
   position: absolute;
@@ -246,15 +280,14 @@
   object-fit: contain;
 }
 .rs-cheer-row {
+  position: relative;
   margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 .rs-cheer-input {
-  width: 214px;
+  width: 70%;
   height: 37px;
-  padding: 0 14px;
+  padding: 0 62px 0 14px; /* 오른쪽 = 내부 버튼 자리 확보 */
+  box-sizing: border-box;
   border: 0;
   border-radius: 16px;
   background: #fff;
@@ -266,8 +299,46 @@
 .rs-cheer-input::placeholder {
   color: #ccbb99;
 }
+/* 입력창 오른쪽 꼬리 (말풍선 꼬리) */
+.rs-cheer-tail {
+  position: absolute;
+  left: 70%; /* 입력창 오른쪽 끝 = 폭의 70% 지점 */
+  top: 50%;
+  transform: translate(-4px, -50%);
+  width: 21px;
+  height: 12px;
+  z-index: 1;
+}
+/* 입력 완료 후: 작성한 응원 문구 박스 (100% 너비) */
+.rs-cheer-result {
+  width: 100%;
+  min-height: 37px;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  background: #fff;
+  border-radius: 16px;
+  color: var(--brown-800);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  word-break: break-word;
+}
+.rs-cheer-result[hidden] {
+  display: none;
+}
+/* 전역 img{display:block} 등에 눌리지 않도록 명시적 숨김 */
+.rs-cheer-input[hidden],
+.rs-cheer-submit[hidden],
+.rs-cheer-tail[hidden] {
+  display: none;
+}
+/* 입력창(70%) 안쪽 오른쪽에 버튼 겹쳐 배치: 남은 30% + 5px 만큼 안으로 */
 .rs-cheer-submit {
-  padding: 5px 10px;
+  position: absolute;
+  right: calc(30% + 5px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 12px;
   border: 0;
   border-radius: 30px;
   background: var(--brown-800);
@@ -280,14 +351,25 @@
 }
 
 /* 퀴즈 평가 */
+.rs-eval {
+  position: relative;
+  height: 115px;
+}
 .rs-eval-head {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 3px; /* 부제 ↔ Q 간격 (11px 에서 5px 줄임) */
+  text-align: left;
+}
+.rs-eval .rs-card-sub {
+  margin-top: 0; /* 전역 margin 제거 (gap 으로만 간격 제어) */
 }
 .rs-eval-btns {
   margin-top: 11px;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px; /* Figma: 버튼 간 간격 10px */
 }
 .rs-eval-btn {
   width: 90px;
@@ -309,21 +391,49 @@
 .rs-eval-btn.is-selected {
   background: var(--yellow-deep);
 }
-.rs-eval-btn svg {
+.rs-eval-btn img {
+  object-fit: contain;
+}
+/* Figma 아이콘 크기: 좋아요 19 · 쉬워요 16 · 어려워요 18 */
+.rs-eval-btn:nth-child(1) img {
+  width: 19px;
+  height: 19px;
+}
+.rs-eval-btn:nth-child(2) img {
   width: 16px;
   height: 16px;
+}
+.rs-eval-btn:nth-child(3) img {
+  width: 18px;
+  height: 18px;
 }
 
 /* 미션 */
 .rs-mission {
+  position: relative;
+  text-align: left;
+  min-height: 107px;
+}
+/* 왼쪽 텍스트 블록 (부제 → 제목 → 버튼) */
+.rs-mission-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-align: center;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 180px;
+}
+.rs-mission .rs-card-sub {
+  margin-top: 0;
+}
+/* 부제 → 제목 간격만 5px 줄임 (제목-버튼 간격은 유지) */
+.rs-mission .rs-card-title {
+  margin-top: -5px;
 }
 .rs-mission-btn {
-  padding: 5px 9px;
+  margin-top: 10px;
+}
+.rs-mission-btn {
+  padding: 4.5px 9px;
   border: 0;
   border-radius: 4.5px;
   background: var(--brown-800);
@@ -331,26 +441,56 @@
   font-family: var(--font-body);
   font-size: 10.8px;
   font-weight: 700;
-  line-height: 16px;
+  line-height: 16.2px;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   cursor: pointer;
 }
 .rs-mission-btn svg {
   width: 13px;
   height: 13px;
 }
+/* 쿠키 5개를 카드 오른쪽·하단에 흩어 배치 (첨부 시안) */
 .rs-mission-cookies {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 36px;
+  position: absolute;
+  inset: 15px; /* 카드 패딩(15px) 안쪽 = 콘텐츠 박스 기준 배치 */
+  pointer-events: none;
 }
 .rs-mission-cookies img {
-  height: auto;
-  width: auto;
+  position: absolute;
 }
+/* Figma 정확 치수 + 위치 (HTML 순서: 우유팩5 · 밀가루4 · 병3 · 버터2 · 초코칩1) */
+.rs-mission-cookies img:nth-child(1) {
+  width: 18.04px;
+  height: 36px;
+  right: 44px;
+  top: 4px;
+} /* 우유팩 */
+.rs-mission-cookies img:nth-child(2) {
+  width: 28.49px;
+  height: 35px;
+  right: 70px;
+  top: 7px;
+} /* 밀가루 */
+.rs-mission-cookies img:nth-child(3) {
+  width: 19.94px;
+  height: 32px;
+  right: 60px;
+  bottom: 0px;
+} /* 병 */
+.rs-mission-cookies img:nth-child(4) {
+  width: 36.09px;
+  height: 25px;
+  right: 86px;
+  top: 40px;
+} /* 버터 */
+.rs-mission-cookies img:nth-child(5) {
+  width: 33.24px;
+  height: 29px;
+  right: 20px;
+  bottom: 7px;
+} /* 초코칩 */
 
 /* ── 하단 버튼 (고정) ───────────────────── */
 .rs-actions {

@@ -40,6 +40,9 @@
   line-height: 20px;
   color: var(--brown-800);
   white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  animation: wc-headline-in 360ms ease 0ms forwards;
 }
 
 /* 말풍선 (Figma: 그룹 243x130 @ 70, 440 / 이미지 290x185 @ -23, -42) */
@@ -49,6 +52,10 @@
   top: 398px;
   width: 290px;
   height: 185px;
+  transform-origin: 50% 80%;
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  animation: wc-bubble-in 520ms cubic-bezier(0.2, 0.8, 0.3, 1.2) 300ms forwards;
 }
 
 .wc-bubble-text {
@@ -61,6 +68,9 @@
   font-weight: 400;
   line-height: 30px;
   color: var(--brown-700);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: wc-fade-up 520ms ease-out 380ms forwards;
 }
 
 .wc-bubble-text .accent {
@@ -74,6 +84,9 @@
   top: 520px;
   width: 115px;
   height: 159px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: wc-fade-up 520ms ease 620ms forwards;
 }
 
 /* CTA (Figma: 320x56 @ top 672, 갈색) */
@@ -94,4 +107,111 @@
   font-weight: 700;
   line-height: 20px;
   cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  animation: wc-cta-in 360ms ease 950ms forwards;
+}
+
+/* ── 오븐 연기 (참고 프로젝트와 동일: 진입 시 1회 피어올랐다 사라짐) ── */
+.wc-smokes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wc-smoke {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: auto;
+  opacity: 0;
+  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+  /* 1회성 상승 (forwards) → 끝나면 opacity 0 으로 사라짐 */
+  animation: wc-smoke-rise 1850ms ease-out var(--delay) forwards;
+}
+
+/* 각 뭉치마다 위치·크기 다르게, 시작시점만 스태거 → 뭉게뭉게 한 번 피어오름 */
+.wc-smoke:nth-child(1) { --x: -40px;  --y: 470px; --w: 440px; --delay: 0ms; }
+.wc-smoke:nth-child(2) { --x: 55px;   --y: 430px; --w: 400px; --delay: 160ms; }
+.wc-smoke:nth-child(3) { --x: -95px;  --y: 400px; --w: 470px; --delay: 320ms; }
+.wc-smoke:nth-child(4) { --x: -110px; --y: 515px; --w: 420px; --delay: 480ms; }
+.wc-smoke:nth-child(5) { --x: 40px;   --y: 535px; --w: 380px; --delay: 640ms; }
+.wc-smoke:nth-child(6) { --x: -25px;  --y: 365px; --w: 455px; --delay: 800ms; }
+
+/* 피어올랐다가 완전히 사라짐 (참고본 auth-welcome-smoke-rise 와 동일 구조) */
+@keyframes wc-smoke-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.56);
+  }
+  22% {
+    opacity: 0.62;
+  }
+  72% {
+    opacity: 0.55;
+    transform: translateY(-12px) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-46px) scale(1.2);
+  }
+}
+
+/* ── 진입 애니메이션 (userInfo → welcome staged 시퀀스) ────── */
+@keyframes wc-headline-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wc-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wc-bubble-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* CTA 는 가로 중앙정렬(translateX(-50%)) 유지한 채 아래에서 올라옴 */
+@keyframes wc-cta-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 모션 최소화 설정 존중 — 애니메이션 없이 즉시 표시 */
+@media (prefers-reduced-motion: reduce) {
+  .wc-tagline,
+  .wc-bubble,
+  .wc-bubble-text,
+  .wc-mascot,
+  .wc-cta {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .wc-cta {
+    transform: translateX(-50%);
+    pointer-events: auto;
+  }
+  .wc-smoke {
+    animation: none;
+    opacity: 0;
+  }
 }

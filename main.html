@@ -27,11 +27,9 @@
         </div>
 
         <div class="mn-hearts">
-          <div class="mn-hearts-row">
-            <img src="assets/icon_heart.svg" alt="" />
-            <img src="assets/icon_heart.svg" alt="" />
-          </div>
-          <span class="mn-hearts-pill">하트 MAX!!</span>
+          <!-- 하트/리필 타이머는 JS 가 상태에 따라 렌더 -->
+          <div class="mn-hearts-row"></div>
+          <span class="mn-hearts-pill"></span>
         </div>
 
         <button type="button" class="mn-cookies">
@@ -109,15 +107,7 @@
             <h2 class="mn-cheer-title">오늘의 응원 한마디</h2>
             <img class="mn-cheer-icon" src="assets/icon_cheer.svg" alt="" />
 
-            <!-- 빈 상태: 첫 응원 유도 (스토릿 버튼으로 입력) -->
-            <div class="mn-cheer-empty">
-              <span class="mn-cheer-empty-msg">
-                오늘의 첫 응원을 기다리고 있어요<br />퀴즈를 풀고 작품에 첫 응원을 남겨보세요!
-              </span>
-              <button type="button" class="mn-cheer-empty-tag">스토릿</button>
-            </div>
-
-            <!-- 목록 상태 (응원 등록 후 JS 가 채움) -->
+            <!-- 커뮤니티 응원 목록 (읽기 전용 · JS 가 채움) / 입력은 결과 화면에서 -->
             <div class="mn-cheer-list" hidden></div>
           </section>
         </div>

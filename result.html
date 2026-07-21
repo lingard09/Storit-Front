@@ -18,7 +18,13 @@
           <div class="rs-top-inner">
             <button type="button" class="rs-back" aria-label="뒤로">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M15 4.5 7.5 12 15 19.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M15 4.5 7.5 12 15 19.5"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <h1 class="rs-title">66666년 만에 환생한 흑마법사</h1>
@@ -28,6 +34,7 @@
         <div class="rs-body">
           <!-- 점수 히어로 -->
           <div class="rs-hero">
+            <img class="rs-hero-bg" src="assets/exp_bg.svg" alt="" />
             <div class="rs-hero-inner"></div>
             <svg class="rs-hero-ring" viewBox="0 0 246 246" aria-hidden="true">
               <circle class="rs-ring-track" cx="123" cy="123" r="114" />
@@ -37,11 +44,13 @@
             <div class="rs-hero-bubble">
               <img src="assets/result_blob.svg" alt="" />
               <p class="rs-hero-msg">
-                정말 잘했어요!<br /><span class="accent">맛있는 점수</span>가<br />완성됐어요!
+                정말 잘했어요!<br /><span class="accent">맛있는 점수</span
+                >가<br />완성됐어요!
               </p>
             </div>
             <div class="rs-score">
-              <span class="rs-score-num">95</span><span class="rs-score-unit">점</span>
+              <span class="rs-score-num">95</span
+              ><span class="rs-score-unit">점</span>
             </div>
           </div>
 
@@ -73,35 +82,63 @@
           <!-- 오늘의 응원 한마디 -->
           <div class="rs-card rs-cheer">
             <div class="rs-card-title">오늘의 응원 한마디</div>
-            <div class="rs-card-sub">시험을 본 다른 학생들에게 응원의 말을 남겨주세요!</div>
-            <img class="rs-cheer-mascot" src="assets/hero_mascot.svg" alt="" />
+            <div class="rs-card-sub">
+              시험을 본 다른 사용자에게 응원의 말을 남겨주세요!
+            </div>
+            <img class="rs-cheer-mascot" src="assets/icon_cheer.svg" alt="" />
             <div class="rs-cheer-row">
-              <input class="rs-cheer-input" type="text" maxlength="40" placeholder="응원의 한마디를 입력해주세요..." />
+              <input
+                class="rs-cheer-input"
+                type="text"
+                maxlength="40"
+                placeholder="응원의 한마디를 입력해주세요..."
+              />
+              <img class="rs-cheer-tail" src="assets/cheer_tail.svg" alt="" />
               <button type="button" class="rs-cheer-submit">입력</button>
+              <!-- 입력 완료 후: 작성한 응원 문구 (100% 너비) -->
+              <div class="rs-cheer-result" hidden></div>
             </div>
           </div>
 
           <!-- 퀴즈 평가 -->
           <div class="rs-card rs-eval">
             <div class="rs-eval-head">
-              <div class="rs-card-title">Q. 공기주가 미팅에서 마음에 드는 사람으로 지목한 사람은?</div>
               <div class="rs-card-sub">무케대왕의 퀴즈를 평가해주세요</div>
+              <div class="rs-card-title">
+                Q. 공기주가 미팅에서 마음에 드는 사람으로 지목한 사람은?
+              </div>
             </div>
             <div class="rs-eval-btns">
-              <button type="button" class="rs-eval-btn">👍 좋아요</button>
-              <button type="button" class="rs-eval-btn">🙂 쉬워요</button>
-              <button type="button" class="rs-eval-btn">😵 어려워요</button>
+              <button type="button" class="rs-eval-btn">
+                <img src="assets/eval_like.svg" alt="" /><span>좋아요</span>
+              </button>
+              <button type="button" class="rs-eval-btn">
+                <img src="assets/eval_easy.svg" alt="" /><span>쉬워요</span>
+              </button>
+              <button type="button" class="rs-eval-btn">
+                <img src="assets/eval_hard.svg" alt="" /><span>어려워요</span>
+              </button>
             </div>
           </div>
 
           <!-- 더 많은 쿠키 미션 -->
           <div class="rs-card rs-mission">
-            <div class="rs-card-title">더 많은 쿠키를 받아가세요!</div>
-            <div class="rs-card-sub">오늘의 미션을 완료하고</div>
-            <button type="button" class="rs-mission-btn">
-              미션 확인하기
-              <svg viewBox="0 0 13 13" fill="none"><path d="M4.5 2.5 8.5 6.5 4.5 10.5" stroke="#FEFAF4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            </button>
+            <div class="rs-mission-text">
+              <div class="rs-card-sub">오늘의 미션을 완료하고</div>
+              <div class="rs-card-title">더 많은 쿠키를 받아가세요!</div>
+              <button type="button" class="rs-mission-btn">
+                미션 확인하기
+                <svg viewBox="0 0 13 13" fill="none">
+                  <path
+                    d="M4.5 2.5 8.5 6.5 4.5 10.5"
+                    stroke="#FEFAF4"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
             <div class="rs-mission-cookies">
               <img src="assets/mission_cookie5.svg" alt="" />
               <img src="assets/mission_cookie4.svg" alt="" />
@@ -115,8 +152,12 @@
 
       <!-- 하단 버튼 -->
       <div class="rs-actions">
-        <button type="button" class="rs-action rs-action--weak">랭킹 보러가기</button>
-        <button type="button" class="rs-action rs-action--fill">다른 문제 풀러가기</button>
+        <button type="button" class="rs-action rs-action--weak">
+          랭킹 보러가기
+        </button>
+        <button type="button" class="rs-action rs-action--fill">
+          다른 문제 풀러가기
+        </button>
       </div>
 
       <!-- 점수 설명 바텀시트 (경험치 팝업 닫으면 표시) -->
@@ -124,10 +165,12 @@
         <span class="rs-sheet-handle"></span>
         <div class="rs-sheet-body">
           <div class="rs-sheet-copy">
-            <p class="rs-sheet-title">맞춘 갯수와 걸린 시간을<br />환산한 점수예요!</p>
+            <p class="rs-sheet-title">
+              맞춘 갯수와 걸린 시간을<br />환산한 점수예요!
+            </p>
             <p class="rs-sheet-desc">
-              점수가 높을 수록 더 많은 경험치를!<br />획득한 점수는 랭킹에 즉시 반영됩니다.<br />내
-              순위가 궁금하면 랭킹을 확인해보세요!
+              점수가 높을 수록 더 많은 경험치를!<br />획득한 점수는 랭킹에 즉시
+              반영됩니다.<br />내 순위가 궁금하면 랭킹을 확인해보세요!
             </p>
           </div>
           <img class="rs-sheet-mascot" src="assets/result_mascot.svg" alt="" />
@@ -138,20 +181,30 @@
       <!-- 경험치 획득 팝업 -->
       <div class="rs-exp" hidden>
         <button type="button" class="rs-exp-overlay" aria-label="닫기"></button>
-        <div class="rs-exp-card" role="dialog" aria-modal="true" aria-labelledby="rs-exp-title">
+        <div
+          class="rs-exp-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="rs-exp-title"
+        >
           <button type="button" class="rs-exp-close" aria-label="닫기">
             <img src="assets/icon_close.svg" alt="" />
           </button>
           <div class="rs-exp-top">
             <div class="rs-exp-scallop">
-              <span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span>
             </div>
             <img class="rs-exp-bg" src="assets/exp_bg.svg" alt="" />
             <img class="rs-exp-char" src="assets/exp_char.svg" alt="" />
           </div>
           <div class="rs-exp-text">
-            <h2 id="rs-exp-title" class="rs-exp-title">경험치를 획득하셨습니다!!!</h2>
-            <p class="rs-exp-amount">+ <span class="rs-exp-amount-num">60</span> EXP</p>
+            <h2 id="rs-exp-title" class="rs-exp-title">
+              경험치를 획득하셨습니다!!!
+            </h2>
+            <p class="rs-exp-amount">
+              + <span class="rs-exp-amount-num">60</span> EXP
+            </p>
           </div>
         </div>
       </div>
