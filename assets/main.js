@@ -105,12 +105,17 @@
         const src = i < hearts ? "assets/icon_heart.svg" : "assets/icon_heart_empty.svg";
         html += `<img src="${src}" alt="" />`;
       }
-      // 줄어든 상태: 리필 중인 작은 하트 표시
+      // 줄어든 상태: 하트 충전(+) 버튼 표시
       if (hearts < MAX) {
-        html += `<img class="mn-heart-sm" src="assets/icon_heart.svg" alt="" />`;
+        html += `<button type="button" class="mn-heart-add" aria-label="하트 충전"><img src="assets/icon_heart_plus.svg" alt="" /></button>`;
       }
       row.innerHTML = html;
     }
+
+    // 충전(+) 버튼 클릭 → 하트 충전 모달
+    row.addEventListener("click", (e) => {
+      if (e.target.closest(".mn-heart-add")) openHeartModal();
+    });
 
     const fmt = (s) => {
       const m = Math.floor(s / 60);
@@ -141,6 +146,23 @@
       } else {
         remain -= 1;
       }
+    }
+
+    // ── 하트 충전 모달 ──
+    const modal = document.querySelector(".mn-heart-modal");
+    function openHeartModal() {
+      if (modal) modal.hidden = false;
+    }
+    function closeHeartModal() {
+      if (modal) modal.hidden = true;
+    }
+    if (modal) {
+      modal
+        .querySelectorAll("[data-close-heart]")
+        .forEach((el) => el.addEventListener("click", closeHeartModal));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.hidden) closeHeartModal();
+      });
     }
 
     renderHearts();
