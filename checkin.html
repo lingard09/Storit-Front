@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 출석체크</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/checkin.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame ci-page">
+      <!-- 헤더 -->
+      <header class="ci-header">
+        <button
+          type="button"
+          class="ci-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="ci-title">출석체크</h1>
+      </header>
+
+      <div class="ci-scroll">
+        <!-- 오늘 종료까지 남은 시간 -->
+        <div class="ci-timer">
+          <span class="ci-timer-label">오늘의 출석체크 종료까지</span>
+          <span class="ci-timer-left"></span>
+        </div>
+
+        <!-- 출석 카드 -->
+        <section class="ci-card">
+          <div class="ci-card-head">
+            <div class="ci-card-info">
+              <h2 class="ci-month"></h2>
+              <p class="ci-streak">
+                <span class="ci-streak-num"></span
+                ><span class="ci-streak-text"> 연속 출석체크 중</span>
+                <img class="ci-info" src="assets/icon_info.svg" alt="안내" />
+              </p>
+            </div>
+            <img class="ci-illust" src="assets/checkin_mascot.svg" alt="" />
+          </div>
+
+          <div class="ci-calendar">
+            <!-- 월 이동 -->
+            <div class="ci-nav">
+              <button
+                type="button"
+                class="ci-nav-btn ci-nav-prev"
+                aria-label="이전 달"
+              ></button>
+              <span class="ci-nav-label"></span>
+              <button
+                type="button"
+                class="ci-nav-btn ci-nav-next"
+                aria-label="다음 달"
+              ></button>
+            </div>
+            <!-- 요일 -->
+            <div class="ci-weekdays">
+              <span class="ci-wd ci-sun">일</span>
+              <span class="ci-wd">월</span>
+              <span class="ci-wd">화</span>
+              <span class="ci-wd">수</span>
+              <span class="ci-wd">목</span>
+              <span class="ci-wd">금</span>
+              <span class="ci-wd ci-sat">토</span>
+            </div>
+            <!-- 날짜 그리드 (checkin.js 가 채움) -->
+            <div class="ci-grid"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 출석하기 / 완료 후 보상 배너 -->
+      <div class="ci-submit-wrap">
+        <button type="button" class="ci-submit">출석하기</button>
+        <div class="ci-reward" hidden>
+          <img class="ci-reward-icon" src="assets/icon_butter.svg" alt="" />
+          <div class="ci-reward-text">
+            <p class="ci-reward-title">오늘의 미션 출석체크 달성!!</p>
+            <p class="ci-reward-desc">쿠키의 재료 &lt;버터 획득&gt;</p>
+          </div>
+          <span class="ci-reward-arrow" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <!-- 경험치 획득 팝업 (출석 완료 시) -->
+      <div class="rs-exp" hidden>
+        <button type="button" class="rs-exp-overlay" aria-label="닫기"></button>
+        <div
+          class="rs-exp-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ci-exp-title"
+        >
+          <button type="button" class="rs-exp-close" aria-label="닫기">
+            <img src="assets/icon_close.svg" alt="" />
+          </button>
+          <div class="rs-exp-top">
+            <div class="rs-exp-scallop">
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span>
+            </div>
+            <img class="rs-exp-bg" src="assets/exp_bg.svg" alt="" />
+            <img class="rs-exp-char" src="assets/exp_char.svg" alt="" />
+          </div>
+          <div class="rs-exp-text">
+            <h2 id="ci-exp-title" class="rs-exp-title">
+              경험치를 획득하셨습니다!!!
+            </h2>
+            <p class="rs-exp-amount">
+              + <span class="rs-exp-amount-num">15</span> EXP
+            </p>
+            <p class="rs-exp-bonus" hidden></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 연속 출석 보상 안내 (ci-info 클릭) -->
+      <div class="ci-guide" hidden>
+        <button type="button" class="ci-guide-overlay" aria-label="닫기"></button>
+        <div
+          class="ci-guide-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ci-guide-title"
+        >
+          <button type="button" class="ci-guide-close" aria-label="닫기">
+            <img src="assets/icon_close.svg" alt="" />
+          </button>
+          <h2 id="ci-guide-title" class="ci-guide-title">연속 출석 보상 안내</h2>
+          <table class="ci-guide-table">
+            <thead>
+              <tr><th>구간</th><th>보상</th></tr>
+            </thead>
+            <tbody class="ci-guide-rows"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="ci-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+    </div>
+
+    <script src="assets/checkin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 공지사항</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/notice.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame nc-page">
+      <!-- 헤더 -->
+      <header class="nc-header">
+        <button
+          type="button"
+          class="nc-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="nc-title">공지사항</h1>
+      </header>
+
+      <!-- 본문 (JS 가 데이터로 렌더) -->
+      <div class="nc-scroll">
+        <div class="nc-head">
+          <h2 class="nc-subject"></h2>
+          <p class="nc-date"></p>
+        </div>
+        <article class="nc-body">
+          <div class="nc-content"></div>
+          <img class="nc-char" src="assets/notice_char.svg" alt="" />
+        </article>
+      </div>
+
+      <!-- 이전글/다음글 -->
+      <nav class="nc-nav">
+        <a class="nc-nav-item nc-prev" href="#">
+          <span class="nc-nav-arrow" aria-hidden="true"></span>
+          <span class="nc-nav-text">
+            <span class="nc-nav-label">이전글</span>
+            <span class="nc-nav-sub"></span>
+          </span>
+        </a>
+        <a class="nc-nav-item nc-next" href="#">
+          <span class="nc-nav-text">
+            <span class="nc-nav-label">다음글</span>
+            <span class="nc-nav-sub"></span>
+          </span>
+          <span class="nc-nav-arrow nc-nav-arrow-next" aria-hidden="true"></span>
+        </a>
+      </nav>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="nc-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <script src="assets/notice.js"></script>
+  </body>
+</html>

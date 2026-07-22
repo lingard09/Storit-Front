@@ -1,0 +1,349 @@
+/* 스토릿 - 상품 상세 */
+
+.pd-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+.pd-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+.pd-header,
+.pd-scroll,
+.pd-submit-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.pd-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.pd-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.pd-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+.pd-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 스크롤 영역 ──────────────────────── */
+.pd-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 13px 27px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ── 대표 상품 ────────────────────────── */
+.pd-hero {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pd-hero-img {
+  width: 200px;
+  height: 105px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+.pd-hero-name {
+  margin-top: 1px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #1c1c1c;
+}
+
+/* 쿠키 가격 pill */
+.pd-price {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 35px;
+  margin-top: 7px;
+  padding: 0 14px;
+  border-radius: 50px;
+  background: var(--yellow);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: #3d2000;
+}
+
+.pd-price img {
+  display: block;
+  width: 19px;
+  height: 19px;
+}
+
+.pd-price-num {
+  display: inline-flex;
+  align-items: center;
+  height: 19px;
+}
+
+/* ── 정보 카드 ────────────────────────── */
+.pd-info {
+  align-self: stretch;
+  padding: 25px 20px 20px;
+  background: #fff;
+  border: 1px solid var(--yellow-beige, #faefdf);
+  border-radius: 10px;
+}
+
+.pd-info-cols {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+.pd-info-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.pd-info-ico {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 2px;
+}
+
+.pd-info-label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #454545;
+}
+
+.pd-info-sub {
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 10px;
+  color: rgba(136, 136, 128, 0.8);
+}
+
+.pd-info-div {
+  height: 0;
+  margin: 22px 0 16px;
+  border: 0;
+  border-top: 1px solid #faefdf;
+}
+
+.pd-desc-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+}
+
+.pd-desc-list {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style: none;
+}
+
+.pd-desc-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.pd-desc-list img {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  margin-top: 0.5px;
+}
+
+/* ── 추천 상품 ────────────────────────── */
+.pd-reco-sec {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pd-reco-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+}
+
+.pd-reco-head img {
+  width: 24px;
+  height: 24px;
+}
+
+.pd-reco {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.pd-reco-card {
+  flex-shrink: 0;
+  position: relative;
+  width: 100px;
+  height: 130px;
+  background: #fff;
+  border: 1px solid var(--cta-bg);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 10px 0;
+}
+
+.pd-reco-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.pd-gplay-ico {
+  width: 30px;
+  height: auto;
+}
+
+.pd-gplay-text {
+  width: 45px;
+  height: auto;
+}
+
+.pd-reco-name {
+  align-self: stretch;
+  margin-top: 5px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #1c1c1c;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.pd-reco-price {
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #1c1c1c;
+}
+
+.pd-reco-card .pd-price {
+  position: absolute;
+  bottom: 9px;
+  height: 19px;
+  padding: 0 10px;
+  font-size: 10px;
+}
+
+.pd-reco-card .pd-price img {
+  width: 10px;
+  height: 10px;
+}
+
+.pd-reco-card .pd-price-num {
+  height: 10px;
+}
+
+/* ── 하단 CTA ─────────────────────────── */
+.pd-submit-wrap {
+  flex-shrink: 0;
+  padding: 12px 20px 90px; /* 하단 스캘럽 위로 버튼 올림 */
+}
+
+.pd-submit {
+  width: 100%;
+  height: 56px;
+  border: 1px solid var(--orange);
+  border-radius: 16px;
+  background: var(--yellow);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #5d3300;
+  cursor: pointer;
+}
+
+/* ── 하단 스캘럽 장식 ─────────────────── */
+.pd-scallop {
+  position: absolute;
+  left: -46.74px;
+  bottom: -39.58px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.pd-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+.pd-scallop span + span {
+  margin-left: -22.2px;
+}

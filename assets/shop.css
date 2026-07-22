@@ -1,0 +1,623 @@
+/* 스토릿 - 상점 */
+
+.sh-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+/* 상단바 아래 크림 시트 (Figma: top 16, 라운드 20) */
+.sh-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+.sh-header,
+.sh-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.sh-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.sh-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.sh-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+.sh-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 스크롤 영역 ──────────────────────── */
+.sh-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px 96px; /* 하단 네비게이션(84px) 공간 확보 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── 하단 네비게이션 (메인과 동일) ────── */
+.mn-nav {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+  height: 84px;
+  z-index: 10;
+  background: var(--yellow);
+  border-radius: 24px 24px 0 0;
+}
+
+.mn-nav-items {
+  position: absolute;
+  left: 46px;
+  top: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 62px;
+}
+
+.mn-nav-item {
+  width: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--brown-700);
+  opacity: 0.4;
+  white-space: nowrap;
+}
+
+.mn-nav-item.is-active {
+  color: var(--brown-800);
+  opacity: 1;
+}
+
+.mn-nav-icon {
+  width: 25px;
+  height: 25px;
+  background: currentColor;
+  -webkit-mask: center / contain no-repeat;
+  mask: center / contain no-repeat;
+}
+
+/* 아이콘 경로는 이 파일(assets/) 기준으로 해석됨 */
+.mn-nav-item--home .mn-nav-icon {
+  -webkit-mask-image: url("nav_home.svg");
+  mask-image: url("nav_home.svg");
+}
+.mn-nav-item--ranking .mn-nav-icon {
+  -webkit-mask-image: url("nav_ranking.svg");
+  mask-image: url("nav_ranking.svg");
+}
+.mn-nav-item--profile .mn-nav-icon {
+  -webkit-mask-image: url("nav_profile.svg");
+  mask-image: url("nav_profile.svg");
+}
+
+.mn-nav-item--shop .mn-nav-icon {
+  width: 23px;
+  height: 23px;
+  margin-bottom: 2px;
+  -webkit-mask-image: url("nav_gift.svg");
+  mask-image: url("nav_gift.svg");
+}
+
+.mn-nav-indicator {
+  position: absolute;
+  left: 151px;
+  top: 70px;
+  width: 72px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--brown-700);
+}
+
+/* ── 하단 광고 ────────────────────────── */
+.sh-ad {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 82px;
+  border: 1px solid #9a8ff2;
+  border-radius: 16px;
+  background: linear-gradient(
+    163deg,
+    rgba(249, 239, 240, 0.5) 0%,
+    rgba(181, 158, 255, 0.5) 100%
+  );
+  overflow: hidden;
+  z-index: 5;
+}
+
+.sh-ad-text {
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  width: 169px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-ad-sub {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+.sh-ad-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #1c1000;
+}
+
+.sh-ad-ipad {
+  position: absolute;
+  left: 160px;
+  top: 0;
+  width: 133px;
+  height: 89px;
+  object-fit: contain;
+}
+
+.sh-ad-cta {
+  position: absolute;
+  left: 232px;
+  top: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 50px;
+  background: #774eff;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sh-ad-arrow {
+  width: 5px;
+  height: 5px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  transform: rotate(45deg);
+}
+
+/* ── 쿠키 교환 배너 ───────────────────── */
+.sh-banner {
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-banner-top {
+  position: relative;
+  height: 110px;
+  padding: 16px 23px;
+  background: #faefdf;
+  border: 1px solid #f3ede3;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+/* 배너 배경 이미지 (우측, 은은하게) */
+.sh-banner-bg {
+  position: absolute;
+  right: -120px;
+  bottom: -140px;
+  width: 580px;
+  max-width: none; /* base.css 의 img max-width:100% 해제 */
+  height: auto;
+  opacity: 0.5;
+  transform: scaleX(-1); /* 좌우반전 */
+  pointer-events: none;
+}
+
+.sh-banner-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: var(--brown-800);
+  color: var(--cta-bg);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.sh-banner-title {
+  position: relative;
+  z-index: 1;
+  margin-top: 7px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--brown-800);
+}
+
+.sh-banner-desc {
+  position: relative;
+  z-index: 1;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: var(--brown-800);
+}
+
+/* 우측 일러스트 (쿠키 더미) */
+.sh-banner-illust {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  top: 15px;
+  width: 101px;
+  height: 84px;
+}
+
+/* 배너 하단 바: 내 쿠키 / 보관함 */
+.sh-banner-foot {
+  display: flex;
+  height: 39px;
+  border: 1px solid #f3ede3;
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+
+.sh-mycookie {
+  flex: 6;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--brown-800);
+}
+
+.sh-mycookie-arrow {
+  width: 16px;
+  height: 16px;
+}
+
+/* 쿠키 아이콘 + 개수 (내부 gap 3px) */
+.sh-mycookie-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.sh-cookie-ico {
+  width: 16px;
+  height: 16px;
+}
+
+.sh-mycookie-num {
+  font-size: 12px;
+}
+
+.sh-storage {
+  flex: 4;
+  min-width: 0;
+  border: 0;
+  border-left: 1px solid #f3ede3;
+  background: #faefdf;
+  color: var(--brown-800);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ── 카테고리 ─────────────────────────── */
+.sh-cats {
+  display: flex;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.sh-cat {
+  width: 55px;
+  height: 55px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--brown-800);
+}
+
+.sh-cat.is-active {
+  background: #faefdf;
+}
+
+.sh-cat-ico {
+  width: 24px;
+  height: 24px;
+}
+
+.sh-cat-emoji {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* ── 섹션 공통 ────────────────────────── */
+.sh-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sh-sec-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+}
+
+.sh-sec-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sh-count {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.sh-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--yellow);
+  border-radius: 10px;
+  background: var(--cta-bg);
+  color: #1c1000;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sh-sort-caret {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #1c1000;
+}
+
+/* 쿠키 가격 pill (공통) */
+.sh-price {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: var(--yellow);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  color: #1c1000;
+}
+
+.sh-price img {
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+/* 숫자를 아이콘과 같은 높이 박스에서 중앙 정렬 */
+.sh-price-num {
+  display: inline-flex;
+  align-items: center;
+  height: 10px;
+  line-height: 1;
+}
+
+/* ── 추천상품 (가로) ──────────────────── */
+.sh-reco-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sh-reco {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+}
+
+.sh-reco-card {
+  flex-shrink: 0;
+  position: relative;
+  width: 100px;
+  height: 130px;
+  background: #fff;
+  border: 1px solid var(--cta-bg);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 10px 0;
+  cursor: pointer;
+}
+
+.sh-reco-thumb {
+  width: 45px;
+  height: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.sh-gplay-ico {
+  width: 30px;
+  height: auto;
+}
+
+.sh-gplay-text {
+  width: 45px;
+  height: auto;
+}
+
+.sh-reco-name {
+  align-self: stretch;
+  margin-top: 11px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #1c1c1c;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.sh-reco-price {
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #1c1c1c;
+}
+
+.sh-reco-card .sh-price {
+  position: absolute;
+  bottom: 9px;
+}
+
+.sh-more {
+  flex-shrink: 0;
+  width: 18px;
+  height: 25px;
+  border: 0;
+  border-radius: 4.5px;
+  background: var(--brown-800);
+  cursor: pointer;
+  position: relative;
+}
+
+.sh-more::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--cta-bg);
+  border-right: 2px solid var(--cta-bg);
+  transform: translate(-70%, -50%) rotate(45deg);
+}
+
+/* ── 전체상품 (2열 그리드) ────────────── */
+.sh-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.sh-card {
+  position: relative;
+  height: 128px;
+  background: #fff;
+  border: 1px solid var(--cta-bg);
+  border-radius: 10px;
+  padding: 11px 15px 0;
+  cursor: pointer;
+}
+
+.sh-card-thumb {
+  width: 100%;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+.sh-card-name {
+  margin-top: 8px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #1c1c1c;
+}
+
+.sh-card-price {
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #1c1c1c;
+}
+
+.sh-card .sh-price {
+  position: absolute;
+  right: 15px;
+  bottom: 11px;
+}

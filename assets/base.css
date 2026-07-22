@@ -17,6 +17,16 @@
   box-sizing: border-box;
 }
 
+/* 스크롤바 전역 숨김 (스크롤 기능은 유지) */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* 구형 Edge/IE */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome / Safari / Brave */
+}
+
 :root {
   /* 프레임 규격 */
   --frame-w: 375px;

@@ -1,0 +1,269 @@
+/* 스토릿 - 알림 페이지 */
+
+.nt-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+/* 상단바 아래 크림 본문 시트 (Figma: top 16, 상단 라운드 20) */
+.nt-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+/* 콘텐츠는 크림 시트 위로 */
+.nt-header,
+.nt-tabs,
+.nt-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.nt-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.nt-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.nt-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+.nt-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  /* 뒤로가기 버튼(40px) 만큼 보정해 타이틀을 화면 중앙에 */
+  margin-right: 40px;
+}
+
+/* ── 탭 ───────────────────────────────── */
+.nt-tabs {
+  flex-shrink: 0;
+  display: flex;
+  margin: 16px 16px 0;
+}
+
+.nt-tab {
+  flex: 1;
+  height: 35px;
+  border: 0;
+  background: var(--bg);
+  border-radius: 10px 10px 0 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brown-800);
+  cursor: pointer;
+}
+
+.nt-tab.is-active {
+  background: var(--yellow);
+}
+
+/* ── 목록 영역 ─────────────────────────── */
+.nt-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px 90px; /* 하단 스캘럽과 겹치지 않도록 여백 */
+  background: var(--cta-bg);
+  background-clip: content-box; /* 패딩 영역 제외하고 콘텐츠 영역에만 색 */
+}
+
+.nt-list {
+  background: var(--cta-bg);
+  border-radius: 0 0 12px 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nt-list:empty {
+  display: none;
+}
+
+/* ── 알림 카드 ─────────────────────────── */
+.nt-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.nt-card.is-clickable {
+  cursor: pointer;
+}
+
+/* 고정(핀) 공지 표시 — 카드 우측 상단 */
+.nt-card-pin {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 9px;
+  height: 15px;
+  pointer-events: none;
+}
+
+.nt-card-thumb {
+  flex-shrink: 0;
+  width: 65px;
+  height: 59px;
+  border-radius: 6px;
+  background: var(--cta-bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nt-card-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.nt-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.nt-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+.nt-card-desc {
+  font-size: 10px;
+  font-weight: 700;
+  color: #222;
+}
+
+.nt-card-time {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--yellow);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--brown-800);
+  white-space: nowrap;
+}
+
+/* 공지사항 카드의 확인하기 버튼 (시각 배지와 동일한 알약 모양) */
+.nt-card-btn {
+  flex-shrink: 0;
+  border: 0;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--yellow);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--brown-800);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* 빈 상태 (알림 없을 때) — 말풍선 + 쿠키 캐릭터 */
+.nt-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 90px;
+}
+
+.nt-empty[hidden] {
+  display: none;
+}
+
+.nt-empty-bubble {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  transform: translate(-70px, 10px); /* 왼쪽/아래로 이동 */
+  background: #fff;
+  border-radius: 16px;
+  padding: 10px 14px;
+  text-align: left;
+  color: var(--brown-800);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+/* 말풍선 꼬리 (우측 하단, 아래로 뾰족한 삼각형) */
+.nt-empty-bubble::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  bottom: -4px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top: 18px solid #fff;
+  border-bottom: 0;
+  transform: rotate(-45deg); /* 반시계 45도 */
+  transform-origin: top right;
+}
+
+.nt-empty-char {
+  width: 129px;
+  height: auto;
+  margin-top: 14px;
+  transform: translateX(30px); /* 오른쪽으로 30px */
+}
+
+/* ── 하단 스캘럽 장식 (userinfo 와 동일) ── */
+.nt-scallop {
+  position: absolute;
+  left: -46.74px;
+  bottom: -39.58px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.nt-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+.nt-scallop span + span {
+  margin-left: -22.2px;
+}

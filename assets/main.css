@@ -1022,3 +1022,243 @@
   background: var(--orange);
   color: #fff;
 }
+
+/* ── 친구 초대 모달 (바텀시트) ───────────── */
+.mn-invite {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.mn-invite[hidden] {
+  display: none;
+}
+.mn-iv-overlay {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.mn-iv-sheet {
+  position: relative;
+  z-index: 1;
+  width: 375px;
+  padding: 16px 20px 24px;
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 선물 상자 (시트 위로 삐져나옴) */
+.mn-iv-gift {
+  position: absolute;
+  top: -75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: auto;
+}
+.mn-iv-close {
+  align-self: flex-end;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mn-iv-head {
+  padding: 10px 0;
+  text-align: center;
+}
+.mn-iv-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: #000;
+}
+.mn-iv-desc {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--muted);
+}
+/* 초대 코드 박스 */
+.mn-iv-code {
+  width: 320px;
+  height: 48px;
+  margin-top: 6px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(7, 25, 76, 0.05);
+  border: 1px solid var(--muted);
+  border-radius: 16px;
+  cursor: pointer;
+}
+.mn-iv-code-text {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--muted);
+}
+.mn-iv-copy {
+  flex-shrink: 0;
+  width: 23px;
+  height: 23px;
+}
+/* 카카오톡 초대 CTA */
+.mn-iv-cta {
+  width: 320px;
+  height: 56px;
+  margin-top: 20px;
+  border: 1px solid var(--orange);
+  border-radius: 16px;
+  background: var(--yellow);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #5d3300;
+  cursor: pointer;
+}
+/* 별도 보상 링크 */
+.mn-iv-reward {
+  margin-top: 8px;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--orange);
+  background: none;
+  color: var(--orange);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+/* ── 친구 초대 보상 안내 팝업 ─────────────── */
+.mn-reward-guide {
+  position: absolute;
+  inset: 0;
+  z-index: 60; /* 초대 시트(50) 위 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mn-reward-guide[hidden] {
+  display: none;
+}
+.mn-rg-overlay {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.mn-rg-card {
+  position: relative;
+  z-index: 1;
+  width: 330px;
+  padding: 11px 20px 29px;
+  background: var(--cta-bg);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mn-rg-close {
+  align-self: flex-end;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--brown-800);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mn-rg-title {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: #000;
+}
+.mn-rg-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.mn-rg-table th,
+.mn-rg-table td {
+  width: 120px;
+  padding: 10px 12px;
+  border: 1px solid var(--bg);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--brown-800);
+  text-align: left;
+}
+.mn-rg-table th {
+  background: #f9c356;
+  font-weight: 700;
+}
+.mn-rg-table td {
+  font-weight: 500;
+}
+
+/* ── 초대코드 복사 완료 토스트 ────────────── */
+.mn-toast {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+.mn-toast[hidden] {
+  display: none;
+}
+.mn-toast-card {
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 24px 30px;
+  background: var(--bg);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+.mn-toast-card img {
+  width: 48px;
+  height: 48px;
+}
+.mn-toast-card p {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  color: rgba(0, 12, 30, 0.8);
+}

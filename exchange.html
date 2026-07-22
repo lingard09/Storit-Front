@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 교환 신청</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/exchange.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame ex-page">
+      <!-- 헤더 -->
+      <header class="ex-header">
+        <button
+          type="button"
+          class="ex-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="ex-title">교환 신청</h1>
+      </header>
+
+      <div class="ex-scroll">
+        <!-- 상품 카드 -->
+        <div class="ex-product">
+          <img class="ex-product-thumb" src="assets/naverpay.png" alt="" />
+          <div class="ex-product-info">
+            <p class="ex-product-name">네이버페이 포인트 5000P</p>
+            <div class="ex-product-cost">
+              <span class="ex-cookie">
+                <img src="assets/shop_cookie.svg" alt="" /><b>50</b>
+              </span>
+              <span class="ex-cookie-label">쿠키</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 보유/잔여 쿠키 -->
+        <div class="ex-balance">
+          <div class="ex-balance-col">
+            <span class="ex-balance-label">내 보유 쿠키</span>
+            <span class="ex-balance-val">
+              <img src="assets/shop_cookie.svg" alt="" /><b>80</b><small>개</small>
+            </span>
+          </div>
+          <span class="ex-balance-div"></span>
+          <div class="ex-balance-col">
+            <span class="ex-balance-label">교환 후 잔여 쿠키</span>
+            <span class="ex-balance-val">
+              <img src="assets/shop_cookie.svg" alt="" /><b>30</b><small>개</small>
+            </span>
+          </div>
+        </div>
+
+        <!-- 교환 안내 -->
+        <section class="ex-guide-sec">
+          <h2 class="ex-sec-title">교환 안내</h2>
+          <div class="ex-guide">
+            <div class="ex-guide-row">
+              <span class="ex-guide-ico">
+                <img src="assets/icon_ex_clock.svg" alt="" />
+              </span>
+              <div class="ex-guide-text">
+                <p class="ex-guide-title">교환 신청 후 평균 1~3분 이내 지급됩니다.</p>
+                <p class="ex-guide-sub">평균 소요 기간이며, 상황에 따라 변동될 수 있어요.</p>
+              </div>
+            </div>
+            <div class="ex-guide-row">
+              <span class="ex-guide-ico">
+                <img src="assets/icon_ex_noti.svg" alt="" />
+              </span>
+              <div class="ex-guide-text">
+                <p class="ex-guide-title">지급 완료시 앱 알림을 보내드려요.</p>
+                <p class="ex-guide-sub">보상함에서 상품을 확인할 수 있어요.</p>
+              </div>
+            </div>
+            <div class="ex-guide-row">
+              <span class="ex-guide-ico">
+                <img src="assets/icon_ex_present.svg" alt="" />
+              </span>
+              <div class="ex-guide-text">
+                <p class="ex-guide-title">마이페이지 &gt; 보관함</p>
+                <p class="ex-guide-sub">교환 상황은 보관함에서 확인 가능해요.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 꼭 확인해주세요 -->
+        <div class="ex-notice">
+          <img class="ex-notice-mascot" src="assets/ex_mascot.svg" alt="" aria-hidden="true" />
+          <div class="ex-notice-head">
+            <img src="assets/icon_warn.svg" alt="" />
+            <b>꼭 확인해주세요!</b>
+          </div>
+          <ul class="ex-notice-list">
+            <li>
+              <img src="assets/icon_check.svg" alt="" />교환 신청 후 취소 및 환불이 불가능해요.
+            </li>
+            <li>
+              <img src="assets/icon_check.svg" alt="" />부정 사용시 서비스 이용이 제한될 수 있습니다.
+            </li>
+            <li>
+              <img src="assets/icon_check.svg" alt="" />유효기간이 만료되면 사용이 불가능합니다.
+            </li>
+          </ul>
+          <button type="button" class="ex-agree" aria-pressed="false">
+            <img class="ex-agree-box" src="assets/icon_check_lg.svg" alt="" />
+            <span>위 내용을 모두 확인했어요</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 하단 CTA -->
+      <div class="ex-submit-wrap">
+        <button type="button" class="ex-submit" disabled>신청 확정하기</button>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="ex-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+    </div>
+
+    <script src="assets/exchange.js"></script>
+  </body>
+</html>

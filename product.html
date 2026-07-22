@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 상품 정보</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/product.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame pd-page">
+      <!-- 헤더 -->
+      <header class="pd-header">
+        <button
+          type="button"
+          class="pd-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="pd-title">상품 정보</h1>
+      </header>
+
+      <div class="pd-scroll">
+        <!-- 대표 상품 -->
+        <div class="pd-hero">
+          <img class="pd-hero-img" src="assets/naverpay.png" alt="" />
+          <h2 class="pd-hero-name">네이버페이 포인트 5,000P</h2>
+          <span class="pd-price">
+            <img src="assets/shop_cookie.svg" alt="" /><span class="pd-price-num">50</span>
+          </span>
+        </div>
+
+        <!-- 정보 카드 -->
+        <div class="pd-info">
+          <div class="pd-info-cols">
+            <div class="pd-info-col">
+              <img class="pd-info-ico" src="assets/icon_pd_store.svg" alt="" />
+              <b class="pd-info-label">사용처</b>
+              <small class="pd-info-sub">네이버페이 가맹점</small>
+            </div>
+            <div class="pd-info-col">
+              <img class="pd-info-ico" src="assets/icon_pd_time.svg" alt="" />
+              <b class="pd-info-label">지급시간</b>
+              <small class="pd-info-sub">평균 지급 (1~3분)</small>
+            </div>
+            <div class="pd-info-col">
+              <img class="pd-info-ico" src="assets/icon_pd_calendar.svg" alt="" />
+              <b class="pd-info-label">유효기간</b>
+              <small class="pd-info-sub">평균 30일</small>
+            </div>
+          </div>
+
+          <hr class="pd-info-div" />
+
+          <div class="pd-desc">
+            <h3 class="pd-desc-title">상품설명</h3>
+            <ul class="pd-desc-list">
+              <li>
+                <img src="assets/icon_check.svg" alt="" />네이버페이 포인트 5,000원권입니다.
+              </li>
+              <li>
+                <img src="assets/icon_check.svg" alt="" />네이버페이 가맹점에서 사용할 수 있습니다.
+              </li>
+              <li>
+                <img src="assets/icon_check.svg" alt="" />교환 완료 시 알림으로 안내드려요.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 추천 상품 -->
+        <section class="pd-reco-sec">
+          <div class="pd-reco-head">
+            <img src="assets/icon_pd_reco.svg" alt="" />추천 상품
+          </div>
+          <div class="pd-reco"></div>
+        </section>
+      </div>
+
+      <!-- 하단 CTA -->
+      <div class="pd-submit-wrap">
+        <button type="button" class="pd-submit" onclick="location.href='exchange.html'">교환 신청하기</button>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="pd-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+    </div>
+
+    <script src="assets/product.js"></script>
+  </body>
+</html>

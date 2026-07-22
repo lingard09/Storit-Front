@@ -184,13 +184,26 @@
     });
   }
 
+  // 헤더 알림(종) → 알림 페이지로 이동
+  const bell = document.querySelector(".mn-bell");
+  if (bell) {
+    bell.addEventListener("click", () => {
+      window.location.href = "notifications.html";
+    });
+  }
+
   // 하단 네비게이션
   const navItems = [...document.querySelectorAll(".mn-nav-item")];
   navItems.forEach((btn) => {
     btn.addEventListener("click", () => {
+      // 상점 → 상점 페이지로 이동
+      if (btn.classList.contains("mn-nav-item--shop")) {
+        window.location.href = "shop.html";
+        return;
+      }
       navItems.forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
-      // TODO: 각 탭 페이지로 이동
+      // TODO: 랭킹 / 마이페이지 페이지로 이동
     });
   });
 
@@ -203,4 +216,77 @@
       // TODO: 선택 요일로 목록 필터링
     });
   });
+
+  // 퀵 메뉴 타일
+  const tiles = [...document.querySelectorAll(".mn-tile")];
+  const invite = document.querySelector(".mn-invite");
+
+  function openInvite() {
+    if (invite) invite.hidden = false;
+  }
+  function closeInvite() {
+    if (invite) invite.hidden = true;
+  }
+
+  tiles.forEach((tile) => {
+    const label = tile.textContent.trim();
+    tile.addEventListener("click", () => {
+      if (label.includes("친구 초대")) openInvite();
+      else if (label.includes("출석체크")) window.location.href = "checkin.html";
+      // TODO: 오늘의 미션 / 내 퀴즈 연결
+    });
+  });
+
+  // 친구 초대 모달 닫기 (딤/X)
+  if (invite) {
+    invite.querySelectorAll("[data-close-invite]").forEach((el) => {
+      el.addEventListener("click", closeInvite);
+    });
+
+    // 초대 코드 복사 → 완료 토스트
+    const codeBtn = invite.querySelector(".mn-iv-code");
+    const codeText = invite.querySelector(".mn-iv-code-text");
+    const toast = document.querySelector(".mn-toast");
+    let toastTimer;
+    function showToast() {
+      if (!toast) return;
+      toast.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.hidden = true;
+      }, 1800);
+    }
+    // 복사되는 초대 메시지 (설치 링크는 배포 시 실제 URL 로 교체)
+    const INSTALL_LINK = "";
+    function inviteMessage(code) {
+      return (
+        "친구가 웹툰 퀴즈 리워드 커뮤니티 스토릿으로 초대했어요 🎁\n\n" +
+        "웹툰 퀴즈를 풀고 쿠키 리워드를 받아보세요! 가입할 때 아래 초대코드를 입력하면 초대 보상도 받을 수 있어요.\n\n" +
+        "초대코드: " + code + "\n\n" +
+        "스토릿 시작하기 설치 링크: " + INSTALL_LINK
+      );
+    }
+    if (codeBtn && codeText) {
+      codeBtn.addEventListener("click", () => {
+        const code = codeText.textContent.trim();
+        const msg = inviteMessage(code);
+        if (navigator.clipboard) navigator.clipboard.writeText(msg).catch(() => {});
+        showToast();
+      });
+    }
+
+    // 친구 초대 별도 보상 보기 → 보상 안내 팝업
+    const rewardLink = invite.querySelector(".mn-iv-reward");
+    const rewardGuide = document.querySelector(".mn-reward-guide");
+    if (rewardLink && rewardGuide) {
+      rewardLink.addEventListener("click", () => {
+        rewardGuide.hidden = false;
+      });
+      rewardGuide.querySelectorAll("[data-close-rg]").forEach((el) => {
+        el.addEventListener("click", () => {
+          rewardGuide.hidden = true;
+        });
+      });
+    }
+  }
 })();

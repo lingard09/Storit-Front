@@ -64,13 +64,13 @@
           <!-- 퀵 메뉴 -->
           <nav class="mn-tiles">
             <button type="button" class="mn-tile">
-              <img src="assets/tile_mission.svg" alt="" />오늘의 미션
+              <img src="assets/tile_invite.svg" alt="" />오늘의 미션
             </button>
             <button type="button" class="mn-tile">
               <img src="assets/tile_attendance.svg" alt="" />출석체크
             </button>
             <button type="button" class="mn-tile">
-              <img src="assets/tile_invite.svg" alt="" />친구 초대
+              <img src="assets/tile_mission.svg" alt="" />친구 초대
             </button>
             <button type="button" class="mn-tile">
               <img src="assets/tile_myquiz.svg" alt="" />내 퀴즈
@@ -196,6 +196,65 @@
             <button type="button" class="mn-hm-btn mn-hm-btn--wait" data-close-heart>기다리기</button>
             <button type="button" class="mn-hm-btn mn-hm-btn--go">보러가기</button>
           </div>
+        </div>
+      </div>
+
+      <!-- 친구 초대 모달 (바텀시트) -->
+      <div class="mn-invite" hidden>
+        <button type="button" class="mn-iv-overlay" data-close-invite aria-label="닫기"></button>
+        <div class="mn-iv-sheet" role="dialog" aria-modal="true" aria-labelledby="mn-iv-title">
+          <img class="mn-iv-gift" src="assets/invite_gift.svg" alt="" />
+          <button type="button" class="mn-iv-close" data-close-invite aria-label="닫기">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <div class="mn-iv-head">
+            <h2 id="mn-iv-title" class="mn-iv-title">친구에게 링크를 보내주세요</h2>
+            <p class="mn-iv-desc">
+              초대한 친구가 신규 가입자일 경우에만 혜택을 받을 수 있어요!
+            </p>
+          </div>
+
+          <button type="button" class="mn-iv-code" aria-label="초대 코드 복사">
+            <span class="mn-iv-code-text">B4630509</span>
+            <img class="mn-iv-copy" src="assets/icon_paste.svg" alt="" />
+          </button>
+
+          <button type="button" class="mn-iv-cta">카카오톡으로 초대하기</button>
+          <button type="button" class="mn-iv-reward">친구 초대 별도 보상 보기</button>
+        </div>
+      </div>
+
+      <!-- 친구 초대 보상 안내 팝업 -->
+      <div class="mn-reward-guide" hidden>
+        <button type="button" class="mn-rg-overlay" data-close-rg aria-label="닫기"></button>
+        <div class="mn-rg-card" role="dialog" aria-modal="true" aria-labelledby="mn-rg-title">
+          <button type="button" class="mn-rg-close" data-close-rg aria-label="닫기">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+          <h2 id="mn-rg-title" class="mn-rg-title">친구 초대 보상 안내</h2>
+          <table class="mn-rg-table">
+            <thead>
+              <tr><th>조건</th><th>보상</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>친구 가입 완료</td><td>쿠키 2개</td></tr>
+              <tr><td>친구 퀴즈 3회 참여</td><td>쿠키 1개</td></tr>
+              <tr><td>친구가 3일 출석</td><td>쿠키 2개</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 초대코드 복사 완료 토스트 (하단) -->
+      <div class="mn-toast" hidden>
+        <div class="mn-toast-card">
+          <img src="assets/icon_paste_lg.svg" alt="" />
+          <p>초대코드가 복사 되었어요!</p>
         </div>
       </div>
     </div>

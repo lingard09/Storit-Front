@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 알림</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/notifications.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame nt-page">
+      <!-- 헤더 -->
+      <header class="nt-header">
+        <button
+          type="button"
+          class="nt-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="nt-title">알림</h1>
+      </header>
+
+      <!-- 탭 -->
+      <div class="nt-tabs" role="tablist">
+        <button type="button" class="nt-tab is-active" data-tab="new">새 소식</button>
+        <button type="button" class="nt-tab" data-tab="done">확인 완료</button>
+        <button type="button" class="nt-tab" data-tab="notice">공지사항</button>
+      </div>
+
+      <!-- 알림 목록 (JS 가 데이터로 렌더) -->
+      <div class="nt-scroll">
+        <div class="nt-list"></div>
+        <div class="nt-empty" hidden>
+          <p class="nt-empty-bubble">
+            새로운 소식이 아직 없어요!<br />새 알림이 도착하면 바로<br />이 곳에
+            알려드릴게요!
+          </p>
+          <img class="nt-empty-char" src="assets/noti_empty.svg" alt="" />
+        </div>
+      </div>
+
+      <!-- 하단 스캘럽 장식 (userinfo 와 동일) -->
+      <div class="nt-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <script src="assets/notifications.js"></script>
+  </body>
+</html>
