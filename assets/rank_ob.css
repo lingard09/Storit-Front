@@ -1,0 +1,177 @@
+/* 스토릿 - 랭킹 온보딩 (첫 방문 스플래시) */
+
+/* 헤드라인 위치 (Figma: top 194) */
+.rank-ob .rank-ob-title {
+  top: 194px;
+}
+
+/* 페이지 1: 배경 가로 중앙 배치 (세로는 top 0 유지) */
+.rank-ob1-bg {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 379px;
+  height: 858px;
+}
+
+/* ── 페이지 2: 어제의 일간순위 ─────────── */
+.r2-note {
+  position: absolute;
+  top: 104px;
+  left: 0;
+  width: 100%;
+  padding: 0 24px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.r2-title {
+  position: absolute;
+  top: 134px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+  color: #5d3300;
+}
+
+.r2-cards {
+  position: absolute;
+  top: 236px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* 페이지 2: 배경 오른쪽 3px 이동 (Figma left -4 → -1) */
+.rank-ob2 .ob-bg--p2 {
+  left: -1px;
+}
+
+.r2-col {
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 순위 카드 */
+.r2-card {
+  position: relative;
+  align-self: stretch;
+  border-radius: 10px;
+  padding: 18px 15px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 메달: 카드 중앙 상단에 겹침 */
+.r2-medal {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+  width: auto;
+  z-index: 2;
+}
+
+.r2-card--gold {
+  background: var(--yellow);
+}
+
+.r2-card--green {
+  background: #d7ffc2;
+}
+
+.r2-rank {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #5d3300;
+}
+
+.r2-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg);
+  outline: 1.35px solid #fff;
+  outline-offset: -0.67px;
+}
+
+.r2-name {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #000;
+}
+
+.r2-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 4.49px;
+  height: 20px;
+  padding: 0 7.19px;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.r2-score img {
+  width: 10px;
+  height: 10px;
+}
+
+.r2-daily {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #5d3300;
+}
+
+.r2-reward {
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.r2-reward img {
+  width: 28px;
+  height: 28px;
+}
+
+.r2-reward b {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+/* 화면 가로 중앙 랭킹 일러스트 (보상 아래) */
+.r2-hero {
+  position: absolute;
+  left: 50%;
+  top: 438px;
+  transform: translateX(-50%);
+  width: 122px;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}

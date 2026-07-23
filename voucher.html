@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 상품권 상세</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/voucher.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame vc-page">
+      <!-- 헤더 -->
+      <header class="vc-header">
+        <button
+          type="button"
+          class="vc-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="vc-title">상품권 상세</h1>
+      </header>
+
+      <div class="vc-scroll">
+        <!-- 대표 상품 -->
+        <div class="vc-hero">
+          <img class="vc-hero-img" src="assets/voucher_hero.png" alt="" />
+          <h2 class="vc-hero-name">네이버페이 포인트 5,000P</h2>
+        </div>
+
+        <!-- 바코드 카드 -->
+        <div class="vc-barcode">
+          <img class="vc-barcode-img" src="assets/barcode.svg" alt="바코드" />
+          <p class="vc-barcode-num">1234 5678 9101 1112</p>
+          <button type="button" class="vc-barcode-copy">
+            <span class="vc-copy-ico" aria-hidden="true"></span>바코드 번호 복사
+          </button>
+        </div>
+
+        <!-- 정보 표 -->
+        <div class="vc-info">
+          <div class="vc-row">
+            <span class="vc-row-label">신청기간</span>
+            <span class="vc-row-val">2026.05.20 14:30</span>
+          </div>
+          <div class="vc-row">
+            <span class="vc-row-label">지급일</span>
+            <span class="vc-row-val">2026.05.21 14:30</span>
+          </div>
+          <div class="vc-row">
+            <span class="vc-row-label">유효기간</span>
+            <span class="vc-row-val vc-row-val--expiry">
+              <span class="vc-dday">D-28</span>2026.06.19
+            </span>
+          </div>
+          <div class="vc-row">
+            <span class="vc-row-label">사용쿠키</span>
+            <span class="vc-row-val">50개</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 CTA -->
+      <div class="vc-submit-wrap">
+        <button type="button" class="vc-submit" onclick="history.back()">완료</button>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="vc-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+
+      <!-- 복사 완료 토스트 -->
+      <div class="vc-toast" hidden>
+        <div class="vc-toast-overlay" data-toast-close></div>
+        <div class="vc-toast-card" role="status">
+          <img src="assets/icon_paste_lg.svg" alt="" />
+          <p>복사 되었습니다!</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/voucher.js"></script>
+  </body>
+</html>

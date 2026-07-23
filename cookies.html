@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 쿠키 내역 관리</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/cookies.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame ck-page">
+      <!-- 헤더 -->
+      <header class="ck-header">
+        <button
+          type="button"
+          class="ck-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="ck-title">쿠키 내역 관리</h1>
+      </header>
+
+      <div class="ck-scroll">
+        <!-- 보유 쿠키 요약 + 누적 (우측 마스코트) -->
+        <div class="ck-top">
+          <img class="ck-top-glitter ck-top-glitter--1" src="assets/glitter.svg" alt="" aria-hidden="true" />
+          <img class="ck-top-glitter ck-top-glitter--2" src="assets/glitter2.svg" alt="" aria-hidden="true" />
+          <img class="ck-top-mascot" src="assets/cookie_shop.svg" alt="" aria-hidden="true" />
+
+          <div class="ck-summary">
+            <div class="ck-summary-col">
+              <span class="ck-summary-label">보유 쿠키</span>
+              <span class="ck-summary-val"><b>0</b>개</span>
+            </div>
+            <div class="ck-summary-col">
+              <span class="ck-summary-label">교환 가능 금액</span>
+              <span class="ck-summary-val ck-summary-val--won"><b>0</b>원</span>
+            </div>
+          </div>
+
+          <div class="ck-substats">
+            <div class="ck-substat">
+              <span class="ck-substat-label">누적 획득</span>
+              <span class="ck-substat-val">0</span>
+            </div>
+            <div class="ck-substat">
+              <span class="ck-substat-label">누적 사용</span>
+              <span class="ck-substat-val">0</span>
+            </div>
+            <div class="ck-substat" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- 탭 -->
+        <div class="ck-tabs">
+          <button type="button" class="ck-tab is-active">전체</button>
+          <button type="button" class="ck-tab">적립</button>
+          <button type="button" class="ck-tab">사용</button>
+        </div>
+
+        <!-- 내역 리스트 (내역 있을 때, cookies.js 가 채움) -->
+        <div class="ck-history" hidden></div>
+
+        <!-- 내역 (빈 상태) -->
+        <div class="ck-empty">
+          <img class="ck-empty-mascot" src="assets/cookie_empty.svg" alt="" />
+          <p class="ck-empty-title">아직 쿠키 내역이 없어요</p>
+          <p class="ck-empty-sub">웹툰 퀴즈를 풀고<br />첫 번째 쿠키를 모아보세요</p>
+          <button
+            type="button"
+            class="ck-empty-cta"
+            onclick="location.href='quiz.html'"
+          >
+            오늘의 퀴즈 시작<span class="ck-empty-cta-arrow"></span>
+          </button>
+
+          <!-- 적립 안내 -->
+          <div class="ck-guide">
+            <div class="ck-guide-head">
+              <img src="assets/fluent-emoji-flat_light-bulb.svg" alt="" />
+              쿠키는 다양한 활동을 통해 자동으로 적립돼요!
+            </div>
+            <div class="ck-guide-acts">
+              <div class="ck-act">
+                <img class="ck-act-ico-img" src="assets/tile_invite.svg" alt="" />
+                <span class="ck-act-label">미션 참여</span>
+              </div>
+              <span class="ck-act-div"></span>
+              <div class="ck-act">
+                <img class="ck-act-ico-img" src="assets/tile_attendance.svg" alt="" />
+                <span class="ck-act-label">출석체크</span>
+              </div>
+              <span class="ck-act-div"></span>
+              <div class="ck-act">
+                <img class="ck-act-ico-img" src="assets/tile_mission.svg" alt="" />
+                <span class="ck-act-label">친구 초대</span>
+              </div>
+              <span class="ck-act-div"></span>
+              <div class="ck-act">
+                <img class="ck-act-ico-img" src="assets/noto-v1_trophy.svg" alt="" />
+                <span class="ck-act-label">랭킹 보상</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="ck-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+    </div>
+
+    <script src="assets/cookies.js"></script>
+  </body>
+</html>

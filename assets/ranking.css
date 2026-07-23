@@ -1,0 +1,618 @@
+/* 스토릿 - 일간 랭킹 */
+
+.rk-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+.rk-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+.rk-header,
+.rk-tabs,
+.rk-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.rk-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.rk-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.rk-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+.rk-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 탭 ───────────────────────────────── */
+.rk-tabs {
+  flex-shrink: 0;
+  display: flex;
+  padding: 0 20px;
+}
+
+.rk-tab {
+  flex: 1;
+  height: 35px;
+  border: 0;
+  border-radius: 10px 10px 0 0;
+  background: #fff;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(61, 32, 0, 0.5);
+}
+
+.rk-tab.is-active {
+  background: var(--yellow);
+  color: #3d2000;
+}
+
+/* ── 스크롤 영역 ──────────────────────── */
+.rk-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px 90px;
+}
+
+/* ── 내 순위 요약 ─────────────────────── */
+.rk-me {
+  background: var(--yellow);
+  border-radius: 0 0 10px 10px;
+  padding: 11px 8px 12px;
+}
+
+.rk-me-top {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.rk-me-user {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.rk-me-medal {
+  width: 35px;
+  height: 35px;
+}
+
+.rk-me-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rk-me-name {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #3d2000;
+}
+
+.rk-me-stat {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.rk-me-stat b {
+  font-size: 14px;
+  color: #1c1000;
+}
+
+.rk-me-cta {
+  flex-shrink: 0;
+  margin-left: auto;
+  height: 35px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: #3d2000;
+}
+
+.rk-me-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.rk-me-reward img {
+  width: 35px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+/* ── 안내 + 보상 티어 ─────────────────── */
+.rk-info {
+  position: relative;
+  margin-top: 10px;
+  height: 165px;
+  background: var(--cta-bg);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.rk-live {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5px;
+  padding: 3px 6px;
+  background: #fe6529;
+  border-radius: 33px;
+  font-size: 6.7px;
+  font-weight: 700;
+  line-height: 9.4px;
+  color: var(--cta-bg);
+}
+
+.rk-live img {
+  width: 10.7px;
+  height: 10.7px;
+}
+
+.rk-info-desc {
+  position: absolute;
+  left: 62px;
+  top: 12px;
+  z-index: 3;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: -0.9px;
+  color: #3d2000;
+  white-space: nowrap;
+}
+
+/* 우측 일러스트 */
+.rk-bakery {
+  position: absolute;
+  left: 130px;
+  top: -20px;
+  width: 270px;
+  max-width: none; /* base.css 의 img max-width:100% 해제 */
+  height: auto;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.rk-baker {
+  position: absolute;
+  right: 28px;
+  bottom: 0;
+  width: 67px;
+  height: auto;
+  z-index: 1;
+}
+
+/* 보상 티어 카드 */
+.rk-tiers {
+  position: absolute;
+  left: 12px;
+  top: 39px;
+  width: 201px;
+  height: 90px;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.rk-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.rk-tier-medal {
+  height: 24px;
+  width: auto;
+}
+
+.rk-tier-emoji {
+  font-size: 21px;
+  line-height: 24px;
+}
+
+.rk-tier-label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #000;
+}
+
+.rk-tier-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.rk-tier-reward img {
+  width: 18px;
+  height: 18px;
+}
+
+.rk-tier-reward b {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #000;
+}
+
+/* 정산 타이머 */
+.rk-timer {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rk-timer-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.rk-timer-ico {
+  width: 15px;
+  height: 15px;
+}
+
+.rk-timer-time {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #e33232;
+}
+
+/* ── 순위 리스트 ──────────────────────── */
+.rk-list-head {
+  display: flex;
+  align-items: center;
+  margin-top: 14px;
+  padding: 9px 20px;
+  background: #ffd95e;
+  border-radius: 10px 10px 0 0;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.rk-list-head span:nth-child(1) {
+  width: 40px;
+}
+
+.rk-list-head span:nth-child(2) {
+  flex: 1;
+}
+
+.rk-list-head span:nth-child(3) {
+  text-align: right;
+}
+
+.rk-list {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.rk-row {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 0.5px #f3ede3;
+}
+
+.rk-row--top {
+  background: var(--cta-bg);
+}
+
+.rk-row--me {
+  background: var(--yellow);
+}
+
+.rk-row-rank {
+  width: 25px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+
+.rk-row-rank .rk-medal {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.rk-row-user {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 17px;
+}
+
+.rk-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #2e82ff;
+  outline: 1.35px solid #fff;
+  outline-offset: -0.67px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.rk-row-name {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rk-row-score {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(28, 16, 0, 0.8);
+}
+
+/* 생략 표시 */
+.rk-row--gap {
+  height: 30px;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(243, 237, 227, 0.7);
+}
+
+.rk-row--gap span {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+/* ── 오늘의 파이 구간 ─────────────────── */
+.rk-pie {
+  margin-top: 16px;
+  height: 80px;
+  padding: 0 22px;
+  background: #decfff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.rk-pie-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rk-pie-label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.rk-pie-range {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #1c1000;
+}
+
+.rk-pie-range b {
+  font-size: 12px;
+  line-height: 18px;
+  color: #54368c;
+}
+
+.rk-pie-note {
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #54368c;
+}
+
+.rk-pie-bar {
+  position: relative;
+  flex: 1;
+  height: 49px;
+}
+
+.rk-pie-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 26px;
+  height: 10px;
+  background: #edebe7;
+  border-radius: 100px;
+}
+
+.rk-pie-fill {
+  position: absolute;
+  left: 24%;
+  width: 48%;
+  top: 26px;
+  height: 10px;
+  background: #9a8ff2;
+  border-radius: 3px;
+}
+
+.rk-pie-min,
+.rk-pie-max {
+  position: absolute;
+  top: 39px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #54368c;
+}
+
+.rk-pie-min {
+  left: 24%;
+}
+
+.rk-pie-max {
+  left: 66%;
+}
+
+/* ── 하단 네비게이션 (메인과 동일) ────── */
+.mn-nav {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+  height: 76px;
+  z-index: 10;
+  background: var(--yellow);
+  border-radius: 24px 24px 0 0;
+}
+
+.mn-nav-items {
+  position: absolute;
+  left: 46px;
+  top: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 62px;
+}
+
+.mn-nav-item {
+  width: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--brown-700);
+  opacity: 0.4;
+  white-space: nowrap;
+}
+
+.mn-nav-item.is-active {
+  color: var(--brown-800);
+  opacity: 1;
+}
+
+.mn-nav-icon {
+  width: 25px;
+  height: 25px;
+  background: currentColor;
+  -webkit-mask: center / contain no-repeat;
+  mask: center / contain no-repeat;
+}
+
+.mn-nav-item--home .mn-nav-icon {
+  -webkit-mask-image: url("nav_home.svg");
+  mask-image: url("nav_home.svg");
+}
+.mn-nav-item--ranking .mn-nav-icon {
+  -webkit-mask-image: url("nav_ranking.svg");
+  mask-image: url("nav_ranking.svg");
+}
+.mn-nav-item--profile .mn-nav-icon {
+  -webkit-mask-image: url("nav_profile.svg");
+  mask-image: url("nav_profile.svg");
+}
+.mn-nav-item--shop .mn-nav-icon {
+  width: 23px;
+  height: 23px;
+  margin-bottom: 2px;
+  -webkit-mask-image: url("nav_gift.svg");
+  mask-image: url("nav_gift.svg");
+}
+
+.mn-nav-indicator {
+  position: absolute;
+  left: 151px;
+  top: 70px;
+  width: 72px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--brown-700);
+}

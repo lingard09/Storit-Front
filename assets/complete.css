@@ -1,0 +1,296 @@
+/* 스토릿 - 교환 완료 */
+
+.cp-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+.cp-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+.cp-header,
+.cp-scroll,
+.cp-submit-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.cp-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.cp-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.cp-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+.cp-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 스크롤 영역 ──────────────────────── */
+.cp-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 36px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 완료 일러스트 (컨페티 배경 + 마스코트) */
+.cp-illust-wrap {
+  align-self: stretch;
+  margin: 0 -36px; /* 스크롤 좌우 패딩(36px) 상쇄해 화면 너비로 */
+  height: 185px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 컨페티가 cp-head 위까지만 보이도록 클리핑 */
+}
+
+.cp-confetti {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.cp-illust {
+  position: relative;
+  z-index: 1;
+  width: 121px;
+  height: auto;
+}
+
+/* 안내 문구 */
+.cp-head {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.cp-head-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: #3d2000;
+}
+
+.cp-head-sub {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #3d2000;
+}
+
+/* ── 교환 상세 ────────────────────────── */
+.cp-detail {
+  align-self: stretch;
+  margin-top: 17px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 35px;
+  padding: 0 30px;
+  background: #fff;
+  border: 1px solid #faefdf;
+}
+
+.cp-row + .cp-row {
+  border-top: 0;
+}
+
+.cp-row-label {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: rgba(136, 136, 128, 0.8);
+}
+
+.cp-row-val {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+/* ── 현재 보유 쿠키 ───────────────────── */
+.cp-balance {
+  align-self: stretch;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 70px;
+  background: #fff;
+  border: 1px solid #faefdf;
+  border-radius: 12px;
+}
+
+.cp-balance-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.cp-balance-label {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  color: #000;
+}
+
+.cp-balance-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #3d2000;
+}
+
+.cp-balance-val img {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+.cp-balance-val b {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.cp-balance-val small {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.cp-balance-div {
+  width: 1px;
+  height: 39px;
+  background: #faefdf;
+}
+
+.cp-history {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.cp-history-arrow {
+  width: 6px;
+  height: 6px;
+  border-top: 1.4px solid #3d2000;
+  border-right: 1.4px solid #3d2000;
+  transform: rotate(45deg);
+}
+
+/* ── 하단 CTA (2단) ───────────────────── */
+.cp-submit-wrap {
+  flex-shrink: 0;
+  padding: 12px 20px 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.cp-submit {
+  width: 100%;
+  height: 56px;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #5d3300;
+  cursor: pointer;
+}
+
+.cp-submit--primary {
+  border: 1px solid var(--orange);
+  background: var(--yellow);
+}
+
+.cp-submit--ghost {
+  border: 1px solid rgba(136, 136, 128, 0.8);
+  background: #edebe7;
+}
+
+/* ── 하단 스캘럽 장식 ─────────────────── */
+.cp-scallop {
+  position: absolute;
+  left: -46.74px;
+  bottom: -39.58px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.cp-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+.cp-scallop span + span {
+  margin-left: -22.2px;
+}

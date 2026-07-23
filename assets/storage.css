@@ -1,0 +1,354 @@
+/* 스토릿 - 보관함 */
+
+.st-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+.st-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+.st-header,
+.st-tabs,
+.st-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.st-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.st-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.st-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+
+.st-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 탭 ───────────────────────────────── */
+.st-tabs {
+  flex-shrink: 0;
+  display: flex;
+  padding: 0 26px;
+  gap: 10px;
+  box-shadow: inset 0 -1px 0 #f1ede5;
+}
+
+.st-tab {
+  flex: 1;
+  height: 40px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(136, 136, 128, 0.8);
+  border-bottom: 2px solid transparent;
+}
+
+.st-tab.is-active {
+  color: #1c1000;
+  border-bottom-color: var(--orange);
+}
+
+/* ── 스크롤 영역 ──────────────────────── */
+.st-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+.st-count {
+  flex-shrink: 0;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #1c1000;
+}
+
+/* ── 보상 카드 ────────────────────────── */
+.st-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.st-list:empty {
+  display: none;
+}
+
+.st-card {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  height: 110px;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #faefdf;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.st-card-thumb {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+.st-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.st-card-dday {
+  padding: 5px 10px;
+  background: #d7f8bd;
+  border-radius: 50px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #008032;
+}
+
+.st-card-name {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #1c1c1c;
+}
+
+.st-card-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.st-card-cost img {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.st-card-expiry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.st-card-expiry img {
+  width: 13px;
+  height: 13px;
+  display: block;
+}
+
+.st-card-use {
+  position: absolute;
+  right: 15px;
+  top: 64px;
+  width: 59px;
+  height: 25px;
+  border: 1px solid #b4d9ba;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #136c2e;
+}
+
+/* 사용 완료 카드 */
+.st-card--done .st-card-thumb {
+  filter: brightness(0.5); /* 썸네일 dim */
+}
+
+.st-card--done .st-card-cost img {
+  opacity: 0.5; /* 쿠키 이미지 반투명 */
+}
+
+.st-card--done .st-card-use {
+  border: 0;
+  cursor: default;
+}
+
+/* ── 안내사항 ─────────────────────────── */
+.st-notice[hidden] {
+  display: none;
+}
+
+.st-notice {
+  margin-top: 16px;
+  padding: 14px 19px;
+  background: var(--yellow-beige, #faefdf);
+  border-radius: 10px;
+}
+
+.st-notice-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #000;
+}
+
+.st-notice-head img {
+  width: 15px;
+  height: 18px;
+}
+
+.st-notice-item {
+  margin-top: 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+.st-notice-item img {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  margin-top: 0.5px;
+}
+
+/* ── 빈 상태 / 더 없음 ────────────────── */
+.st-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+}
+
+/* 사용 완료 탭: 안내사항이 없으니 더 아래로 */
+.st-empty--done {
+  margin-top: 70px;
+}
+
+/* 보상이 하나도 없을 때: 상단부에 크게 중앙 배치 */
+.st-empty--full {
+  flex: 1;
+  justify-content: center;
+  margin-top: 0;
+  padding-bottom: 260px;
+}
+
+.st-empty-img {
+  width: 97px;
+  height: auto;
+}
+
+.st-empty-title {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+
+.st-empty-sub {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  color: #3d2000;
+}
+
+.st-empty-cta {
+  margin-top: 18px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--orange);
+  border-radius: 14px;
+  background: var(--yellow);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+
+/* ── 하단 스캘럽 장식 ─────────────────── */
+.st-scallop {
+  position: absolute;
+  left: -46.74px;
+  bottom: -39.58px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.st-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+.st-scallop span + span {
+  margin-left: -22.2px;
+}

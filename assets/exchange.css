@@ -93,7 +93,7 @@
   width: 80px;
   height: 80px;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain; /* 비율 유지하며 박스에 맞게 축소 */
   display: block;
 }
 
@@ -302,11 +302,10 @@
 
 /* 동의 체크 */
 .ex-agree {
-  margin-top: 13px;
   display: flex;
   align-items: center;
   gap: 6.7px;
-  padding: 6.7px 0;
+  padding: 0 0 0 10px;
   border: 0;
   background: none;
   cursor: pointer;
@@ -369,4 +368,91 @@
 
 .ex-scallop span + span {
   margin-left: -22.2px;
+}
+
+/* ── 공용 모달 (실패 / 쿠키 부족) ─────── */
+.ex-modal[hidden] {
+  display: none;
+}
+
+.ex-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 16, 0, 0.7);
+}
+
+.ex-modal-card {
+  position: relative;
+  width: 330px;
+  padding: 30px 27px 32px;
+  background: #fff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ex-modal-close {
+  position: absolute;
+  top: 21px;
+  right: 18px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.ex-modal-close img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.ex-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+}
+
+.ex-modal-desc {
+  margin-top: 13px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000;
+}
+
+.ex-modal-mascot {
+  width: 87px;
+  height: auto;
+  margin: 12px 0 -28px; /* 하반신이 확인 버튼과 겹치도록 */
+}
+
+.ex-modal-ok {
+  position: relative;
+  z-index: 1; /* 마스코트 다리 위로 */
+  width: 150px;
+  height: 45px;
+  border: 0;
+  border-radius: 24px;
+  background: var(--orange);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #fff;
+  cursor: pointer;
 }

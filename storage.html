@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 보관함</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/storage.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame st-page">
+      <!-- 헤더 -->
+      <header class="st-header">
+        <button
+          type="button"
+          class="st-back"
+          aria-label="뒤로 가기"
+          onclick="history.back()"
+        ></button>
+        <h1 class="st-title">보관함</h1>
+      </header>
+
+      <!-- 탭 -->
+      <div class="st-tabs">
+        <button type="button" class="st-tab is-active">사용 가능</button>
+        <button type="button" class="st-tab">사용 완료</button>
+      </div>
+
+      <div class="st-scroll">
+        <!-- 개수 -->
+        <p class="st-count">사용 가능 <b>0</b></p>
+
+        <!-- 보상 카드 목록 (storage.js 가 채움) -->
+        <div class="st-list"></div>
+
+        <!-- 안내사항 (보상 있을 때) -->
+        <div class="st-notice" hidden>
+          <div class="st-notice-head">
+            <img src="assets/icon_warn.svg" alt="" />안내사항
+          </div>
+          <div class="st-notice-item">
+            <img src="assets/icon_check.svg" alt="" />유효기간이 지난 기프티콘은 자동으로 사용 완료 처리됩니다.
+          </div>
+        </div>
+
+        <!-- 빈 상태 / 더 없음 -->
+        <div class="st-empty">
+          <img class="st-empty-img" src="assets/storage_empty.svg" alt="" />
+          <p class="st-empty-title">사용 가능한 보상이 없어요!</p>
+          <p class="st-empty-sub">
+            다양한 활동으로 쿠키를 모아<br />멋진 보상을 교환해보세요
+          </p>
+          <button
+            type="button"
+            class="st-empty-cta"
+            onclick="location.href='main.html'"
+          >
+            쿠키 모으러 가기
+          </button>
+        </div>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="st-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span
+        ><span></span>
+      </div>
+    </div>
+
+    <script src="assets/storage.js"></script>
+  </body>
+</html>

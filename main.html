@@ -32,7 +32,7 @@
           <span class="mn-hearts-pill"></span>
         </div>
 
-        <button type="button" class="mn-cookies">
+        <button type="button" class="mn-cookies" onclick="location.href='cookies.html'">
           <img src="assets/icon_cookie_sm.svg" alt="" />602
         </button>
 
@@ -140,7 +140,11 @@
             <span class="mn-nav-icon" style="--icon: url('nav_home.svg')"></span>
             홈
           </button>
-          <button type="button" class="mn-nav-item">
+          <button
+            type="button"
+            class="mn-nav-item"
+            onclick="location.href = localStorage.getItem('rankObSeen') ? 'ranking.html' : 'rank_onboarding1.html'"
+          >
             <span class="mn-nav-icon" style="--icon: url('nav_ranking.svg')"></span>
             랭킹
           </button>
