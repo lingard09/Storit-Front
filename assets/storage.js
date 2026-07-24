@@ -32,7 +32,7 @@
         <img src="assets/shop_cookie.svg" alt="" /><b>${r.cookies}</b> 쿠키 교환
       </span>
       <span class="st-card-expiry">
-        <img src="assets/uis_calender.svg" alt="" />${r.expiry}
+        <img src="assets/icon_calendar_expiry.svg" alt="" />${r.expiry}
       </span>
     </div>
     <button type="button" class="st-card-use"${done ? "" : ` onclick="location.href='voucher.html'"`}>${done ? "사용완료" : "사용하기"}</button>

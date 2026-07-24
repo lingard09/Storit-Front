@@ -91,13 +91,12 @@
 .rk-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 0 20px 90px;
+  padding: 0 20px 180px; /* 하단 네비 + 플로팅 파이 구간 공간 */
 }
 
 /* ── 내 순위 요약 ─────────────────────── */
 .rk-me {
   background: var(--yellow);
-  border-radius: 0 0 10px 10px;
   padding: 11px 8px 12px;
 }
 
@@ -177,10 +176,9 @@
 /* ── 안내 + 보상 티어 ─────────────────── */
 .rk-info {
   position: relative;
-  margin-top: 10px;
   height: 165px;
   background: var(--cta-bg);
-  border-radius: 10px;
+  border-radius: 0px 0px 10px 10px;
   overflow: hidden;
 }
 
@@ -390,8 +388,10 @@
 }
 
 .rk-row-rank .rk-medal {
-  font-size: 18px;
-  line-height: 1;
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin: 0 auto;
 }
 
 .rk-row-user {
@@ -434,29 +434,42 @@
 
 /* 생략 표시 */
 .rk-row--gap {
-  height: 30px;
+  width: 100%;
+  height: 16px;
   justify-content: center;
   gap: 4px;
-  background: rgba(243, 237, 227, 0.7);
+  border: 0;
+  background: var(--cta-bg); /* 1등 행과 동일 */
+  cursor: pointer;
 }
 
-.rk-row--gap span {
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: var(--orange);
+.rk-row--gap img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
 }
 
-/* ── 오늘의 파이 구간 ─────────────────── */
+/* ── 오늘의 파이 구간 (플로팅) ────────── */
 .rk-pie {
-  margin-top: 16px;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 86px; /* 네비(76px) 위에 떠 있음 */
+  z-index: 9;
   height: 80px;
-  padding: 0 22px;
+  padding: 0 20px;
   background: #decfff;
   border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(84, 54, 140, 0.18);
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+}
+
+.rk-pie-mascot {
+  width: 38px;
+  height: auto;
+  flex-shrink: 0;
 }
 
 .rk-pie-left {
@@ -498,6 +511,17 @@
   height: 49px;
 }
 
+/* fill 중앙 상단 내 위치 마커 (fill: 24%~72% → 중앙 48%) */
+.rk-pie-pin {
+  position: absolute;
+  left: 48%;
+  top: 4px;
+  width: 20px;
+  height: auto;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
 .rk-pie-track {
   position: absolute;
   left: 0;
@@ -518,6 +542,26 @@
   border-radius: 3px;
 }
 
+/* 양쪽 끝 세로 타원 마커 */
+.rk-pie-fill::before,
+.rk-pie-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 5px;
+  height: 10px;
+  background: #54368c;
+  border-radius: 100px;
+}
+
+.rk-pie-fill::before {
+  left: 0;
+}
+
+.rk-pie-fill::after {
+  right: 0;
+}
+
 .rk-pie-min,
 .rk-pie-max {
   position: absolute;
@@ -534,6 +578,25 @@
 
 .rk-pie-max {
   left: 66%;
+}
+
+/* 트랙 양끝 절대 스케일 (1 ~ 100+) */
+.rk-pie-start,
+.rk-pie-end {
+  position: absolute;
+  top: 39px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10px;
+  color: #fff;
+}
+
+.rk-pie-start {
+  left: 0;
+}
+
+.rk-pie-end {
+  right: 0;
 }
 
 /* ── 하단 네비게이션 (메인과 동일) ────── */
@@ -615,4 +678,123 @@
   height: 3px;
   border-radius: 2px;
   background: var(--brown-700);
+}
+
+/* ── 첫 진입 안내 바텀시트 ────────────── */
+.rk-modal[hidden] {
+  display: none;
+}
+
+/* 스태킹 컨텍스트를 만들지 않는 순수 래퍼 (자식들이 프레임 층에서 겨룸) */
+.rk-modal {
+  display: contents;
+}
+
+.rk-modal-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(28, 16, 0, 0.5);
+}
+
+.rk-modal-sheet {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 375px;
+  box-sizing: border-box;
+  padding: 16px 20px 30px;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.rk-modal-handle {
+  width: 48px;
+  height: 4px;
+  border-radius: 40px;
+  background: #e5e8eb;
+}
+
+.rk-modal-body {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.rk-modal-text {
+  width: 222px;
+}
+
+.rk-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #3d2000;
+}
+
+.rk-modal-desc {
+  margin-top: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #3d2000;
+}
+
+.rk-modal-mascot {
+  width: 96px;
+  height: 120px;
+  flex-shrink: 0;
+  transform: translateX(-10px); /* 왼쪽으로 10px */
+}
+
+.rk-modal-btn {
+  align-self: center;
+  padding: 10px 32px;
+  border: 0;
+  border-radius: 50px;
+  background: var(--yellow);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+
+/* ── 가이드 스포트라이트 (모달 노출 중) ── */
+/* 하이라이트 대상: 활성 탭 · 내 순위 · 안내 카드 (오버레이 위로) */
+.rk-guide-on .rk-tabs,
+.rk-guide-on .rk-scroll {
+  z-index: 60;
+}
+
+/* 하이라이트 제외 요소는 흐리게 (뒤 오버레이가 비침) */
+.rk-guide-on .rk-tab:not(.is-active) {
+  opacity: 0.4;
+}
+
+.rk-guide-on .rk-list-head,
+.rk-guide-on .rk-list {
+  opacity: 0.35;
+}
+
+/* 스크롤 잠금 (가이드 중) */
+.rk-guide-on .rk-scroll {
+  overflow-y: hidden;
+}
+
+/* 파이 구간 복사본 — 화면 중앙 플로팅 */
+.rk-pie-clone {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  z-index: 60;
 }

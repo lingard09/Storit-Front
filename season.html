@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 시즌 랭킹</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/ranking.css?v=2" />
+    <link rel="stylesheet" href="assets/season.css?v=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame rk-page sn-page">
+      <!-- 헤더 -->
+      <header class="rk-header">
+        <button
+          type="button"
+          class="rk-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='main.html'"
+        ></button>
+        <h1 class="rk-title">시즌 랭킹</h1>
+      </header>
+
+      <!-- 탭 -->
+      <div class="rk-tabs">
+        <button
+          type="button"
+          class="rk-tab"
+          onclick="location.href='ranking.html'"
+        >
+          일간 랭킹
+        </button>
+        <button type="button" class="rk-tab is-active">시즌 랭킹</button>
+      </div>
+
+      <div class="rk-scroll">
+        <!-- 시즌 안내 + 보상 티어 -->
+        <div class="sn-info">
+          <div class="sn-info-head">
+            <span class="sn-badge">SEASON 05</span>
+            <p class="sn-info-desc">시즌 랭킹은 상위 20%까지 쿠키 보상 지급!</p>
+            <img
+              class="sn-info-icon"
+              src="assets/icon_info.svg"
+              alt="보상표 보기"
+              role="button"
+              tabindex="0"
+            />
+          </div>
+
+          <div class="sn-tiers">
+            <div class="sn-tier">
+              <img class="sn-tier-medal" src="assets/rk_medal_1.svg" alt="1등" />
+              <span class="sn-tier-reward">
+                <img src="assets/rank_cookie.svg" alt="" /><b>50</b>
+              </span>
+            </div>
+            <div class="sn-tier">
+              <img class="sn-tier-medal" src="assets/rk_medal_2.svg" alt="2등" />
+              <span class="sn-tier-reward">
+                <img src="assets/rank_cookie.svg" alt="" /><b>30</b>
+              </span>
+            </div>
+            <div class="sn-tier">
+              <img class="sn-tier-medal" src="assets/rk_medal_3.svg" alt="3등" />
+              <span class="sn-tier-reward">
+                <img src="assets/rank_cookie.svg" alt="" /><b>20</b>
+              </span>
+            </div>
+          </div>
+
+          <img class="sn-mascot" src="assets/sn_champion.svg" alt="" aria-hidden="true" />
+
+          <div class="sn-timer">
+            <span class="sn-timer-label">
+              <img class="sn-timer-ico" src="assets/rk_clock.svg" alt="" />이번 시즌
+              남은 시간
+            </span>
+            <span class="sn-timer-time" id="sn-countdown">25일 03:41:29</span>
+          </div>
+          <p class="sn-note">
+            시즌은 3일 이상 참여하면 랭킹 보상을 받을 수 있어요!
+          </p>
+        </div>
+
+        <!-- 포디움 (TOP 3) -->
+        <div class="sn-podium">
+          <!-- 2위 -->
+          <div class="sn-pod sn-pod--2">
+            <span class="sn-pod-rank">2위</span>
+            <img class="sn-pod-avatar" src="assets/rank_avatar.svg" alt="" />
+            <span class="sn-pod-name">내가그린기린그림</span>
+            <span class="sn-pod-score">22,680</span>
+          </div>
+
+          <!-- 1위 -->
+          <div class="sn-pod-col">
+            <img class="sn-crown" src="assets/rank_medal1.svg" alt="1위" />
+            <div class="sn-pod sn-pod--1">
+              <span class="sn-pod-rank">1위</span>
+              <img class="sn-pod-avatar" src="assets/rank_avatar.svg" alt="" />
+              <span class="sn-pod-name">격일출가좌</span>
+              <span class="sn-pod-score">22,680</span>
+            </div>
+          </div>
+
+          <!-- 3위 -->
+          <div class="sn-pod sn-pod--3">
+            <span class="sn-pod-rank">3위</span>
+            <img class="sn-pod-avatar" src="assets/rank_avatar.svg" alt="" />
+            <span class="sn-pod-name">무케대마왕</span>
+            <span class="sn-pod-score">22,680</span>
+          </div>
+        </div>
+
+        <!-- 순위 리스트 (4위~) -->
+        <div class="rk-list sn-list"></div>
+      </div>
+
+      <!-- 하단 네비게이션 -->
+      <nav class="mn-nav">
+        <div class="mn-nav-items">
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--home"
+            onclick="location.href = 'main.html'"
+          >
+            <span class="mn-nav-icon"></span>홈
+          </button>
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--ranking is-active"
+          >
+            <span class="mn-nav-icon"></span>랭킹
+          </button>
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--shop"
+            onclick="location.href = 'shop.html'"
+          >
+            <span class="mn-nav-icon"></span>상점
+          </button>
+          <button type="button" class="mn-nav-item mn-nav-item--profile">
+            <span class="mn-nav-icon"></span>마이페이지
+          </button>
+        </div>
+        <span class="mn-nav-indicator"></span>
+      </nav>
+
+      <!-- 첫 진입 안내 바텀시트 -->
+      <div class="rk-modal" hidden>
+        <div class="rk-modal-overlay" data-guide-close></div>
+        <div class="rk-modal-sheet" role="dialog" aria-modal="true">
+          <span class="rk-modal-handle"></span>
+          <div class="rk-modal-body">
+            <div class="rk-modal-text">
+              <p class="rk-modal-title">시즌 랭킹은 매달<br />새롭게 진행됩니다!</p>
+              <p class="rk-modal-desc">
+                시즌 상위 20%까지 <br /> 팡팡 쏟아지는 혜택에 도전해보세요!<br />
+                한 달에 3일 이상 참여하면 도전 가능!
+              </p>
+            </div>
+            <img
+              class="rk-modal-mascot sn-guide-mascot"
+              src="assets/sn_guide_mascot.svg"
+              alt=""
+            />
+          </div>
+          <button type="button" class="rk-modal-btn" data-guide-close>
+            확인했어요!
+          </button>
+        </div>
+      </div>
+
+      <!-- 보상표 모달 -->
+      <div class="sn-modal" hidden>
+        <div class="sn-modal-overlay" data-info-close></div>
+        <div class="sn-modal-card" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            class="sn-modal-close"
+            data-info-close
+            aria-label="닫기"
+          ></button>
+          <h2 class="sn-modal-title">시즌 랭킹 상위 20% 보상표</h2>
+          <table class="sn-reward-table">
+            <thead>
+              <tr>
+                <th>구간</th>
+                <th>보상</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1등</td><td>쿠키 50개</td></tr>
+              <tr><td>2등</td><td>쿠키 30개</td></tr>
+              <tr><td>3등</td><td>쿠키 20개</td></tr>
+              <tr><td>상위 5%</td><td>쿠키 5개</td></tr>
+              <tr><td>상위 10%</td><td>쿠키 3개</td></tr>
+              <tr><td>상위 20%</td><td>쿠키 2개</td></tr>
+            </tbody>
+          </table>
+          <p class="sn-modal-foot">최대 300명 지급</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/season.js?v=1"></script>
+  </body>
+</html>

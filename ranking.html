@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>스토릿 - 일간 랭킹</title>
     <link rel="stylesheet" href="assets/base.css" />
-    <link rel="stylesheet" href="assets/ranking.css" />
+    <link rel="stylesheet" href="assets/ranking.css?v=2" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -19,7 +19,7 @@
           type="button"
           class="rk-back"
           aria-label="뒤로 가기"
-          onclick="history.back()"
+          onclick="location.href='main.html'"
         ></button>
         <h1 class="rk-title">일간 랭킹</h1>
       </header>
@@ -27,7 +27,13 @@
       <!-- 탭 -->
       <div class="rk-tabs">
         <button type="button" class="rk-tab is-active">일간 랭킹</button>
-        <button type="button" class="rk-tab">시즌 랭킹</button>
+        <button
+          type="button"
+          class="rk-tab"
+          onclick="location.href='season.html'"
+        >
+          시즌 랭킹
+        </button>
       </div>
 
       <div class="rk-scroll">
@@ -45,20 +51,38 @@
               <img src="assets/rk_trophy.svg" alt="" />
               <span>1등까지<br /><b>+256점</b></span>
             </div>
-            <button type="button" class="rk-me-cta">점수 올리러 가기</button>
+            <button
+              type="button"
+              class="rk-me-cta"
+              onclick="location.href = 'main.html'"
+            >
+              점수 올리러 가기
+            </button>
           </div>
         </div>
 
         <!-- 안내 + 보상 티어 -->
         <div class="rk-info">
-          <span class="rk-live"><img src="assets/rk_live.svg" alt="" />LIVE</span>
+          <span class="rk-live"
+            ><img src="assets/rk_live.svg" alt="" />LIVE</span
+          >
           <p class="rk-info-desc">
             일간 랭킹은 오늘 본 웹툰 퀴즈의 총점의 합으로 경쟁합니다.
           </p>
 
           <!-- 우측 일러스트 -->
-          <img class="rk-bakery" src="assets/rk_bakery.png" alt="" aria-hidden="true" />
-          <img class="rk-baker" src="assets/rk_baker.svg" alt="" aria-hidden="true" />
+          <img
+            class="rk-bakery"
+            src="assets/rk_bakery.png"
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            class="rk-baker"
+            src="assets/rk_baker.svg"
+            alt=""
+            aria-hidden="true"
+          />
 
           <!-- 보상 티어 카드 -->
           <div class="rk-tiers">
@@ -77,7 +101,11 @@
               </span>
             </div>
             <div class="rk-tier">
-              <img class="rk-tier-medal" src="assets/rk_tier_top30.svg" alt="" />
+              <img
+                class="rk-tier-medal"
+                src="assets/rk_tier_top30.svg"
+                alt=""
+              />
               <span class="rk-tier-label">TOP 30</span>
               <span class="rk-tier-reward">
                 <img src="assets/rank_cookie.svg" alt="" /><b>1</b>
@@ -88,7 +116,11 @@
           <!-- 정산 타이머 -->
           <div class="rk-timer">
             <span class="rk-timer-label">
-              <img class="rk-timer-ico" src="assets/rk_clock.svg" alt="" />자정까지 남은 시간
+              <img
+                class="rk-timer-ico"
+                src="assets/rk_clock.svg"
+                alt=""
+              />자정까지 남은 시간
             </span>
             <span class="rk-timer-time" id="rk-countdown">03:41:29</span>
           </div>
@@ -101,33 +133,48 @@
           <span>점수</span>
         </div>
         <div class="rk-list"></div>
+      </div>
 
-        <!-- 오늘의 파이 구간 -->
-        <div class="rk-pie">
-          <div class="rk-pie-left">
-            <p class="rk-pie-label">오늘의 파이 구간</p>
-            <p class="rk-pie-range"><b>10</b>위<b>~30</b>위 사이</p>
-            <p class="rk-pie-note">시간이 지날수록 좁혀져요!</p>
-          </div>
-          <div class="rk-pie-bar">
-            <div class="rk-pie-track"></div>
-            <div class="rk-pie-fill"></div>
-            <span class="rk-pie-min">10</span>
-            <span class="rk-pie-max">30</span>
-          </div>
+      <!-- 오늘의 파이 구간 (플로팅) -->
+      <div class="rk-pie">
+        <img class="rk-pie-mascot" src="assets/rk_pie_mascot.svg" alt="" />
+        <div class="rk-pie-left">
+          <p class="rk-pie-label">오늘의 파이 구간</p>
+          <p class="rk-pie-range"><b>10</b>위<b>~30</b>위 사이</p>
+          <p class="rk-pie-note">시간이 지날수록 좁혀져요!</p>
+        </div>
+        <div class="rk-pie-bar">
+          <img class="rk-pie-pin" src="assets/rk_pie_pin.svg" alt="" />
+          <div class="rk-pie-track"></div>
+          <div class="rk-pie-fill"></div>
+          <span class="rk-pie-start">1</span>
+          <span class="rk-pie-end">100+</span>
+          <span class="rk-pie-min">10</span>
+          <span class="rk-pie-max">30</span>
         </div>
       </div>
 
       <!-- 하단 네비게이션 -->
       <nav class="mn-nav">
         <div class="mn-nav-items">
-          <button type="button" class="mn-nav-item mn-nav-item--home" onclick="location.href='main.html'">
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--home"
+            onclick="location.href = 'main.html'"
+          >
             <span class="mn-nav-icon"></span>홈
           </button>
-          <button type="button" class="mn-nav-item mn-nav-item--ranking is-active">
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--ranking is-active"
+          >
             <span class="mn-nav-icon"></span>랭킹
           </button>
-          <button type="button" class="mn-nav-item mn-nav-item--shop" onclick="location.href='shop.html'">
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--shop"
+            onclick="location.href = 'shop.html'"
+          >
             <span class="mn-nav-icon"></span>상점
           </button>
           <button type="button" class="mn-nav-item mn-nav-item--profile">
@@ -136,8 +183,36 @@
         </div>
         <span class="mn-nav-indicator"></span>
       </nav>
+
+      <!-- 첫 진입 안내 바텀시트 -->
+      <div class="rk-modal" hidden>
+        <div class="rk-modal-overlay" data-modal-close></div>
+        <div class="rk-modal-sheet" role="dialog" aria-modal="true">
+          <span class="rk-modal-handle"></span>
+          <div class="rk-modal-body">
+            <div class="rk-modal-text">
+              <p class="rk-modal-title">
+                일간 랭킹과 행운 구간을<br />확인해보세요!
+              </p>
+              <p class="rk-modal-desc">
+                일간 랭킹은 자정에 마감돼요!<br />
+                행운 구간은 시간이 지날수록 좁아지고 <br />
+                자정에 최종순위와 함께 발표됩니다.
+              </p>
+            </div>
+            <img
+              class="rk-modal-mascot"
+              src="assets/rk_modal_mascot.svg"
+              alt=""
+            />
+          </div>
+          <button type="button" class="rk-modal-btn" data-modal-close>
+            확인했어요!
+          </button>
+        </div>
+      </div>
     </div>
 
-    <script src="assets/ranking.js"></script>
+    <script src="assets/ranking.js?v=2"></script>
   </body>
 </html>
