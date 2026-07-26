@@ -1,0 +1,236 @@
+/* 스토릿 - 회원 탈퇴 */
+
+.wd-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+.wd-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+.wd-header,
+.wd-scroll,
+.wd-bar {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.wd-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+}
+.wd-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.wd-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+.wd-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 본문 ─────────────────────────────── */
+.wd-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 26px 16px;
+}
+
+/* 인사 + 마스코트 */
+.wd-hero {
+  position: relative;
+  min-height: 142px;
+}
+.wd-hello {
+  padding-top: 26px;
+}
+.wd-hello-name {
+  display: block;
+  font-family: "Jalnan 2", var(--font-body);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+  color: #3d2000;
+}
+.wd-hello-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  color: #3d2000;
+}
+.wd-mascot {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  width: 97px;
+  height: 142px;
+}
+
+/* 유의사항 카드 */
+.wd-notice {
+  margin-top: -20px;
+  padding: 24px;
+  background: var(--yellow-beige, #faefdf);
+  border-radius: 10px;
+}
+.wd-notice-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #000;
+}
+.wd-notice-ico {
+  flex-shrink: 0;
+  width: 21px;
+  height: 25px;
+}
+.wd-notice-list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.wd-notice-list li {
+  position: relative;
+  padding-left: 21px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+.wd-notice-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 13px;
+  height: 13px;
+  background: url("icon_notice_bullet.svg") center / contain no-repeat;
+}
+
+/* 동의 체크 */
+.wd-agree {
+  margin-top: 9px;
+  display: flex;
+  align-items: center;
+  gap: 6.7px;
+  padding: 6.7px 0;
+  cursor: pointer;
+}
+.wd-agree-check {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.wd-agree-box {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border: 0.8px solid #3d2000;
+  border-radius: 3px;
+  background: #f3ede3;
+}
+.wd-agree-check:checked + .wd-agree-box {
+  border: 0;
+  background: url("checkbox_checked.svg") center / contain no-repeat;
+}
+.wd-agree-text {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #3d2000;
+}
+
+/* 탈퇴 사유 */
+.wd-reason-label {
+  margin-top: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+.wd-reason-box {
+  margin-top: 9px;
+  height: 127px;
+  padding: 18px 13px;
+  background: var(--yellow-beige, #faefdf);
+  border-radius: 10px;
+}
+.wd-reason {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  resize: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 15px;
+  color: #3d2000;
+}
+.wd-reason::placeholder {
+  color: rgba(136, 136, 128, 0.8);
+}
+
+/* ── 탈퇴 버튼 ─────────────────────────── */
+.wd-bar {
+  flex-shrink: 0;
+  padding: 12px 20px 84px;
+  background: var(--bg);
+}
+.wd-submit {
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid #ef9f27;
+  border-radius: 16px;
+  background: var(--yellow);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #5d3300;
+}
+.wd-submit:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

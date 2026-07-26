@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 회원 탈퇴</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/withdraw.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame wd-page">
+      <!-- 헤더 -->
+      <header class="wd-header">
+        <button
+          type="button"
+          class="wd-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='settings.html'"
+        ></button>
+        <h1 class="wd-title">회원 탈퇴</h1>
+      </header>
+
+      <div class="wd-scroll">
+        <!-- 인사 + 마스코트 -->
+        <div class="wd-hero">
+          <p class="wd-hello">
+            <b class="wd-hello-name">감자 도리님</b>
+            <span class="wd-hello-sub">정말로 탈퇴하시겠어요?</span>
+          </p>
+          <img class="wd-mascot" src="assets/withdraw_mascot.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <!-- 유의사항 카드 -->
+        <div class="wd-notice">
+          <div class="wd-notice-head">
+            <img
+              class="wd-notice-ico"
+              src="assets/icon_warning.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <b>꼭 확인해주세요!</b>
+          </div>
+          <ul class="wd-notice-list">
+            <li>
+              지금 탈퇴하시면 지금까지 모은 쿠키와 상품권이 함께 사라져요. 추후에
+              동일 계정으로 재가입하셔도 쿠키와 상품권 내역은 복구되지 않아요!
+            </li>
+            <li>
+              탈퇴 후에는 작성하신 퀴즈를 수정 혹은 삭제하실 수 없습니다! 탈퇴
+              신청 전에 꼭 확인해 주세요! 관련한 댓글, 퀴즈 기록 모두 사라집니다!
+            </li>
+          </ul>
+        </div>
+
+        <!-- 동의 체크 -->
+        <label class="wd-agree">
+          <input type="checkbox" class="wd-agree-check" />
+          <span class="wd-agree-box" aria-hidden="true"></span>
+          <span class="wd-agree-text">
+            회원 탈퇴 유의사항을 확인하였으며 동의합니다
+          </span>
+        </label>
+
+        <!-- 탈퇴 사유 -->
+        <p class="wd-reason-label">떠나시는 이유를 알려주세요!</p>
+        <div class="wd-reason-box">
+          <textarea
+            class="wd-reason"
+            maxlength="500"
+            placeholder="서비스 탈퇴 사유에 대해 알려주세요.&#10;고객님의 소중한 피드백을 담아&#10;더 좋은 서비스로 보답 드리도록 하겠습니다!"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- 탈퇴 버튼 -->
+      <div class="wd-bar">
+        <button type="button" class="wd-submit" disabled>회원 탈퇴</button>
+      </div>
+    </div>
+
+    <script src="assets/withdraw.js"></script>
+  </body>
+</html>

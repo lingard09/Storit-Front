@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 마이페이지</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/mypage.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame mp-page">
+      <!-- 헤더 -->
+      <header class="mp-header">
+        <h1 class="mp-title">마이페이지</h1>
+        <button
+          type="button"
+          class="mp-gear"
+          aria-label="환경설정"
+          onclick="location.href = 'settings.html'"
+        >
+          <img src="assets/icon_gear.svg" alt="" />
+        </button>
+      </header>
+
+      <div class="mp-scroll">
+        <!-- 프로필 -->
+        <div class="mp-profile">
+          <img class="mp-avatar" src="assets/mp_avatar.svg" alt="" />
+          <div class="mp-profile-main">
+            <div class="mp-profile-top">
+              <span class="mp-name">감자도리</span>
+              <button type="button" class="mp-edit">
+                프로필 수정<span class="mp-edit-arrow"></span>
+              </button>
+            </div>
+            <div class="mp-level">
+              <span class="mp-level-lv">LV. <b class="mp-lv-num">1</b></span>
+              <div class="mp-exp">
+                <div class="mp-exp-fill">
+                  <span class="mp-exp-pct">0%</span>
+                </div>
+              </div>
+            </div>
+            <p class="mp-next" role="button" tabindex="0">
+              다음 레벨 까지 <b class="mp-next-exp">100 EXP</b
+              ><span class="mp-next-arrow"></span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 나의 업적 -->
+        <section class="mp-card mp-achieve">
+          <h2 class="mp-card-title">나의 업적</h2>
+          <div class="mp-stats">
+            <div class="mp-stat">
+              <img class="mp-stat-ico" src="assets/mp_ach_rank.svg" alt="" />
+              <span class="mp-stat-k">최고 랭킹</span>
+              <span class="mp-stat-v">-</span>
+            </div>
+            <div class="mp-stat">
+              <img class="mp-stat-ico" src="assets/mp_ach_luck.svg" alt="" />
+              <span class="mp-stat-k">행운 횟수</span>
+              <span class="mp-stat-v">-</span>
+            </div>
+            <div class="mp-stat">
+              <img class="mp-stat-ico" src="assets/mp_ach_score.svg" alt="" />
+              <span class="mp-stat-k">최고 점수</span>
+              <span class="mp-stat-v">0회</span>
+            </div>
+            <div class="mp-stat">
+              <img class="mp-stat-ico" src="assets/mp_ach_attend.svg" alt="" />
+              <span class="mp-stat-k">누적 출석</span>
+              <span class="mp-stat-v">0일</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 쿠키 내역 관리 -->
+        <button
+          type="button"
+          class="mp-cookie"
+          onclick="location.href = 'cookies.html'"
+        >
+          <img class="mp-cookie-ico" src="assets/mp_cookie_book.svg" alt="" />
+          <div class="mp-cookie-body">
+            <span class="mp-cookie-title">쿠키 내역 관리</span>
+            <div class="mp-cookie-stats">
+              <div class="mp-cookie-stat">
+                <span class="mp-cookie-k">보유 쿠키</span>
+                <span class="mp-cookie-v">0</span>
+              </div>
+              <div class="mp-cookie-stat mp-cookie-stat--mid">
+                <span class="mp-cookie-k">누적 획득</span>
+                <span class="mp-cookie-v">0</span>
+              </div>
+              <div class="mp-cookie-stat">
+                <span class="mp-cookie-k">누적 사용</span>
+                <span class="mp-cookie-v">0</span>
+              </div>
+            </div>
+          </div>
+          <span class="mp-chevron"></span>
+        </button>
+
+        <!-- 인생 웹툰 / 좋아하는 장르 -->
+        <div class="mp-pref">
+          <div class="mp-pref-card">
+            <span class="mp-pref-k">인생 웹툰</span>
+            <span class="mp-pref-v">설정하기</span>
+            <button type="button" class="mp-pref-btn">수정하기</button>
+          </div>
+          <div class="mp-pref-card">
+            <span class="mp-pref-k">좋아하는 장르</span>
+            <span class="mp-pref-v">설정하기</span>
+            <button type="button" class="mp-pref-btn">수정하기</button>
+          </div>
+        </div>
+
+        <!-- 내 보관함 / 내 퀴즈 -->
+        <div class="mp-links">
+          <div class="mp-link-card">
+            <div class="mp-link-head">
+              <img class="mp-link-ico" src="assets/mp_storage.svg" alt="" />
+              <span class="mp-link-title">내 보관함</span>
+            </div>
+            <p class="mp-link-desc">사용 가능한<br />상품권 0개</p>
+            <button
+              type="button"
+              class="mp-link-btn"
+              onclick="location.href = 'storage.html'"
+            >
+              보관함 가기<span class="mp-link-arrow"></span>
+            </button>
+          </div>
+          <div class="mp-link-card">
+            <div class="mp-link-head">
+              <img class="mp-link-ico" src="assets/mp_quiz.svg" alt="" />
+              <span class="mp-link-title">내 퀴즈</span>
+            </div>
+            <p class="mp-link-desc">퀴즈 심사 결과<br />확인 0건</p>
+            <button
+              type="button"
+              class="mp-link-btn"
+              onclick="location.href='myquiz.html'"
+            >
+              내 퀴즈 가기<span class="mp-link-arrow"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 네비게이션 -->
+      <nav class="mn-nav">
+        <div class="mn-nav-items">
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--home"
+            onclick="location.href = 'main.html'"
+          >
+            <span class="mn-nav-icon"></span>홈
+          </button>
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--ranking"
+            onclick="location.href = 'ranking.html'"
+          >
+            <span class="mn-nav-icon"></span>랭킹
+          </button>
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--shop"
+            onclick="location.href = 'shop.html'"
+          >
+            <span class="mn-nav-icon"></span>상점
+          </button>
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--profile is-active"
+          >
+            <span class="mn-nav-icon"></span>마이페이지
+          </button>
+        </div>
+        <span class="mn-nav-indicator"></span>
+      </nav>
+
+      <!-- EXP / 시즌 레벨 안내 모달 -->
+      <div class="mp-modal" hidden>
+        <div class="mp-modal-overlay" data-exp-close></div>
+        <div class="mp-modal-card" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            class="mp-modal-close"
+            data-exp-close
+            aria-label="닫기"
+          ></button>
+          <h2 class="mp-modal-title">EXP / 시즌 레벨 안내</h2>
+          <table class="mp-reward-table">
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>보상</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>퀴즈 완료</td><td>구간별 15-70 EXP</td></tr>
+              <tr><td>출석체크</td><td>매일 15 EXP</td></tr>
+              <tr><td>연속 출석</td><td>일주일마다 추가</td></tr>
+              <tr><td>일일 미션 완료</td><td>30 EXP</td></tr>
+              <tr><td>레벨 달성 (최대 30)</td><td>5 레벨당 쿠키 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 프로필 수정 바텀시트 -->
+      <div class="mp-edit-modal" hidden>
+        <div class="mp-edit-overlay" data-edit-close></div>
+        <div class="mp-edit-sheet" role="dialog" aria-modal="true">
+          <span class="mp-edit-handle"></span>
+          <h2 class="mp-edit-heading">프로필 수정</h2>
+          <div class="mp-edit-current">
+            <img class="mp-edit-current-img" src="assets/mp_avatar.svg" alt="" />
+          </div>
+          <p class="mp-edit-error" hidden></p>
+          <input
+            class="mp-edit-name"
+            type="text"
+            value="감자도리"
+            maxlength="10"
+            aria-label="닉네임"
+          />
+          <div class="mp-edit-divider"></div>
+          <div class="mp-edit-grid"></div>
+
+          <button type="button" class="mp-edit-webtoon" disabled>
+            웹툰에서 사진 선택
+          </button>
+
+          <div class="mp-edit-actions">
+            <button type="button" class="mp-edit-cancel" data-edit-close>
+              취소
+            </button>
+            <button type="button" class="mp-edit-save">수정하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 선호 웹툰 장르 선택 바텀시트 (닉네임 수정 후) -->
+      <div class="mp-genre-modal" hidden>
+        <div class="mp-genre-overlay" data-genre-close></div>
+        <div class="mp-genre-sheet" role="dialog" aria-modal="true">
+          <span class="mp-genre-handle"></span>
+          <div class="mp-genre-icon">
+            <img src="assets/stash_heart-duotone.svg" alt="" aria-hidden="true" />
+          </div>
+          <h2 class="mp-genre-heading">선호 웹툰 장르 <span>(최대 3개)</span></h2>
+          <div class="mp-genre-grid"></div>
+          <div class="mp-edit-actions">
+            <button type="button" class="mp-edit-cancel" data-genre-close>
+              취소
+            </button>
+            <button type="button" class="mp-genre-save">수정하기</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 나의 인생 웹툰 바텀시트 (장르 선택 후) -->
+      <div class="mp-webtoon-modal" hidden>
+        <div class="mp-webtoon-overlay" data-webtoon-close></div>
+        <div class="mp-webtoon-sheet" role="dialog" aria-modal="true">
+          <span class="mp-webtoon-handle"></span>
+          <div class="mp-webtoon-icon">
+            <img src="assets/line-md_pencil-twotone.svg" alt="" aria-hidden="true" />
+          </div>
+          <h2 class="mp-webtoon-heading">나의 인생 웹툰</h2>
+          <input
+            class="mp-webtoon-name"
+            type="text"
+            value="기자매"
+            maxlength="30"
+            aria-label="인생 웹툰"
+          />
+          <div class="mp-webtoon-divider"></div>
+          <div class="mp-edit-actions">
+            <button type="button" class="mp-edit-cancel" data-webtoon-close>
+              취소
+            </button>
+            <button type="button" class="mp-webtoon-save">수정하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/mypage.js"></script>
+  </body>
+</html>

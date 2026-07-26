@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 문의 완료</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/inquiry.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame iq-page">
+      <!-- 헤더 -->
+      <header class="iq-header">
+        <button
+          type="button"
+          class="iq-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='settings.html'"
+        ></button>
+        <h1 class="iq-title">이용문의</h1>
+      </header>
+
+      <!-- 완료 안내 -->
+      <div class="iq-done">
+        <img
+          class="iq-done-ico"
+          src="assets/icon-park_check-one.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <p class="iq-done-text">
+          <b>문의 등록이 완료되었습니다!</b>
+          <span>문의 확인 후 이메일로 답변 전송드리겠습니다.</span>
+        </p>
+      </div>
+
+      <!-- 돌아가기 -->
+      <div class="iq-submit-bar">
+        <button
+          type="button"
+          class="iq-submit"
+          onclick="location.href='settings.html'"
+        >
+          환경 설정으로 돌아가기
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

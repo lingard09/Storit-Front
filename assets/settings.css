@@ -1,0 +1,335 @@
+/* 스토릿 - 환경설정 */
+
+.se-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+.se-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+.se-header,
+.se-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.se-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+.se-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.se-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: var(--ink);
+  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
+  mask: url("icon_back.svg") center / contain no-repeat;
+}
+.se-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 본문 ─────────────────────────────── */
+.se-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 24px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.se-sec-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+  margin-bottom: 20px;
+}
+
+/* 알림 행 (라벨 + 토글) */
+.se-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.se-row-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+
+/* 토글 스위치 */
+.se-toggle {
+  position: relative;
+  width: 42.86px;
+  height: 25px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12.5px;
+  background: #e5e2da;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.se-toggle.is-on {
+  background: var(--yellow-deep);
+}
+.se-toggle-knob {
+  position: absolute;
+  top: 2.68px;
+  left: 2.68px;
+  width: 19.64px;
+  height: 19.64px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s;
+}
+.se-toggle.is-on .se-toggle-knob {
+  left: 20.54px;
+}
+
+/* 링크 행 (라벨 + 화살표) */
+.se-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+.se-link-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+.se-chevron {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  background: #3d2000;
+  -webkit-mask: url("icon_arrow_next.svg") center / contain no-repeat;
+  mask: url("icon_arrow_next.svg") center / contain no-repeat;
+}
+
+/* 기기 알림 권한 (상태 텍스트 + 화살표) */
+.se-perm-status {
+  margin-left: auto;
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: rgba(136, 136, 128, 0.8); /* OFF 기본 회색 */
+}
+.se-perm.is-on .se-perm-status {
+  color: #3d2000; /* ON 진한색 */
+}
+
+/* 안내 문구 */
+.se-help {
+  margin: 4px 0 0;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: rgba(136, 136, 128, 0.8);
+}
+
+/* 섹션 내부 얇은 구분선 */
+.se-subdivider {
+  height: 2px;
+  margin: 15px 0;
+  background: #f3ede3;
+  border-radius: 1px;
+}
+
+/* 구분선 */
+.se-divider {
+  height: 2px;
+  margin: 18px 0;
+  background: #f3ede3;
+  border-radius: 1px;
+}
+
+/* 앱 버전 (하단 고정) */
+.se-version {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.se-version-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #3d2000;
+}
+.se-version-num {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(136, 136, 128, 0.8);
+}
+
+/* ── 하단 스캘럽 장식 (콘텐츠 끝에 위치, 스크롤과 함께 이동) ── */
+.se-scallop {
+  position: relative;
+  flex-shrink: 0;
+  /* 스크롤 좌우(24px)·하단(20px) 패딩을 상쇄해 프레임 가장자리까지 확장 */
+  margin: 24px -24px -20px;
+  height: 57px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.se-scallop-row {
+  position: absolute;
+  left: -46.74px;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+}
+.se-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+.se-scallop span + span {
+  margin-left: -22.2px;
+}
+
+/* ── 로그아웃 확인 모달 ─────────────────── */
+.se-logout-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+}
+.se-logout-modal[hidden] {
+  display: none;
+}
+.se-logout-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 16, 0, 0.5);
+}
+.se-logout-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 330px;
+  padding: 26px 20px 20px;
+  background: #fff;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.se-logout-x {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: rgba(136, 136, 128, 0.8);
+  cursor: pointer;
+  -webkit-mask: url("icon_close.svg") center / contain no-repeat;
+  mask: url("icon_close.svg") center / contain no-repeat;
+}
+.se-logout-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--cta-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.se-logout-icon::after {
+  content: "";
+  width: 42px;
+  height: 42px;
+  background: #ef9f27;
+  -webkit-mask: url("basil_logout-solid.svg") center / contain no-repeat;
+  mask: url("basil_logout-solid.svg") center / contain no-repeat;
+}
+.se-logout-title {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+}
+.se-logout-desc {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000;
+}
+.se-logout-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.se-logout-stay,
+.se-logout-go {
+  width: 130px;
+  height: 45px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+.se-logout-stay {
+  background: #ef9f27;
+  color: #fef4d2;
+}
+.se-logout-go {
+  background: #fef4d2;
+  color: #ef9f27;
+}

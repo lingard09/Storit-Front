@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 퀴즈 등록 완료</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/quizcomplete.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame qcc-page">
+      <!-- 헤더 -->
+      <header class="qcc-header">
+        <button
+          type="button"
+          class="qcc-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='myquiz.html'"
+        ></button>
+        <h1 class="qcc-title">퀴즈 만들기</h1>
+      </header>
+
+      <!-- 배경 장식 -->
+      <img
+        class="qcc-bg"
+        src="assets/quiz_complete_bg.png"
+        alt=""
+        aria-hidden="true"
+      />
+
+      <!-- 완료 안내 -->
+      <div class="qcc-body">
+        <div class="qcc-bubble">
+          <span>등록이 <b>완료</b><br />되었습니담</span>
+        </div>
+        <img
+          class="qcc-mascot"
+          src="assets/quiz_complete_mascot.svg"
+          alt=""
+          aria-hidden="true"
+        />
+      </div>
+
+      <!-- 홈으로 -->
+      <div class="qcc-bar">
+        <button
+          type="button"
+          class="qcc-btn"
+          onclick="location.href='main.html'"
+        >
+          홈 화면으로 돌아가기
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

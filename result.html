@@ -208,6 +208,36 @@
           </div>
         </div>
       </div>
+
+      <!-- 레벨업 모달 (경험치 획득으로 레벨업 시) -->
+      <div class="rs-exp rs-lvup" hidden>
+        <button type="button" class="rs-exp-overlay" aria-label="닫기"></button>
+        <div
+          class="rs-exp-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="rs-lvup-title"
+        >
+          <button type="button" class="rs-exp-close" aria-label="닫기">
+            <img src="assets/icon_close.svg" alt="" />
+          </button>
+          <div class="rs-exp-top rs-lvup-top">
+            <div class="rs-exp-scallop">
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span>
+            </div>
+            <img class="rs-lvup-char" src="assets/levelup_mascot.svg" alt="" />
+          </div>
+          <div class="rs-exp-text">
+            <h2 id="rs-lvup-title" class="rs-exp-title">레벨업 되었습니다!!!</h2>
+            <p class="rs-lvup-levels">
+              <span class="rs-lvup-from">LV 8</span>
+              <img class="rs-lvup-arrow" src="assets/icon_next.svg" alt="→" />
+              <span class="rs-lvup-to">LV 9</span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="assets/result.js"></script>

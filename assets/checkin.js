@@ -71,11 +71,35 @@
   // ── 출석하기 → 오늘 스탬프 + 경험치 모달 ──
   const submit = document.querySelector(".ci-submit");
   const reward = document.querySelector(".ci-reward");
-  const modal = document.querySelector(".rs-exp");
+  const modal = document.querySelector(".rs-exp:not(.rs-lvup)");
   const overlay = modal && modal.querySelector(".rs-exp-overlay");
   const closeBtn = modal && modal.querySelector(".rs-exp-close");
   const expNumEl = modal && modal.querySelector(".rs-exp-amount-num");
   const bonusEl = modal && modal.querySelector(".rs-exp-bonus");
+
+  // 레벨업 모달
+  const lvupModal = document.querySelector(".rs-lvup");
+  let leveledUp = false;
+
+  // 경험치 획득이 레벨업을 유발하는지 판정 (백엔드 연동 시 교체)
+  function evalLevelUp(gainedExp) {
+    const XP_PER_LEVEL = 100;
+    const storedXp = localStorage.getItem("storit.xp");
+    // 미설정(null)일 땐 데모 시작값 790(레벨 8). Number(null)=0 이므로 null 먼저 분기.
+    let oldXp = storedXp == null ? 790 : Number(storedXp);
+    if (!Number.isFinite(oldXp) || oldXp < 0) oldXp = 790;
+    const oldLevel = Math.floor(oldXp / XP_PER_LEVEL) + 1;
+    const newXp = oldXp + gainedExp;
+    const newLevel = Math.floor(newXp / XP_PER_LEVEL) + 1;
+    localStorage.setItem("storit.xp", String(newXp));
+    if (lvupModal) {
+      const f = lvupModal.querySelector(".rs-lvup-from");
+      const t = lvupModal.querySelector(".rs-lvup-to");
+      if (f) f.textContent = `LV ${oldLevel}`;
+      if (t) t.textContent = `LV ${newLevel}`;
+    }
+    return newLevel > oldLevel;
+  }
 
   // attendanceStreak 로 모달 문구 구성 후 오픈
   function openModal(streak) {
@@ -88,10 +112,23 @@
         bonusEl.textContent = `🎉 ${r.streak}일 연속 출석 보너스 +${r.bonusExp} EXP!`;
       }
     }
+    leveledUp = evalLevelUp(r.exp);
     modal.hidden = false;
   }
   function closeModal() {
     if (modal) modal.hidden = true;
+    // 경험치 획득으로 레벨업했으면 레벨업 모달을 이어서 표시
+    if (leveledUp && lvupModal) {
+      lvupModal.hidden = false;
+      leveledUp = false;
+    }
+  }
+  if (lvupModal) {
+    const closeLv = () => {
+      lvupModal.hidden = true;
+    };
+    lvupModal.querySelector(".rs-exp-overlay").addEventListener("click", closeLv);
+    lvupModal.querySelector(".rs-exp-close").addEventListener("click", closeLv);
   }
 
   let done = CONFIG.today <= CONFIG.attended;

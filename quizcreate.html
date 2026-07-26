@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 퀴즈 만들기</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/quizcreate.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame qc-page">
+      <!-- 헤더 -->
+      <header class="qc-header">
+        <button type="button" class="qc-back" aria-label="뒤로 가기"></button>
+        <h1 class="qc-title">퀴즈 만들기</h1>
+      </header>
+
+      <form class="qc-scroll" id="qc-form" novalidate>
+        <!-- STEP 1 : 웹툰 선택 -->
+        <div class="qc-card qc-step1">
+          <div class="qc-step-head">
+            <span class="qc-step-no">1</span>
+            <span class="qc-step-title">웹툰을 선택해주세요</span>
+          </div>
+          <div class="qc-webtoons"><!-- JS 렌더 --></div>
+          <button type="button" class="qc-scroll-btn" aria-label="더 보기"></button>
+        </div>
+
+        <!-- STEP 2 : 회차 -->
+        <div class="qc-card">
+          <div class="qc-step-head">
+            <span class="qc-step-no">2</span>
+            <span class="qc-step-title">회차를 작성해주세요</span>
+          </div>
+          <input class="qc-input qc-episode" type="text" placeholder="예: 5" />
+        </div>
+
+        <!-- STEP 3 : 문제 -->
+        <div class="qc-card">
+          <div class="qc-step-head">
+            <span class="qc-step-no">3</span>
+            <span class="qc-step-title">문제를 만들어주세요</span>
+          </div>
+
+          <div class="qc-field">
+            <label class="qc-label">퀴즈 질문</label>
+            <input
+              class="qc-input qc-question"
+              type="text"
+              placeholder="예: 무케가 왕이 되겠다고 결심하게 된 이유는?"
+            />
+          </div>
+
+          <div class="qc-field">
+            <label class="qc-label">퀴즈 정답 &amp; 오답</label>
+            <div class="qc-answers">
+              <div class="qc-answer">
+                <span class="qc-ox qc-ox--o"><img src="assets/glyphs-poly_circle.svg" alt="정답" /></span>
+                <input class="qc-input qc-answer-in qc-correct" type="text" placeholder="정답 작성하기" />
+              </div>
+              <div class="qc-answer">
+                <span class="qc-ox qc-ox--x"><img src="assets/dashicons_no.svg" alt="오답" /></span>
+                <input class="qc-input qc-answer-in qc-wrong" type="text" placeholder="오답 작성하기" />
+              </div>
+              <div class="qc-answer">
+                <span class="qc-ox qc-ox--x"><img src="assets/dashicons_no.svg" alt="오답" /></span>
+                <input class="qc-input qc-answer-in qc-wrong" type="text" placeholder="오답 작성하기" />
+              </div>
+              <div class="qc-answer">
+                <span class="qc-ox qc-ox--x"><img src="assets/dashicons_no.svg" alt="오답" /></span>
+                <input class="qc-input qc-answer-in qc-wrong" type="text" placeholder="오답 작성하기" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 안내 -->
+        <div class="qc-notice">
+          <img class="qc-notice-ico" src="assets/create_notice_mascot.svg" alt="" aria-hidden="true" />
+          <p>
+            부적절한 내용은 검수 후 등록이 거부될 수 있습니다!<br />
+            등록된 퀴즈는 24시간 내 검토 후 공개해요!<br />
+            등록하신 웹툰 퀴즈에 대한 저작권은 프레시밀크에 귀속 됩니다.
+          </p>
+        </div>
+      </form>
+
+      <!-- 등록 -->
+      <div class="qc-bar">
+        <button type="submit" form="qc-form" class="qc-submit" disabled>
+          문제 등록하기
+        </button>
+      </div>
+
+      <!-- 웹툰 추가 검색 바텀시트 -->
+      <div class="qc-search-modal" hidden>
+        <div class="qc-search-overlay" data-search-close></div>
+        <div class="qc-search-sheet" role="dialog" aria-modal="true">
+          <span class="qc-search-handle"></span>
+          <h2 class="qc-search-heading">웹툰을 검색해보세요</h2>
+          <div class="qc-search-bar">
+            <input
+              class="qc-search-input"
+              type="text"
+              placeholder="웹툰 제목을 검색하세요"
+            />
+            <img src="assets/icon-park-twotone_search.svg" alt="" aria-hidden="true" />
+          </div>
+          <div class="qc-search-results"><!-- JS 렌더 --></div>
+          <div class="qc-search-actions">
+            <button type="button" class="qc-search-cancel" data-search-close>
+              취소
+            </button>
+            <button type="button" class="qc-search-select" disabled>
+              선택하기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 작성 중단 확인 팝업 -->
+      <div class="qc-leave-modal" hidden>
+        <div class="qc-leave-overlay" data-leave-close></div>
+        <div class="qc-leave-card" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            class="qc-leave-x"
+            data-leave-close
+            aria-label="닫기"
+          ></button>
+          <span class="qc-leave-icon" aria-hidden="true">
+            <img src="assets/mingcute_question-fill.svg" alt="" />
+          </span>
+          <h2 class="qc-leave-title">
+            작성중인 내용이 있습니다.<br />정말 나가시겠습니까?
+          </h2>
+          <p class="qc-leave-desc">
+            등록하지 않고 페이지를 벗어날 경우,<br />지금까지 작성한 내용이
+            사라집니다.
+          </p>
+          <div class="qc-leave-actions">
+            <button type="button" class="qc-leave-stay" data-leave-close>
+              머무르기
+            </button>
+            <button type="button" class="qc-leave-go">이동하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/quizcreate.js"></script>
+  </body>
+</html>

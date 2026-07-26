@@ -160,17 +160,61 @@
     });
   }
 
-  // 경험치 획득 팝업 (진입 시 표시) → 닫으면 점수 설명 시트 (스포트라이트 유지)
-  const expModal = document.querySelector(".rs-exp");
+  // ── 레벨업 판정 (경험치 획득으로 레벨 상승 시) ────
+  // TODO: 백엔드 연동 시 현재 경험치/레벨을 API 응답으로 교체
+  const XP_PER_LEVEL = 100;
+  const storedXp = localStorage.getItem("storit.xp");
+  // 미설정(null)일 땐 데모 시작값 790(레벨 8). Number(null)=0 이므로 null 을 먼저 분기.
+  let oldXp = storedXp == null ? 790 : Number(storedXp);
+  if (!Number.isFinite(oldXp) || oldXp < 0) oldXp = 790;
+  const oldLevel = Math.floor(oldXp / XP_PER_LEVEL) + 1;
+  const newXp = oldXp + exp;
+  const newLevel = Math.floor(newXp / XP_PER_LEVEL) + 1;
+  const leveledUp = newLevel > oldLevel;
+  localStorage.setItem("storit.xp", String(newXp));
+
+  const lvupModal = document.querySelector(".rs-lvup");
+  if (lvupModal) {
+    const fromEl = lvupModal.querySelector(".rs-lvup-from");
+    const toEl = lvupModal.querySelector(".rs-lvup-to");
+    if (fromEl) fromEl.textContent = `LV ${oldLevel}`;
+    if (toEl) toEl.textContent = `LV ${newLevel}`;
+  }
+
+  // 점수 설명 시트로 진행 (스포트라이트 유지)
+  const proceedToSheet = () => {
+    if (sheet) {
+      sheet.hidden = false;
+      showSpotlight();
+    } else {
+      hideSpotlight();
+    }
+  };
+
+  // 레벨업 모달 → 닫으면 점수 설명 시트
+  if (lvupModal) {
+    const closeLv = () => {
+      lvupModal.hidden = true;
+      proceedToSheet();
+    };
+    lvupModal.querySelector(".rs-exp-overlay").addEventListener("click", closeLv);
+    lvupModal.querySelector(".rs-exp-close").addEventListener("click", closeLv);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lvupModal.hidden) closeLv();
+    });
+  }
+
+  // 경험치 획득 팝업 (진입 시 표시)
+  //  → 닫을 때 레벨업이면 레벨업 모달, 아니면 점수 설명 시트
+  const expModal = document.querySelector(".rs-exp:not(.rs-lvup)");
   if (expModal) {
     expModal.hidden = false; // 팝업일 땐 일반 딤, 하이라이트 없음
     const close = () => {
       expModal.hidden = true;
-      if (sheet) {
-        sheet.hidden = false;
-        showSpotlight(); // 모달 닫힌 뒤 시트에서 링+통계 하이라이트
+      if (leveledUp && lvupModal) {
+        lvupModal.hidden = false; // 레벨업 축하 먼저
       } else {
-        hideSpotlight();
+        proceedToSheet();
       }
     };
     expModal.querySelector(".rs-exp-overlay").addEventListener("click", close);

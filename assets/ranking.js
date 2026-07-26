@@ -69,11 +69,51 @@
   }
   renderList();
 
+  // ── 행운 구간 (시간이 지날수록 좁아짐) ────────────
+  // 초기 10~30위 → 자정에 가까울수록 좁혀져 최종 22위로 수렴.
+  // (예: 진행률 75% 지점에서 19~24위)
+  const pieRange = document.querySelector(".rk-pie-range");
+  const pieMin = document.querySelector(".rk-pie-min");
+  const pieMax = document.querySelector(".rk-pie-max");
+  const pieFill = document.querySelector(".rk-pie-fill");
+  const piePin = document.querySelector(".rk-pie-pin");
+  // 위치 매핑: 10위→24%, 30위→72% (초기 디자인 유지)
+  const pct = (r) => 24 + 2.4 * (r - 10);
+
+  const updatePie = (remaining, initial) => {
+    const p = Math.min(1, Math.max(0, (initial - remaining) / initial));
+    const min = Math.round(10 + 12 * p); // 10 → 22
+    const max = Math.round(30 - 8 * p); // 30 → 22
+    if (pieRange) {
+      pieRange.innerHTML =
+        min === max
+          ? `<b>${min}</b>위`
+          : `<b>${min}</b>위<b>~${max}</b>위 사이`;
+    }
+    const l = pct(min);
+    const w = pct(max) - pct(min);
+    if (pieFill) {
+      pieFill.style.left = l + "%";
+      pieFill.style.width = w + "%";
+    }
+    if (piePin) piePin.style.left = l + w / 2 + "%";
+    if (pieMin) {
+      pieMin.textContent = min;
+      pieMin.style.left = l + "%";
+    }
+    if (pieMax) {
+      pieMax.textContent = max;
+      pieMax.style.left = pct(max) + "%";
+    }
+  };
+
   // ── 정산 카운트다운 ──────────────────────────────
   const cdEl = document.getElementById("rk-countdown");
   if (cdEl) {
     // 03:41:29 → 초 단위
-    let total = 3 * 3600 + 41 * 60 + 29;
+    const INITIAL = 3 * 3600 + 41 * 60 + 29;
+    let total = INITIAL;
+    updatePie(total, INITIAL); // 초기 10~30위
     const pad = (n) => String(n).padStart(2, "0");
     const tick = () => {
       if (total <= 0) return;
@@ -82,6 +122,7 @@
       const m = Math.floor((total % 3600) / 60);
       const s = total % 60;
       cdEl.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+      updatePie(total, INITIAL);
     };
     setInterval(tick, 1000);
   }
@@ -105,12 +146,20 @@
     const openGuide = () => {
       modal.hidden = false;
       frame.classList.add("rk-guide-on");
-      // 파이 구간 복사본을 화면 중앙에 띄움
+      // 파이 구간 복사본을 rk-list-head 의 시작 y 에 맞춰 띄움
       const pie = document.querySelector(".rk-pie");
       if (pie && !pieClone) {
         pieClone = pie.cloneNode(true);
         pieClone.classList.add("rk-pie-clone");
         frame.insertBefore(pieClone, modal);
+        const listHead = document.querySelector(".rk-list-head");
+        if (listHead) {
+          const y =
+            listHead.getBoundingClientRect().top -
+            frame.getBoundingClientRect().top;
+          pieClone.style.top = y + "px";
+          pieClone.style.transform = "none";
+        }
       }
     };
 

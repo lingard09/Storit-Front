@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 이용문의</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/inquiry.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame iq-page">
+      <!-- 헤더 -->
+      <header class="iq-header">
+        <button
+          type="button"
+          class="iq-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='settings.html'"
+        ></button>
+        <h1 class="iq-title">이용문의</h1>
+      </header>
+
+      <form class="iq-scroll" id="iq-form" novalidate>
+        <!-- 문의 유형 -->
+        <div class="iq-field">
+          <p class="iq-label">문의 유형 <span class="iq-req">*</span></p>
+          <p class="iq-help">문의 유형을 선택하면 더 빠르게 확인할 수 있어요.</p>
+          <div class="iq-types"></div>
+        </div>
+
+        <!-- 답변 받으실 이메일 -->
+        <div class="iq-field">
+          <p class="iq-label">답변 받으실 이메일 <span class="iq-req">*</span></p>
+          <input
+            class="iq-email"
+            type="email"
+            inputmode="email"
+            placeholder="email@example.com"
+            autocomplete="email"
+          />
+          <div class="iq-email-line"></div>
+        </div>
+
+        <!-- 문의 내용 -->
+        <div class="iq-field">
+          <p class="iq-label">문의 내용 <span class="iq-req">*</span></p>
+          <div class="iq-textbox">
+            <textarea
+              class="iq-content"
+              maxlength="1000"
+              placeholder="문의 내용을 입력해주세요"
+            ></textarea>
+            <span class="iq-counter"><b class="iq-count">0</b>/1000</span>
+          </div>
+          <p class="iq-help">문제가 발생한 화면과 상황을 함께 적어주시면 좋아요.</p>
+
+          <!-- 스크린샷 첨부 -->
+          <div class="iq-attach-row">
+            <button type="button" class="iq-attach">스크린샷 첨부하기 (선택)</button>
+            <input
+              class="iq-file"
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+            />
+          </div>
+        </div>
+      </form>
+
+      <!-- 제출 -->
+      <div class="iq-submit-bar">
+        <span class="iq-attach-count">(<b class="iq-attach-n">0</b>/5)</span>
+        <button type="submit" form="iq-form" class="iq-submit" disabled>
+          문의하기
+        </button>
+      </div>
+    </div>
+
+    <script src="assets/inquiry.js"></script>
+  </body>
+</html>

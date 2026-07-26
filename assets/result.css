@@ -718,3 +718,45 @@
   line-height: 28px;
   color: #6c53c5;
 }
+
+/* ── 레벨업 모달 ──────────────────────── */
+.rs-lvup .rs-exp-card {
+  height: auto;
+  padding-bottom: 24px;
+}
+.rs-lvup-top {
+  height: 264px;
+  background: #cdebb2;
+}
+.rs-lvup-char {
+  position: absolute;
+  left: 50%;
+  top: 42px;
+  transform: translateX(-50%);
+  width: 210px;
+  height: auto;
+  z-index: 1;
+}
+.rs-lvup-levels {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 19px;
+}
+.rs-lvup-from,
+.rs-lvup-to {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 43px;
+}
+.rs-lvup-from {
+  color: #d3cab0;
+}
+.rs-lvup-to {
+  color: #3d2000;
+}
+.rs-lvup-arrow {
+  width: 33px;
+  height: 33px;
+}

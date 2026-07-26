@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 내 웹툰 퀴즈</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/myquiz.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame mq-page">
+      <!-- 헤더 -->
+      <header class="mq-header">
+        <button
+          type="button"
+          class="mq-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='mypage.html'"
+        ></button>
+        <h1 class="mq-title">내 웹툰 퀴즈</h1>
+      </header>
+
+      <div class="mq-scroll">
+        <!-- 배너 -->
+        <div class="mq-banner">
+          <div class="mq-banner-text">
+            <b>나만의 웹툰 퀴즈를 만들어봐요!</b>
+            <span>유저 참여 현황과 심사 결과를 확인할 수 있어요.</span>
+          </div>
+          <button type="button" class="mq-banner-btn mq-create">
+            퀴즈 만들러 가기
+            <img src="assets/arrow_next_pill.svg" alt="" aria-hidden="true" />
+          </button>
+          <img
+            class="mq-banner-mascot"
+            src="assets/myquiz_banner_mascot.svg"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+
+        <!-- 유저 참여 현황 -->
+        <section class="mq-section">
+          <h2 class="mq-sec-title">유저 참여 현황</h2>
+          <div class="mq-info">
+            <img
+              class="mq-info-ico"
+              src="assets/fluent-emoji-flat_light-bulb.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <p>퀴즈를 등록하면 유저 참여 현황과 통계가 여기에 표시됩니다!</p>
+          </div>
+
+          <div class="mq-stats">
+            <div class="mq-stat">
+              <img
+                class="mq-stat-ico"
+                src="assets/icon_quiz_registered.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <span class="mq-stat-k">등록퀴즈</span>
+              <b class="mq-stat-v mq-reg-v">0개</b>
+              <span class="mq-stat-sub mq-reg-sub">심사중 0개</span>
+            </div>
+            <div class="mq-stat">
+              <img
+                class="mq-stat-ico"
+                src="assets/streamline-kameleon-color_play-duo.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <span class="mq-stat-k">총 플레이 수</span>
+              <b class="mq-stat-v mq-plays-v">0 회</b>
+              <span class="mq-stat-sub mq-plays-sub">어제 대비 -</span>
+            </div>
+            <div class="mq-stat">
+              <img
+                class="mq-stat-ico"
+                src="assets/glyphs-poly_target-pointer.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <span class="mq-stat-k">평균 정답률</span>
+              <b class="mq-stat-v mq-correct-v">-</b>
+              <span class="mq-stat-sub mq-correct-sub">상위 0%</span>
+            </div>
+            <div class="mq-stat">
+              <img
+                class="mq-stat-ico"
+                src="assets/emojione-v1_alarm-clock.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              <span class="mq-stat-k">평균 풀이 시간</span>
+              <b class="mq-stat-v mq-time-v">-</b>
+              <span class="mq-stat-sub mq-time-sub">상위 0%</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 가장 많이 풀린 퀴즈 -->
+        <section class="mq-section">
+          <h2 class="mq-sec-title">가장 많이 풀린 퀴즈</h2>
+          <div class="mq-top"><!-- JS 렌더 --></div>
+        </section>
+
+        <!-- 내 퀴즈 목록 -->
+        <section class="mq-section">
+          <div class="mq-list-head">
+            <h2 class="mq-sec-title">내 퀴즈 목록</h2>
+            <div class="mq-filters">
+              <button type="button" class="mq-filter is-active" data-filter="all">
+                전체 <span class="mq-filter-n">0</span>
+              </button>
+              <button type="button" class="mq-filter" data-filter="approved">
+                승인 <span class="mq-filter-n">0</span>
+              </button>
+              <button type="button" class="mq-filter" data-filter="review">
+                심사중 <span class="mq-filter-n">0</span>
+              </button>
+              <button type="button" class="mq-filter" data-filter="rejected">
+                반려 <span class="mq-filter-n">0</span>
+              </button>
+            </div>
+          </div>
+          <div class="mq-list"><!-- JS 렌더 --></div>
+        </section>
+      </div>
+
+      <!-- 퀴즈 만들기 FAB -->
+      <button type="button" class="mq-fab mq-create" aria-label="퀴즈 만들기">
+        <img src="assets/typcn_plus.svg" alt="" aria-hidden="true" />
+      </button>
+    </div>
+
+    <script src="assets/myquiz.js"></script>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 환경설정</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/settings.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame se-page">
+      <!-- 헤더 -->
+      <header class="se-header">
+        <button
+          type="button"
+          class="se-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='mypage.html'"
+        ></button>
+        <h1 class="se-title">환경설정</h1>
+      </header>
+
+      <div class="se-scroll">
+        <!-- 알림설정 -->
+        <section class="se-section">
+          <h2 class="se-sec-title">알림설정</h2>
+
+          <!-- 기기 알림 권한 (상태 + 이동) -->
+          <button type="button" class="se-link se-perm is-on">
+            <span class="se-link-label">기기 알림 권한</span>
+            <span class="se-perm-status">ON</span>
+            <span class="se-chevron"></span>
+          </button>
+          <p class="se-help">
+            기기 알림이 꺼져 있으면 아래 설정이 켜져 있어도 푸시를 받을 수 없어요.
+          </p>
+
+          <div class="se-subdivider"></div>
+
+          <div class="se-row">
+            <span class="se-row-label">새 퀴즈·콘텐츠 알림</span>
+            <button
+              type="button"
+              class="se-toggle"
+              role="switch"
+              aria-checked="false"
+              aria-label="새 퀴즈·콘텐츠 알림"
+            >
+              <span class="se-toggle-knob"></span>
+            </button>
+          </div>
+          <div class="se-row">
+            <span class="se-row-label">참여 리마인드</span>
+            <button
+              type="button"
+              class="se-toggle"
+              role="switch"
+              aria-checked="false"
+              aria-label="참여 리마인드"
+            >
+              <span class="se-toggle-knob"></span>
+            </button>
+          </div>
+          <div class="se-row">
+            <span class="se-row-label">랭킹·시즌 알림</span>
+            <button
+              type="button"
+              class="se-toggle is-on"
+              role="switch"
+              aria-checked="true"
+              aria-label="랭킹·시즌 알림"
+            >
+              <span class="se-toggle-knob"></span>
+            </button>
+          </div>
+          <div class="se-row">
+            <span class="se-row-label">이벤트·혜택 알림</span>
+            <button
+              type="button"
+              class="se-toggle is-on"
+              role="switch"
+              aria-checked="true"
+              aria-label="이벤트·혜택 알림"
+            >
+              <span class="se-toggle-knob"></span>
+            </button>
+          </div>
+        </section>
+
+        <div class="se-divider"></div>
+
+        <!-- 계정 -->
+        <section class="se-section">
+          <h2 class="se-sec-title">계정설정</h2>
+          <button type="button" class="se-link">
+            <span class="se-link-label">로그아웃</span>
+            <span class="se-chevron"></span>
+          </button>
+          <button
+            type="button"
+            class="se-link"
+            onclick="location.href='withdraw.html'"
+          >
+            <span class="se-link-label">회원 탈퇴</span>
+            <span class="se-chevron"></span>
+          </button>
+        </section>
+
+        <div class="se-divider"></div>
+
+        <!-- 기타 -->
+        <section class="se-section">
+          <h2 class="se-sec-title">기타</h2>
+          <button
+            type="button"
+            class="se-link"
+            onclick="location.href='inquiry.html'"
+          >
+            <span class="se-link-label">문의하기</span>
+            <span class="se-chevron"></span>
+          </button>
+          <button
+            type="button"
+            class="se-link"
+            onclick="location.href='terms_view.html'"
+          >
+            <span class="se-link-label">이용약관</span>
+            <span class="se-chevron"></span>
+          </button>
+          <button
+            type="button"
+            class="se-link"
+            onclick="location.href='privacy.html'"
+          >
+            <span class="se-link-label">개인 정보 처리방침</span>
+            <span class="se-chevron"></span>
+          </button>
+        </section>
+
+        <!-- 앱 버전 -->
+        <div class="se-version">
+          <span class="se-version-label">앱 버전</span>
+          <span class="se-version-num">1.0.0</span>
+        </div>
+
+        <!-- 하단 스캘럽 장식 (콘텐츠 끝, 스크롤과 함께 이동) -->
+        <div class="se-scallop" aria-hidden="true">
+          <div class="se-scallop-row">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 로그아웃 확인 모달 -->
+      <div class="se-logout-modal" hidden>
+        <div class="se-logout-overlay" data-logout-close></div>
+        <div class="se-logout-card" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            class="se-logout-x"
+            data-logout-close
+            aria-label="닫기"
+          ></button>
+          <span class="se-logout-icon" aria-hidden="true"></span>
+          <h2 class="se-logout-title">정말 로그아웃하시겠어요?</h2>
+          <p class="se-logout-desc">
+            보유한 쿠키와 활동 기록은 그대로 유지되며,<br />
+            언제든 다시 로그인할 수 있어요.
+          </p>
+          <div class="se-logout-actions">
+            <button type="button" class="se-logout-stay" data-logout-close>
+              머무르기
+            </button>
+            <button type="button" class="se-logout-go">로그아웃</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/settings.js"></script>
+  </body>
+</html>
