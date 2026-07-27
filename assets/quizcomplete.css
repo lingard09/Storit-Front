@@ -1,18 +1,20 @@
 /* 스토릿 - 퀴즈 등록 완료 */
 
+/* 배경: 화면 전체를 채우는 별도 레이어 (컴포넌트와 분리, 선명하게 cover) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--bg) url("quiz_complete_bg.png") center / cover no-repeat;
+  transform: scaleX(-1); /* 원본 좌우반전 유지 */
+}
+
 .qcc-page {
   display: flex;
   flex-direction: column;
   padding-top: 16px;
-  background: var(--yellow);
-}
-.qcc-page::before {
-  content: "";
-  position: absolute;
-  inset: 16px 0 0;
-  background: var(--bg);
-  border-radius: 20px 20px 0 0;
-  z-index: 0;
+  background: transparent; /* 배경은 body::before가 담당 → 프레임은 투명 */
 }
 .qcc-header,
 .qcc-body,
@@ -45,9 +47,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 .qcc-title {
   flex: 1;
@@ -66,7 +66,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 24px;
 }
 
 /* 말풍선 (speech_bubble.svg 위에 텍스트) */
@@ -76,7 +75,8 @@
   justify-content: center;
   width: 133px;
   height: 102px;
-  padding-bottom: 8px;
+  padding-right: 8px;
+  padding-bottom: 0px;
   background: url("speech_bubble.svg") center / contain no-repeat;
   text-align: center;
   font-family: var(--font-display);
@@ -84,7 +84,7 @@
   font-weight: 400;
   line-height: 21px;
   color: #322814;
-  transform: translate(-24px, -32px);
+  transform: translate(-76px, -10px);
 }
 .qcc-bubble b {
   color: #ef9f27;
@@ -94,30 +94,24 @@
 /* 마스코트 (우하단) */
 .qcc-mascot {
   position: absolute;
-  right: 22px;
-  bottom: 98px;
+  right: 32px;
+  bottom: 125px;
   width: 202px;
   height: auto;
 }
 
-/* 배경 장식 (좌우반전) */
+/* 배경 장식: 이제 body::before 전체 레이어가 담당하므로 프레임 내부 이미지는 숨김 */
 .qcc-bg {
-  position: absolute;
-  inset: 16px 0 0;
-  width: 100%;
-  height: calc(100% - 16px);
-  object-fit: cover;
-  border-radius: 20px 20px 0 0;
-  transform: scaleX(-1);
-  z-index: 0;
-  pointer-events: none;
+  display: none;
 }
 
 /* ── 홈 버튼 ───────────────────────────── */
 .qcc-bar {
-  flex-shrink: 0;
-  padding: 12px 20px 20px;
-  background: var(--bg);
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 47px;
+  z-index: 2;
 }
 .qcc-btn {
   width: 100%;

@@ -1,26 +1,38 @@
 /* 스토릿 - 회원가입 */
 
-/* 상단 장식 원 띠 (Ellipse 4~9를 합친 375x79 밴드) */
-/* 원 6개를 이어붙인 띠 (quiz 와 동일 방식) — 위로 삐져나가 아래 모서리가 물결 */
+/* 배경 장식(스캘럽 띠)을 화면 전체 폭으로 확장 → 좌우 여백 없이 꽉 참.
+   프레임(375px, overflow:hidden)에 갇히지 않도록 body::before 전체 레이어로 처리하고,
+   --frame-scale로 프레임 콘텐츠와 동일 비율로 스케일. */
+.frame {
+  background: transparent; /* 배경은 body::before가 담당 → 프레임 투명 */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(79px * var(--frame-scale, 1));
+  z-index: 2; /* 프레임(z:1) 위 → 스캘럽이 su-mascot 위에 표시(램프 줄이 띠 뒤로) */
+  background:
+    /* 아래로 볼록한 스캘럽(원) 띠 */
+    radial-gradient(
+        circle calc(48.29px * var(--frame-scale, 1)) at 50%
+          calc(30.71px * var(--frame-scale, 1)),
+        var(--yellow) calc(48.29px * var(--frame-scale, 1)),
+        transparent calc(48.79px * var(--frame-scale, 1))
+      )
+      0 0 / calc(74.38px * var(--frame-scale, 1))
+      calc(79px * var(--frame-scale, 1)) repeat-x,
+    /* 상단 평평한 부분 */
+    linear-gradient(var(--yellow), var(--yellow)) 0 0 / 100%
+      calc(30.71px * var(--frame-scale, 1)) no-repeat;
+}
+
+/* 기존 프레임 내부 스캘럽은 body::before가 대체하므로 숨김 */
 .su-scallop {
-  position: absolute;
-  left: -46.74px;
-  top: -17.58px; /* 96.58 - 79 → 79px 만 보임 */
-  display: flex;
-  align-items: center;
-}
-
-.su-scallop span {
-  flex-shrink: 0;
-  width: 96.58px;
-  height: 96.58px;
-  border-radius: 9999px;
-  background: var(--yellow);
-}
-
-/* 원끼리 22.2px 겹침 */
-.su-scallop span + span {
-  margin-left: -22.2px;
+  display: none;
 }
 
 /* 마스코트 (Figma: 95x201 @ 140, 30) */
@@ -117,4 +129,9 @@
 .su-social--google {
   background: #fff;
   color: #1c1000;
+}
+
+.su-social--apple {
+  background: #1c1000;
+  color: #fff;
 }

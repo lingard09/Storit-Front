@@ -47,9 +47,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 
 .rk-title {
@@ -645,29 +643,25 @@
 .mn-nav-icon {
   width: 25px;
   height: 25px;
-  background: currentColor;
-  -webkit-mask: center / contain no-repeat;
-  mask: center / contain no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .mn-nav-item--home .mn-nav-icon {
-  -webkit-mask-image: url("nav_home.svg");
-  mask-image: url("nav_home.svg");
+  background-image: url("nav_home.svg");
 }
 .mn-nav-item--ranking .mn-nav-icon {
-  -webkit-mask-image: url("nav_ranking.svg");
-  mask-image: url("nav_ranking.svg");
+  background-image: url("nav_ranking.svg");
 }
 .mn-nav-item--profile .mn-nav-icon {
-  -webkit-mask-image: url("nav_profile.svg");
-  mask-image: url("nav_profile.svg");
+  background-image: url("nav_profile.svg");
 }
 .mn-nav-item--shop .mn-nav-icon {
   width: 23px;
   height: 23px;
   margin-bottom: 2px;
-  -webkit-mask-image: url("nav_gift.svg");
-  mask-image: url("nav_gift.svg");
+  background-image: url("nav_gift.svg");
 }
 
 .mn-nav-indicator {
@@ -711,6 +705,23 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+}
+/* 첫 방문 가이드 바텀시트를 좌우 여백 없이 전체 폭으로 — 흰 배경만 프레임 밖까지 확장,
+   콘텐츠는 프레임(375) 안에 그대로 두어 화면 중앙 정렬 유지.
+   (모달 열림 시 .frame.has-open-modal 이 overflow:visible 이라 확장분이 안 잘림) */
+.rk-modal-sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: -50vh;
+  /* 뷰포트 폭에 정확히 맞춰 상단 라운드가 화면 좌우 모서리에 오도록
+     (프레임이 --frame-scale 로 축소되므로 폭을 1/scale 로 보정) */
+  left: 50%;
+  width: calc(100vw / var(--frame-scale, 1));
+  transform: translateX(-50%);
+  z-index: -1;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
 }
 
 .rk-modal-handle {

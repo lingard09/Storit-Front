@@ -116,9 +116,7 @@
 .mp-edit-arrow {
   width: 5px;
   height: 8px;
-  background: #3d2000;
-  -webkit-mask: url("mp_ar_edit.svg") center / contain no-repeat;
-  mask: url("mp_ar_edit.svg") center / contain no-repeat;
+  background: url("mp_ar_edit.svg") center / contain no-repeat;
 }
 
 .mp-level {
@@ -173,9 +171,7 @@
 .mp-next-arrow {
   width: 7px;
   height: 10px;
-  background: #ef9f27;
-  -webkit-mask: url("mp_ar_next.svg") center / contain no-repeat;
-  mask: url("mp_ar_next.svg") center / contain no-repeat;
+  background: url("mp_ar_next.svg") center / contain no-repeat;
 }
 
 /* ── 카드 공통 ────────────────────────── */
@@ -287,9 +283,7 @@
   flex-shrink: 0;
   width: 10px;
   height: 18px;
-  background: var(--ink);
-  -webkit-mask: url("mp_ar_chevron.svg") center / contain no-repeat;
-  mask: url("mp_ar_chevron.svg") center / contain no-repeat;
+  background: url("mp_ar_chevron.svg") center / contain no-repeat;
 }
 
 /* ── 인생 웹툰 / 좋아하는 장르 ─────────── */
@@ -400,9 +394,7 @@
 .mp-link-arrow {
   width: 5px;
   height: 9px;
-  background: var(--ink);
-  -webkit-mask: url("mp_ar_link.svg") center / contain no-repeat;
-  mask: url("mp_ar_link.svg") center / contain no-repeat;
+  background: url("mp_ar_link.svg") center / contain no-repeat;
 }
 
 /* ── 하단 네비게이션 (메인과 동일) ────── */
@@ -447,28 +439,24 @@
 .mn-nav-icon {
   width: 25px;
   height: 25px;
-  background: currentColor;
-  -webkit-mask: center / contain no-repeat;
-  mask: center / contain no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .mn-nav-item--home .mn-nav-icon {
-  -webkit-mask-image: url("nav_home.svg");
-  mask-image: url("nav_home.svg");
+  background-image: url("nav_home.svg");
 }
 .mn-nav-item--ranking .mn-nav-icon {
-  -webkit-mask-image: url("nav_ranking.svg");
-  mask-image: url("nav_ranking.svg");
+  background-image: url("nav_ranking.svg");
 }
 .mn-nav-item--profile .mn-nav-icon {
-  -webkit-mask-image: url("nav_profile.svg");
-  mask-image: url("nav_profile.svg");
+  background-image: url("nav_profile.svg");
 }
 .mn-nav-item--shop .mn-nav-icon {
   width: 23px;
   height: 23px;
   margin-bottom: 2px;
-  -webkit-mask-image: url("nav_gift.svg");
-  mask-image: url("nav_gift.svg");
+  background-image: url("nav_gift.svg");
 }
 .mn-nav-indicator {
   position: absolute;

@@ -6,6 +6,7 @@
   padding-top: 16px;
   background: var(--yellow);
 }
+/* 전체 폭 크림 시트는 base.css의 시트 패턴 규칙(.iq-page 포함)이 담당 */
 .iq-page::before {
   content: "";
   position: absolute;
@@ -45,9 +46,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 .iq-title {
   flex: 1;

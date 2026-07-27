@@ -49,9 +49,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 
 .nt-title {
@@ -100,7 +98,7 @@
 .nt-list {
   background: var(--cta-bg);
   border-radius: 0 0 12px 12px;
-  padding: 12px;
+  padding: 12px 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -115,10 +113,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   background: #fff;
   border-radius: 12px;
-  padding: 10px;
+  padding: 10px 8px;
 }
 
 .nt-card.is-clickable {
@@ -162,36 +160,49 @@
   font-weight: 700;
   color: #222;
   margin-bottom: 5px;
+  /* 한 줄 — 대부분 그대로 다 들어가고, 아주 긴 것만 말줄임(...) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nt-card-desc {
   font-size: 10px;
   font-weight: 700;
   color: #222;
+  /* 한 줄 — 대부분 그대로 다 들어가고, 아주 긴 것만 말줄임(...) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nt-card-time {
   flex-shrink: 0;
-  padding: 6px 12px;
+  /* 모든 탭 동일 너비 60px, 가로 패딩 없이 텍스트만 중앙정렬 */
+  width: 60px;
+  padding: 6px 0;
   border-radius: 12px;
   background: var(--yellow);
   font-size: 10px;
   font-weight: 700;
   color: var(--brown-800);
+  text-align: center;
   white-space: nowrap;
 }
 
-/* 공지사항 카드의 확인하기 버튼 (시각 배지와 동일한 알약 모양) */
+/* 공지사항 카드의 확인하기 버튼 (nt-card-time 과 동일한 60px 알약) */
 .nt-card-btn {
   flex-shrink: 0;
   border: 0;
-  padding: 6px 12px;
+  width: 60px;
+  padding: 6px 0;
   border-radius: 12px;
   background: var(--yellow);
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
   color: var(--brown-800);
+  text-align: center;
   white-space: nowrap;
   cursor: pointer;
 }

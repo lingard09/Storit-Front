@@ -55,9 +55,173 @@
 html,
 body {
   width: 100%;
+  height: 100%;
   background: var(--bg);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+}
+
+/* 화면 중앙에 프레임 배치 (스케일 시 상하좌우 여백은 --bg로 채워짐) */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── 전체 폭 배경 채우기 (프레임 밖 여백) ─────────────────
+   프레임은 375px 고정·중앙정렬이라 넓은 화면에선 좌우 여백이 생김.
+   그 여백을 페이지 배경색으로 채워 화면 전체가 채워져 보이게 함.
+   페이지별로 --page-fill 지정(기본 크림). 이미지/시트/signup 등
+   자체 body::before 를 정의한 페이지는 각자 규칙이 우선함. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* 기본: 대다수 페이지 패턴(상단 16px 노랑 + 크림 시트)에 맞춘 여백.
+     예외 페이지는 각 CSS에서 --page-fill 재정의. */
+  background: var(
+    --page-fill,
+    linear-gradient(
+      var(--yellow) 0 calc(16px * var(--frame-scale, 1)),
+      var(--bg) calc(16px * var(--frame-scale, 1))
+    )
+  );
+}
+
+/* ── 모달 딤 오버레이가 좌우/상하 여백까지 덮도록 ───────────────
+   모달은 .frame 안에 있어 overflow:hidden 에 클리핑됨 → 프레임(375)만 어두워지고
+   넓은/특이 비율 화면에선 여백이 밝게 남음. 모달이 열리면(has-open-modal, frame-scale.js가 토글)
+   프레임 클리핑을 풀고 딤 오버레이를 뷰포트 밖까지 확장해 전체를 덮는다.
+   (뒤 콘텐츠가 삐져나와도 딤이 위에서 덮으므로 안전) */
+.frame.has-open-modal {
+  overflow: visible;
+  /* 모달 열릴 때 프레임을 body 로 옮긴 네비/헤더(z:20) 위로 올림
+     → 모달 딤·시트가 네비게이션 바보다 위에 표시 */
+  z-index: 30;
+}
+.frame.has-open-modal [class*="-overlay"] {
+  inset: -100vmax;
+}
+
+/* ── terms 처럼 전체 폭 크림 시트 (표준 "노랑 + ::before 크림 시트" 패턴 페이지) ──
+   프레임을 투명하게 하고 인셋 크림 시트(::before)를 제거한 뒤,
+   body 배경(노랑) + body::before(크림 시트, 상단 16px 아래·라운드 20)를
+   화면 전체 폭 레이어로 제공 → 카드처럼 보이지 않고 terms 와 동일하게 꽉 참. */
+.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page, .ex-page,
+.nt-page, .pd-page, .qc-page, .qd-page, .mq-page, .se-page, .wd-page,
+.rk-page, .sh-page, .mp-page, .iq-page, .ms-page {
+  background: transparent !important;
+}
+.ci-page::before, .st-page::before, .nc-page::before, .cp-page::before,
+.vc-page::before, .ck-page::before, .ex-page::before, .nt-page::before,
+.pd-page::before, .qc-page::before, .qd-page::before, .mq-page::before,
+.se-page::before, .wd-page::before, .rk-page::before, .sh-page::before,
+.mp-page::before, .iq-page::before, .ms-page::before {
+  display: none !important;
+}
+body:has(.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page,
+    .ex-page, .nt-page, .pd-page, .qc-page, .qd-page, .mq-page,
+    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page) {
+  background: var(--yellow);
+}
+body:has(.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page,
+    .ex-page, .nt-page, .pd-page, .qc-page, .qd-page, .mq-page,
+    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page)::before {
+  inset: calc(16px * var(--frame-scale, 1)) 0 0 0;
+  background: var(--bg);
+  border-radius: calc(20px * var(--frame-scale, 1))
+    calc(20px * var(--frame-scale, 1)) 0 0;
+}
+
+/* 하단 네비: frame-scale.js 가 body 로 옮긴 뒤 전체 폭 바 + 아이콘 균등 분포.
+   내용(아이콘/라벨)은 --frame-scale 로 스케일해 디자인 비율 유지. */
+body > .mn-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: calc(84px * var(--frame-scale, 1));
+  z-index: 20;
+  background: var(--yellow);
+  border-radius: calc(24px * var(--frame-scale, 1))
+    calc(24px * var(--frame-scale, 1)) 0 0;
+}
+body > .mn-nav .mn-nav-items {
+  position: static;
+  inset: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0;
+}
+body > .mn-nav .mn-nav-icon {
+  width: calc(25px * var(--frame-scale, 1));
+  height: calc(25px * var(--frame-scale, 1));
+}
+body > .mn-nav .mn-nav-item {
+  font-size: calc(8px * var(--frame-scale, 1));
+}
+body > .mn-nav .mn-nav-indicator {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 공통 하단 스캘럽 장식(노란 원 띠)을 화면 전체 폭으로 확장.
+   프레임 내부의 것은 숨기고, html::after 로 프레임 위(z:2) 전체 폭 재현
+   (원 지름 96.58 / 겹침 22.2 → pitch 74.38, 보이는 높이 57, --frame-scale 반영). */
+.ci-scallop,
+.st-scallop,
+.nc-scallop,
+.cp-scallop,
+.vc-scallop,
+.ck-scallop,
+.ex-scallop,
+.nt-scallop,
+.pd-scallop,
+.rf-scallop,
+.ui-scallop,
+.ms-scallop {
+  /* 각 페이지 CSS가 display:flex 를 명시하므로 !important 로 확실히 숨김 */
+  display: none !important;
+}
+
+html:has(
+    .ci-scallop,
+    .st-scallop,
+    .nc-scallop,
+    .cp-scallop,
+    .vc-scallop,
+    .ck-scallop,
+    .ex-scallop,
+    .nt-scallop,
+    .pd-scallop,
+    .rf-scallop,
+    .ui-scallop,
+    .ms-scallop
+  )::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(57px * var(--frame-scale, 1));
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+      circle calc(48.29px * var(--frame-scale, 1)) at 50%
+        calc(48.29px * var(--frame-scale, 1)),
+      var(--yellow) calc(48.29px * var(--frame-scale, 1)),
+      transparent calc(48.79px * var(--frame-scale, 1))
+    )
+    top center /
+    calc(74.38px * var(--frame-scale, 1)) calc(96.58px * var(--frame-scale, 1))
+    repeat-x;
 }
 
 img {
@@ -65,14 +229,18 @@ img {
   max-width: 100%;
 }
 
-/* 375x880 모바일 프레임 (Figma 기준) */
+/* 375x812 모바일 프레임 (Figma 기준) */
 .frame {
   position: relative;
+  z-index: 1; /* 배경 레이어(body::before) 위에 컴포넌트 표시 */
   width: var(--frame-w);
   height: var(--frame-h);
-  margin: 0 auto;
+  flex: 0 0 auto;
   background: var(--bg);
   overflow: hidden;
+  /* 폰 크기 대응: frame-scale.js가 --frame-scale을 화면에 맞춰 설정 */
+  transform: scale(var(--frame-scale, 1));
+  transform-origin: center center;
 }
 
 /* 하단 페이지 인디케이터 (온보딩 3단계 공통) */

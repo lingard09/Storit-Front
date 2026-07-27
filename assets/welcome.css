@@ -1,18 +1,22 @@
 /* 스토릿 - 환영 화면 */
 
-.wc-page {
-  background: var(--cta-bg);
+/* 배경: 화면 전체를 채우는 별도 레이어 (컴포넌트와 분리, 선명하게 cover) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--cta-bg) url("kitchen_bg.png") center / cover no-repeat;
 }
 
-/* 배경 (570x856) - 프레임 중앙 정렬 (온보딩1과 동일) */
+.wc-page {
+  background: transparent; /* 배경은 body::before가 담당 → 프레임은 투명 */
+  z-index: 2; /* 말풍선·텍스트·마스코트가 연기(z:1) 위에 (base .frame z:1 재정의) */
+}
+
+/* 배경: 이제 body::before 전체 레이어가 담당하므로 프레임 내부 이미지는 숨김 */
 .wc-bg {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 570px;
-  height: 856px;
-  object-fit: cover;
+  display: none;
 }
 
 /* 로고 그룹 (Figma: 252.02 @ 66, 197, gap 20 — 로고가 위) */
@@ -112,18 +116,22 @@
   animation: wc-cta-in 360ms ease 950ms forwards;
 }
 
-/* ── 오븐 연기 (참고 프로젝트와 동일: 진입 시 1회 피어올랐다 사라짐) ── */
+/* ── 오븐 연기 (진입 시 1회 피어올랐다 사라짐) ──
+   프레임 밖 화면 전체 레이어 → 배경 오븐과 같은 좌표계 (작은/특이 비율에서도 안 갇힘) */
 .wc-smokes {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 1; /* 배경(body::before z:0) 위, 로고·말풍선(frame z:2) 아래 */
   overflow: hidden;
   pointer-events: none;
 }
 
 .wc-smoke {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
+  /* 뷰포트 중앙-하단(오븐 부근) 기준 */
+  left: 50%;
+  bottom: var(--yb);
+  margin-left: calc(var(--mx) - var(--w) / 2);
   width: var(--w);
   height: auto;
   opacity: 0;
@@ -133,13 +141,13 @@
   animation: wc-smoke-rise 1850ms ease-out var(--delay) forwards;
 }
 
-/* 각 뭉치마다 위치·크기 다르게, 시작시점만 스태거 → 뭉게뭉게 한 번 피어오름 */
-.wc-smoke:nth-child(1) { --x: -40px;  --y: 470px; --w: 440px; --delay: 0ms; }
-.wc-smoke:nth-child(2) { --x: 55px;   --y: 430px; --w: 400px; --delay: 160ms; }
-.wc-smoke:nth-child(3) { --x: -95px;  --y: 400px; --w: 470px; --delay: 320ms; }
-.wc-smoke:nth-child(4) { --x: -110px; --y: 515px; --w: 420px; --delay: 480ms; }
-.wc-smoke:nth-child(5) { --x: 40px;   --y: 535px; --w: 380px; --delay: 640ms; }
-.wc-smoke:nth-child(6) { --x: -25px;  --y: 365px; --w: 455px; --delay: 800ms; }
+/* 각 뭉치마다 중앙 오프셋·바닥거리·크기 다르게, 시작시점만 스태거 → 뭉게뭉게 한 번 피어오름 */
+.wc-smoke:nth-child(1) { --mx: -60px;  --yb: 40%; --w: 440px; --delay: 0ms; }
+.wc-smoke:nth-child(2) { --mx: 70px;   --yb: 44%; --w: 400px; --delay: 160ms; }
+.wc-smoke:nth-child(3) { --mx: -120px; --yb: 46%; --w: 470px; --delay: 320ms; }
+.wc-smoke:nth-child(4) { --mx: -90px;  --yb: 32%; --w: 420px; --delay: 480ms; }
+.wc-smoke:nth-child(5) { --mx: 60px;   --yb: 30%; --w: 380px; --delay: 640ms; }
+.wc-smoke:nth-child(6) { --mx: 0px;    --yb: 50%; --w: 455px; --delay: 800ms; }
 
 /* 피어올랐다가 완전히 사라짐 (참고본 auth-welcome-smoke-rise 와 동일 구조) */
 @keyframes wc-smoke-rise {

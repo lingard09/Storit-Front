@@ -1,0 +1,393 @@
+/* 스토릿 - 오늘의 미션 */
+
+.ms-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  background: var(--yellow);
+}
+
+/* 상단바 아래 크림 본문 시트 (Figma: top 16, 상단 라운드 20) */
+.ms-page::before {
+  content: "";
+  position: absolute;
+  inset: 16px 0 0;
+  background: var(--bg);
+  border-radius: 20px 20px 0 0;
+  z-index: 0;
+}
+
+/* 콘텐츠는 크림 시트 위로 */
+.ms-header,
+.ms-scroll {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 헤더 ─────────────────────────────── */
+.ms-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.ms-back {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.ms-back::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  background: url("icon_back.svg") center / contain no-repeat;
+}
+
+.ms-title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1000;
+  margin-right: 40px;
+}
+
+/* ── 본문 스크롤 영역 ──────────────────── */
+.ms-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 16px 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── A) 레시피 배너 ───────────────────── */
+.ms-recipe {
+  position: relative;
+  width: 340px;
+  height: 129px;
+  background: #faefdf;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ms-recipe-text {
+  position: absolute;
+  left: 16px;
+  top: 20px;
+  right: 90px;
+  z-index: 1; /* 뒤 배경 일러스트(ms-recipe-mascot) 위에 텍스트 */
+}
+
+.ms-recipe-label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3d2000;
+}
+
+.ms-recipe-sparkle {
+  width: 10px;
+  height: 12px;
+}
+
+.ms-recipe-title {
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #3d2000;
+}
+
+.ms-recipe-desc {
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  color: #3d2000;
+}
+
+/* 오른쪽 배경 일러스트(재료 씬) — 배너 오른쪽을 채우고 텍스트 뒤에 깔림 */
+.ms-recipe-mascot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 108px;
+  width: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── B) 타이머 바 ─────────────────────── */
+.ms-timer {
+  width: 340px;
+  background: #faefdf;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.ms-timer-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1c1000;
+}
+
+.ms-timer-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5599ee;
+}
+
+/* ── C) 재료 원형 ─────────────────────── */
+.ms-ingredients {
+  position: relative;
+  width: 340px;
+  height: 81px;
+  background: #faefdf;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* 원 중심을 관통하는 연결선 */
+.ms-ing-line {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 30px;
+  height: 1px;
+  background: #ffd95e;
+  z-index: 0;
+}
+
+.ms-ing {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.ms-ing-circle {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border-radius: 9999px;
+  background: #fefaf4;
+  outline: 0.9px solid #ffd95e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-ing-circle img {
+  width: 24px;
+  height: 24px;
+}
+
+.ms-ing-circle img.is-dimmed {
+  opacity: 0.25;
+}
+
+.ms-ing-check {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #43bb65;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-ing-name {
+  font-size: 8px;
+  font-weight: 600;
+  color: #3d2000;
+  text-align: center;
+}
+
+/* ── D) 미션 리스트 ───────────────────── */
+.ms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.ms-card {
+  position: relative;
+  width: 330px;
+  height: 70px;
+  background: #fff;
+  border-radius: 10px;
+  outline: 1px solid #ede5cc;
+  overflow: hidden;
+}
+
+.ms-card-icon {
+  position: absolute;
+  left: 11px;
+  top: 10px;
+  width: 50px;
+  height: 50px;
+  background: #fef4d2;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-card-icon img {
+  width: 34px;
+  height: 34px;
+}
+
+.ms-card-mid {
+  position: absolute;
+  left: 75px;
+  top: 10px;
+  width: 117px;
+}
+
+.ms-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1c1000;
+}
+
+.ms-card-sub {
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #888880;
+}
+
+.ms-bar {
+  margin-top: 6px;
+  width: 117px;
+  height: 8px;
+  background: #f3ede3;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.ms-bar-fill {
+  display: block;
+  height: 100%;
+  background: #ffd95e;
+  border-radius: 99px;
+}
+
+.ms-card-count {
+  position: absolute;
+  /* 진행바(left 75 ~ 192) 오른편, 바와 같은 높이 */
+  left: 198px;
+  bottom: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #888880;
+}
+
+/* 우측 상태 패널 */
+.ms-card-status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 76px;
+  height: 70px;
+  border-radius: 0 10px 10px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ms-card-status.is-done {
+  background: #d7ffc2;
+}
+
+.ms-card-status.is-todo {
+  background: #fed16a;
+}
+
+.ms-pill {
+  background: #43bb65;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.ms-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #43bb65;
+}
+.ms-done img {
+  width: 10px;
+  height: 8px;
+}
+
+.ms-go {
+  border: 0;
+  cursor: pointer;
+  background: #ef9f27;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+/* ── 하단 스캘럽 장식 ─────────────────── */
+.ms-scallop {
+  position: absolute;
+  left: -46.74px;
+  bottom: -39.58px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ms-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: var(--yellow);
+}
+
+.ms-scallop span + span {
+  margin-left: -22.2px;
+}

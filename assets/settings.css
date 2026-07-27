@@ -44,9 +44,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 .se-title {
   flex: 1;
@@ -140,9 +138,7 @@
   width: 15px;
   height: 15px;
   flex-shrink: 0;
-  background: #3d2000;
-  -webkit-mask: url("icon_arrow_next.svg") center / contain no-repeat;
-  mask: url("icon_arrow_next.svg") center / contain no-repeat;
+  background: url("icon_arrow_next_brown.svg") center / contain no-repeat;
 }
 
 /* 기기 알림 권한 (상태 텍스트 + 화살표) */
@@ -270,10 +266,8 @@
   height: 18px;
   padding: 0;
   border: 0;
-  background: rgba(136, 136, 128, 0.8);
+  background: url("icon_close_muted.svg") center / contain no-repeat;
   cursor: pointer;
-  -webkit-mask: url("icon_close.svg") center / contain no-repeat;
-  mask: url("icon_close.svg") center / contain no-repeat;
 }
 .se-logout-icon {
   width: 70px;
@@ -288,9 +282,7 @@
   content: "";
   width: 42px;
   height: 42px;
-  background: #ef9f27;
-  -webkit-mask: url("basil_logout-solid.svg") center / contain no-repeat;
-  mask: url("basil_logout-solid.svg") center / contain no-repeat;
+  background: url("basil_logout-solid.svg") center / contain no-repeat;
 }
 .se-logout-title {
   margin-top: 20px;

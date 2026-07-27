@@ -3,17 +3,34 @@
 .onboarding {
   cursor: pointer;
   user-select: none;
+  background: transparent; /* 배경은 body::before가 담당 → 프레임은 투명 */
 }
 
-/* 배경 일러스트 (570x856) - 프레임 중앙 정렬 */
+/* 배경: 화면 전체를 채우는 별도 레이어 (컴포넌트와 분리, 선명하게 cover).
+   페이지별 배경 이미지를 :has()로 자동 선택 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--cta-bg) center / cover no-repeat;
+}
+body:has(.ob-bg)::before {
+  background-image: url("kitchen_bg.png");
+}
+body:has(.ob-bg--p2)::before {
+  background-image: url("ranking_bg.png");
+}
+body:has(.ob-bg--p3)::before {
+  background-image: url("shop_bg.png");
+}
+body:has(.rank-ob1-bg)::before {
+  background-image: url("ranking_bg.png");
+}
+
+/* 배경 일러스트: 이제 body::before 전체 레이어가 담당하므로 프레임 내부 이미지는 숨김 */
 .ob-bg {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 570px;
-  height: 856px;
-  object-fit: cover;
+  display: none;
 }
 
 /* 헤드라인 */

@@ -10,19 +10,21 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <script src="assets/frame-scale.js"></script>
   </head>
   <body>
+    <!-- 오븐 연기: 배경(body::before, 화면 전체)과 같은 좌표계로 — 프레임 밖 전체 화면 레이어 -->
+    <div class="wc-smokes" aria-hidden="true">
+      <img class="wc-smoke" src="assets/smoke.png" alt="" />
+      <img class="wc-smoke" src="assets/smoke.png" alt="" />
+      <img class="wc-smoke" src="assets/smoke.png" alt="" />
+      <img class="wc-smoke" src="assets/smoke.png" alt="" />
+      <img class="wc-smoke" src="assets/smoke.png" alt="" />
+      <img class="wc-smoke" src="assets/smoke.png" alt="" />
+    </div>
+
     <div class="frame wc-page">
       <img class="wc-bg" src="assets/kitchen_bg.png" alt="" />
-
-      <div class="wc-smokes" aria-hidden="true">
-        <img class="wc-smoke" src="assets/smoke.png" alt="" />
-        <img class="wc-smoke" src="assets/smoke.png" alt="" />
-        <img class="wc-smoke" src="assets/smoke.png" alt="" />
-        <img class="wc-smoke" src="assets/smoke.png" alt="" />
-        <img class="wc-smoke" src="assets/smoke.png" alt="" />
-        <img class="wc-smoke" src="assets/smoke.png" alt="" />
-      </div>
 
       <div class="wc-brand">
         <img class="wc-logo" src="assets/logo.svg" alt="스토릿" />

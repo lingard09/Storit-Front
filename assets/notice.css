@@ -49,9 +49,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 
 .nc-title {
@@ -120,6 +118,7 @@
   align-items: center;
   gap: 16px;
   margin: 16px 23px 70px;
+  height: 81px;
   padding: 5px 20px;
   background: #fff;
   border-radius: 8px;
@@ -139,18 +138,17 @@
   justify-content: flex-end;
 }
 
-/* 셰브론 화살표 (CSS 보더) */
+/* 화살표 아이콘 (에셋). 기본 asset 은 우향(>) → 이전글은 180° 회전해 좌향(<) */
 .nc-nav-arrow {
   flex-shrink: 0;
-  width: 9px;
-  height: 9px;
-  border-left: 2.5px solid var(--ink);
-  border-bottom: 2.5px solid var(--ink);
-  transform: rotate(45deg); /* 좌향 */
+  width: 10px;
+  height: 18px;
+  background: url("icon_nav_chevron.svg") center / contain no-repeat;
+  transform: rotate(180deg); /* 좌향(이전글) */
 }
 
 .nc-nav-arrow-next {
-  transform: rotate(-135deg); /* 우향 */
+  transform: none; /* 우향(다음글) — asset 기본 방향 */
 }
 
 .nc-nav-text {

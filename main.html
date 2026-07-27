@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="assets/frame-scale.js"></script>
   </head>
   <body>
     <div class="frame mn-page">
@@ -53,7 +54,7 @@
               <span class="accent">쿠키</span> 받아가세요
             </p>
 
-            <button type="button" class="mn-hero-cta">
+            <button type="button" class="mn-hero-cta" onclick="location.href='mission.html'">
               오늘의 미션 보기
               <img src="assets/icon_arrow_next.svg" alt="" />
             </button>
@@ -137,7 +138,7 @@
       <nav class="mn-nav">
         <div class="mn-nav-items">
           <button type="button" class="mn-nav-item is-active">
-            <span class="mn-nav-icon" style="--icon: url('nav_home.svg')"></span>
+            <span class="mn-nav-icon"></span>
             홈
           </button>
           <button
@@ -145,11 +146,11 @@
             class="mn-nav-item"
             onclick="location.href = localStorage.getItem('rankObSeen') ? 'ranking.html' : 'rank_onboarding1.html'"
           >
-            <span class="mn-nav-icon" style="--icon: url('nav_ranking.svg')"></span>
+            <span class="mn-nav-icon"></span>
             랭킹
           </button>
           <button type="button" class="mn-nav-item mn-nav-item--shop">
-            <span class="mn-nav-icon" style="--icon: url('nav_gift.svg')"></span>
+            <span class="mn-nav-icon"></span>
             상점
           </button>
           <button
@@ -157,7 +158,7 @@
             class="mn-nav-item"
             onclick="location.href='mypage.html'"
           >
-            <span class="mn-nav-icon" style="--icon: url('nav_profile.svg')"></span>
+            <span class="mn-nav-icon"></span>
             마이페이지
           </button>
         </div>
@@ -192,11 +193,7 @@
           <p class="mn-hm-desc">광고를 시청하면 하트 1개를 즉시 충전할 수 있어요!</p>
 
           <div class="mn-hm-adcount">
-            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" aria-hidden="true">
-              <rect x="0.5" y="1" width="14" height="16" rx="3" fill="#EF9F27" />
-              <path d="M14.5 6.5 19 3.5v11l-4.5-3z" fill="#EF9F27" />
-              <path d="M6 5.5 10 9l-4 3.5z" fill="#fff" />
-            </svg>
+            <img src="assets/boxicons_movie-play-filled.svg" alt="" />
             오늘 남은 광고 충전 횟수 <b>7 / 10</b>
           </div>
 

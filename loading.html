@@ -10,18 +10,23 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <script src="assets/frame-scale.js"></script>
   </head>
   <body>
+    <!-- 연기: 배경(body::before, 화면 전체)과 같은 좌표계로 — 프레임 밖 전체 화면 레이어 -->
+    <div class="ld-smokes" aria-hidden="true">
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+      <img class="ld-smoke" src="assets/smoke.png" alt="" />
+    </div>
+
     <div class="frame ld-page" data-next="welcome.html" data-delay="2500">
       <img class="ld-bg" src="assets/kitchen_bg.png" alt="" />
-
-      <div class="ld-smokes">
-        <img class="ld-smoke" src="assets/smoke.png" alt="" />
-        <img class="ld-smoke" src="assets/smoke.png" alt="" />
-        <img class="ld-smoke" src="assets/smoke.png" alt="" />
-        <img class="ld-smoke" src="assets/smoke.png" alt="" />
-        <img class="ld-smoke" src="assets/smoke.png" alt="" />
-      </div>
 
       <div class="ld-brand">
         <p class="ld-tagline">웹툰 퀴즈 리워드 플랫폼</p>

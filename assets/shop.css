@@ -47,9 +47,7 @@
   width: 24px;
   height: 24px;
   margin: 0 auto;
-  background: var(--ink);
-  -webkit-mask: url("icon_back.svg") center / contain no-repeat;
-  mask: url("icon_back.svg") center / contain no-repeat;
+  background: url("icon_back.svg") center / contain no-repeat;
 }
 
 .sh-title {
@@ -117,31 +115,27 @@
 .mn-nav-icon {
   width: 25px;
   height: 25px;
-  background: currentColor;
-  -webkit-mask: center / contain no-repeat;
-  mask: center / contain no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 /* 아이콘 경로는 이 파일(assets/) 기준으로 해석됨 */
 .mn-nav-item--home .mn-nav-icon {
-  -webkit-mask-image: url("nav_home.svg");
-  mask-image: url("nav_home.svg");
+  background-image: url("nav_home.svg");
 }
 .mn-nav-item--ranking .mn-nav-icon {
-  -webkit-mask-image: url("nav_ranking.svg");
-  mask-image: url("nav_ranking.svg");
+  background-image: url("nav_ranking.svg");
 }
 .mn-nav-item--profile .mn-nav-icon {
-  -webkit-mask-image: url("nav_profile.svg");
-  mask-image: url("nav_profile.svg");
+  background-image: url("nav_profile.svg");
 }
 
 .mn-nav-item--shop .mn-nav-icon {
   width: 23px;
   height: 23px;
   margin-bottom: 2px;
-  -webkit-mask-image: url("nav_gift.svg");
-  mask-image: url("nav_gift.svg");
+  background-image: url("nav_gift.svg");
 }
 
 .mn-nav-indicator {

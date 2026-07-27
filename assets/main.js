@@ -93,11 +93,18 @@
     const MAX = 2;
     const REFILL_SEC = 30 * 60; // 하트 1개 리필 30분
 
-    // 현재 하트 (백엔드/localStorage 연동). 미설정 시 데모로 줄어든 상태(1) 표시
+    // 현재 하트 값 우선순위:
+    //   1) URL 쿼리 ?hearts=N  — 상태별 모습 미리보기용(예: main.html?hearts=0)
+    //   2) localStorage "storit.hearts" — 백엔드/저장값 연동
+    //   3) 미설정 시 데모로 줄어든 상태(1)
+    const paramHearts = new URLSearchParams(location.search).get("hearts");
     const storedHearts = localStorage.getItem("storit.hearts");
-    let hearts = storedHearts === null ? 1 : Number(storedHearts);
+    let hearts;
+    if (paramHearts !== null) hearts = Number(paramHearts);
+    else if (storedHearts !== null) hearts = Number(storedHearts);
+    else hearts = 1;
     if (!Number.isFinite(hearts)) hearts = 1;
-    hearts = Math.max(0, Math.min(MAX, hearts));
+    hearts = Math.max(0, Math.min(MAX, hearts)); // 0 ~ MAX(2)
 
     function renderHearts() {
       let html = "";
@@ -151,7 +158,19 @@
     // ── 하트 충전 모달 ──
     const modal = document.querySelector(".mn-heart-modal");
     function openHeartModal() {
-      if (modal) modal.hidden = false;
+      if (!modal) return;
+      // 모달 하트는 헤더(메인)의 현재 하트 개수와 동일하게 — 채움/빈 표시
+      const hh = modal.querySelector(".mn-hm-hearts");
+      if (hh) {
+        let html = "";
+        for (let i = 0; i < MAX; i++) {
+          const src =
+            i < hearts ? "assets/heart_fill.svg" : "assets/heart_outline.svg";
+          html += `<img src="${src}" alt="" />`;
+        }
+        hh.innerHTML = html;
+      }
+      modal.hidden = false;
     }
     function closeHeartModal() {
       if (modal) modal.hidden = true;
@@ -178,9 +197,50 @@
   const coach = document.querySelector(".mn-coach");
   if (coach && sessionStorage.getItem("storit.showMainCoach") === "1") {
     sessionStorage.removeItem("storit.showMainCoach");
+
+    // 하이라이트 링·말풍선을 실제 "퀴즈 풀기" 버튼(첫 카드)에 맞춰 배치.
+    // 버튼은 JS로 동적 생성되므로 좌표 하드코딩 대신 실측해서 감싼다.
+    // (프레임이 --frame-scale 로 스케일되므로 스케일을 나눠 프레임 기준 좌표로 환산)
+    const placeCoach = () => {
+      const ring = coach.querySelector(".mn-coach-ring");
+      const tip = coach.querySelector(".mn-coach-tip");
+      const frame = document.querySelector(".frame");
+      const btn = document.querySelector(".mn-list .mn-card-cta");
+      if (!ring || !frame || !btn) return;
+      const scale =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--frame-scale",
+          ),
+        ) || 1;
+      const fr = frame.getBoundingClientRect();
+      const br = btn.getBoundingClientRect();
+      const pad = 6; // 버튼과 링 사이 간격
+      const x = (br.left - fr.left) / scale - pad;
+      const y = (br.top - fr.top) / scale - pad;
+      const w = br.width / scale + pad * 2;
+      const h = br.height / scale + pad * 2;
+      ring.style.left = x + "px";
+      ring.style.top = y + "px";
+      ring.style.width = w + "px";
+      ring.style.height = h + "px";
+      // 버튼 모서리 곡률에 맞춰 감싸기
+      const radius = parseFloat(getComputedStyle(btn).borderRadius) || 10;
+      ring.style.borderRadius = radius + pad + "px";
+      // 말풍선: 링 위쪽, 화살표(75% 지점)가 링 중앙을 가리키도록
+      if (tip) {
+        const ringCx = x + w / 2;
+        tip.style.left = ringCx - 0.75 * tip.offsetWidth + "px";
+        tip.style.top = y - tip.offsetHeight - 18 + "px";
+      }
+    };
+
     coach.hidden = false;
+    placeCoach();
+    window.addEventListener("resize", placeCoach);
     coach.querySelector(".mn-sheet-cta").addEventListener("click", () => {
       coach.hidden = true;
+      window.removeEventListener("resize", placeCoach);
     });
   }
 

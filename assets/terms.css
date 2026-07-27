@@ -122,17 +122,27 @@
   text-align: left;
 }
 
-/* 체크박스 (Figma: 25x25, opacity 0.4는 체크 여부와 무관하게 항상 유지) */
-/* 체크 여부는 색으로만 표현 — currentColor를 따라감 */
+/* 체크박스 25x25. 미체크: 뮤트 회색 ✓ / 체크: 체크마크 색이 #3D2000 으로 */
 .terms-check {
   flex-shrink: 0;
   width: 25px;
   height: 25px;
-  border-radius: 3px;
-  background: currentColor;
-  -webkit-mask: url("icon_check.svg") center / contain no-repeat;
-  mask: url("icon_check.svg") center / contain no-repeat;
+  color: var(--muted);
   opacity: 0.4;
+}
+/* 원 없는 filled ✓ (Checkbox(2).svg 경로) — fill 이 currentColor 따라감 */
+.terms-check svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  stroke: none;
+}
+/* 체크 시: 체크마크 자체 색만 #3D2000 으로 (배경 없음) */
+.terms-all.is-checked .terms-check,
+.terms-row.is-checked .terms-check {
+  color: var(--brown-800);
+  opacity: 1;
 }
 
 /* 체크 시: 라벨 · 체크 · 더보기 모두 #3D2000 */
@@ -162,3 +172,60 @@
 /* 하단 CTA */
 
 /* 필수 약관 동의 완료 시 */
+/* 필수 약관 미충족 시: 비활성(눌러도 이동 안 함) — 커서로 표시 */
+.terms-cta:not(.is-active) {
+  cursor: not-allowed;
+}
+
+/* ═══ 전체 폭 문서 페이지 (이용약관·개인정보처리방침 등) ═══════════════
+   .terms-doc 를 가진 상세 페이지(terms-service/privacy/age/marketing)만 대상.
+   접속 기기 폭에 맞춰 시트가 화면 너비로 유동 — 좌 24px / 우 27px 패딩만 유지.
+   (375 고정 프레임 스케일을 해제하고 뷰포트 전체를 사용) */
+body:has(.terms-doc) .frame {
+  transform: none;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+}
+/* 시트 컨테이너를 화면 전체 폭으로 */
+body:has(.terms-doc) .terms-sheet {
+  left: 0;
+  right: 0;
+  width: auto;
+}
+/* 헤더 타이틀 화면 중앙 정렬. 전체 폭이라 뒤로가기 버튼 위를 덮으므로
+   pointer-events:none 로 클릭이 버튼에 통과되게 함(타이틀은 장식 텍스트). */
+body:has(.terms-doc) .terms-header-title {
+  left: 0;
+  right: 0;
+  width: auto;
+  padding: 0 50px;
+  pointer-events: none;
+}
+/* 본문: 화면 전체 폭, 좌 24 / 우 27 */
+body:has(.terms-doc) .terms-doc {
+  left: 24px;
+  right: 27px;
+  width: auto;
+  top: 70px;
+  bottom: 96px;
+}
+/* 하단 CTA: 화면 하단 고정, 좌 24 / 우 27 */
+body:has(.terms-doc) .terms-cta {
+  left: 24px;
+  right: 27px;
+  width: auto;
+  top: auto;
+  bottom: 24px;
+  transform: none;
+}
+
+/* terms.html 뒤로가기 버튼: frame-scale.js 가 body 직속으로 옮긴 뒤
+   화면 좌상단에 고정 — 약관 상세 페이지 백버튼과 동일 좌표(top 21 = 시트16+백5).
+   (크기 50·아이콘 ::before 는 sheet.css .terms-back 규칙을 그대로 사용) */
+body > .terms-back {
+  position: fixed;
+  left: 0;
+  top: 21px;
+  z-index: 25;
+}

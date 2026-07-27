@@ -33,5 +33,14 @@
     });
   });
 
+  // 다음 버튼: 필수 약관이 모두 체크(is-active)됐을 때만 이동
+  if (cta) {
+    cta.addEventListener("click", () => {
+      if (cta.classList.contains("is-active")) {
+        location.href = "referral.html";
+      }
+    });
+  }
+
   sync();
 })();
