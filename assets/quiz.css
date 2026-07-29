@@ -266,6 +266,26 @@
   margin-left: -22.2px;
 }
 
+/* 프레임이 세로 중앙정렬로 스케일될 때 프레임(812) 아래로 생기는 여백을 노랑으로 채움.
+   스캘럽 하단부(원들이 완전히 겹쳐 solid 노랑인 구간)와 이음매 없이 이어져
+   하단 크림 여백이 사라진다. 프레임 뒤(z:0)라 프레임 안에선 안 보이고 여백만 채워짐.
+   프레임 밖 html::after 공통 스캘럽을 쓰지 않으므로 스캘럽·마스코트는 프레임 안에 남아
+   z-index(마스코트 > 스캘럽)가 정상 동작함. */
+body:has(.qz-page)::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* 하단 여백 높이(+1px 은 프레임 뒤로 살짝 물려 이음매 sliver 방지) */
+  height: calc(
+    (100vh - var(--frame-h) * var(--frame-scale, 1)) / 2 + 1px
+  );
+  background: var(--yellow);
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* 쿠키 마스코트 (Figma: 117x146 @ 127, 643) */
 .qz-mascot {
   position: absolute;
@@ -273,6 +293,8 @@
   top: 643px;
   width: 117px;
   height: 146px;
+  /* 프레임 안 스캘럽(z:2) 위에 표시. 프레임이 transform 으로 독립 stacking context 라
+     이 값은 프레임 내부에서만 비교됨(그래서 스캘럽이 프레임 밖일 땐 아무리 키워도 안 먹혔음). */
   z-index: 3;
 }
 

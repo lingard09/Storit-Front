@@ -61,6 +61,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* 문서(root) 자체는 절대 스크롤/확장되지 않게 클리핑.
+   프레임은 항상 뷰포트에 contain 되고, 내부 스크롤은 .mn-scroll 등 각 컨테이너가 담당.
+   모달이 열리면 딤 오버레이가 inset:-100vmax 로 커지는데(프레임 밖 여백까지 딤),
+   이 오버슈트를 body{overflow:hidden} 만으로는 root 스크롤 영역을 못 막아
+   스크롤/탭 시 우·하단으로 화면이 확장돼 보이는 버그가 생김.
+   뷰포트 스크롤을 지배하는 root(html)에서 확실히 클리핑해 확장을 차단한다. */
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 /* 화면 중앙에 프레임 배치 (스케일 시 상하좌우 여백은 --bg로 채워짐) */
 body {
   min-height: 100vh;

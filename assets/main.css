@@ -1159,6 +1159,10 @@ body > .mn-header > .mn-hearts {
      뷰포트 폭(100vw)이 되도록 역보정. (모달 열림 시 has-open-modal 로 프레임
      overflow:visible → 375 밖으로 확장 가능, 프레임 중앙정렬이라 좌우 대칭으로 참) */
   width: calc(100vw / var(--frame-scale, 1));
+  /* 프레임이 폭 기준으로 스케일되면(예: 412×915) 세로 중앙정렬 때문에 프레임 하단과
+     화면 바닥 사이에 여백이 생겨 바텀시트가 바닥에 닿지 않는다. 그 여백((프레임높이 −
+     화면높이 환산)/2)만큼 시트를 아래로 당겨 화면 바닥에 딱 붙임. 세로 기준 스케일이면 0. */
+  margin-bottom: calc((var(--frame-h) - 100vh / var(--frame-scale, 1)) / 2);
   padding: 16px 20px 24px;
   background: #fff;
   border-radius: 24px 24px 0 0;

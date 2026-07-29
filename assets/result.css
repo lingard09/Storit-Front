@@ -8,7 +8,7 @@
 .rs-scroll {
   position: absolute;
   inset: 0;
-  bottom: 72px; /* 하단 버튼 영역 확보 */
+  bottom: 96px; /* 하단 버튼 영역(rs-actions 높이) 확보 */
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -498,8 +498,10 @@
   left: 0;
   bottom: 0;
   width: 375px;
-  height: 72px;
-  padding: 0 20px;
+  /* 버튼(56px) + 상하 패딩(20px×2) = 96px. box-sizing:border-box 라
+     높이가 72px 면 세로 패딩이 들어갈 자리가 없어 무시된 것처럼 보임. */
+  height: 96px;
+  padding: 20px 10px;
   background: var(--bg);
   display: flex;
   align-items: center;
