@@ -8,8 +8,21 @@ body::before {
   z-index: 0;
   /* 이미지 비율이 프레임과 거의 같아 cover 로는 세로 여백이 없음(위치 조절 불가).
      세로 120% 로 키워 여백을 만든 뒤 position-y 로 아래로 이동 */
-  background: var(--bg) url("quiz_complete_bg.png") 50% 10% / auto 100% no-repeat;
+  /* 가로 105% 로 항상 폭을 채워(=좌우 여백 없음) 어떤 비율(SE 375×667, 414×846, 360×760…)에서도
+     여백이 없음. 세로는 비율상 넘쳐서 여백이 생기므로 background-position 으로 아래 이동 가능.
+     (translateY 로 밀면 상단에 빈틈이 생겨 넓은 뷰포트에서 여백으로 드러남 → position 방식으로 대체) */
+  background: var(--bg) url("quiz_complete_bg.png") 50% 0% / 105% auto no-repeat;
   transform: scaleX(-1); /* 원본 좌우반전 유지 */
+}
+
+/* 가로 기준 스케일 비율(예: 384×854)에서 프레임이 뷰포트보다 짧을 때 세로 중앙정렬 +
+   scale(원점 center) 때문에 상단띠 위에 배경 이미지가 보임.
+   → 상단 정렬 + 스케일 원점을 top 으로 바꿔 상단띠를 화면 맨 위에 고정 */
+body:has(.qcc-page) {
+  align-items: flex-start;
+}
+.qcc-page.frame {
+  transform-origin: top center;
 }
 
 .qcc-page {
@@ -79,8 +92,9 @@ body::before {
   justify-content: center;
   width: 133px;
   height: 102px;
-  padding-right: 8px;
-  padding-bottom: 0px;
+  /* 몸통 중앙(padding-bottom 15) 기준에서 왼쪽 5px·아래 5px 이동 */
+  padding-right: 10px; /* 왼쪽으로 5px */
+  padding-bottom: 5px; /* 위로 미는 양을 15→5 로 줄여 아래로 5px */
   background: url("speech_bubble.svg") center / contain no-repeat;
   text-align: center;
   font-family: var(--font-display);
@@ -99,7 +113,7 @@ body::before {
 .qcc-mascot {
   position: absolute;
   right: 32px;
-  bottom: 150px;
+  bottom: 160px;
   width: 202px;
   height: auto;
 }

@@ -9,7 +9,7 @@
     { title: "66666년 만에 환생한 흑마법사", thumb: 1, platform: 1, tags: ["사이다", "사이다"], cta: "퀴즈\n풀기", creator: "무케대왕", url: "https://comic.naver.com/search?keyword=66666%EB%85%84%20%EB%A7%8C%EC%97%90%20%ED%99%98%EC%83%9D%ED%95%9C%20%ED%9D%91%EB%A7%88%EB%B2%95%EC%82%AC" },
     { title: "첫정", thumb: 2, platform: 2, tags: ["로맨스", "설렘폭발"], cta: "퀴즈\n풀기", url: "https://comic.naver.com/search?keyword=%EC%B2%AB%EC%A0%95" },
     { title: "A.I. 닥터", thumb: 5, platform: 3, tags: ["사이다", "사이다"], cta: "퀴즈\n풀기", url: "https://comic.naver.com/search?keyword=A.I.%20%EB%8B%A5%ED%84%B0" },
-    { title: "서포터가 다 해 먹음", thumb: 3, platform: 1, tags: ["판타지", "마법"], cta: "퀴즈\n풀기", creator: "불꽃소녀", url: "https://comic.naver.com/search?keyword=%EC%84%9C%ED%8F%AC%ED%84%B0%EA%B0%80%20%EB%8B%A4%20%ED%95%B4%20%EB%A8%B9%EC%9D%8C" },
+    { title: "서포터가 다 해먹음", thumb: 3, platform: 1, tags: ["판타지", "마법"], cta: "퀴즈\n풀기", creator: "불꽃소녀", url: "https://comic.naver.com/search?keyword=%EC%84%9C%ED%8F%AC%ED%84%B0%EA%B0%80%20%EB%8B%A4%20%ED%95%B4%20%EB%A8%B9%EC%9D%8C" },
     { title: "회귀자의 은퇴 라이프", thumb: 4, platform: 1, tags: ["사이다", "사이다"], cta: "퀴즈\n풀기", url: "https://comic.naver.com/search?keyword=%ED%9A%8C%EA%B7%80%EC%9E%90%EC%9D%98%20%EC%9D%80%ED%87%B4%20%EB%9D%BC%EC%9D%B4%ED%94%84" },
   ];
 
@@ -53,11 +53,16 @@
     if (!listEl) return;
 
     // 커뮤니티 응원 (백엔드 연동 시 목록 API 응답으로 교체)
-    const COMMUNITY = [
-      { msg: "오늘 내가 1등한데 오천냥 냠~", who: "불꽃소녀" },
-      { msg: "미쳣다 오늘 왜이렄에 어려움", who: "행복전도사" },
-      { msg: "행운의 쿠키 제발..", who: "열정베이커" },
-    ];
+    // ?cheer=none 프리뷰: 응원이 하나도 없는 빈 상태 확인용
+    const noCheer =
+      new URLSearchParams(location.search).get("cheer") === "none";
+    const COMMUNITY = noCheer
+      ? []
+      : [
+          { msg: "오늘 내가 1등한데 오천냥 냠~", who: "불꽃소녀" },
+          { msg: "미쳣다 오늘 왜이렄에 어려움", who: "행복전도사" },
+          { msg: "행운의 쿠키 제발..", who: "열정베이커" },
+        ];
 
     const nickname = localStorage.getItem("storit.nickname") || "나";
     const esc = (s) =>
@@ -69,6 +74,22 @@
       ? [{ msg: saved, who: nickname, mine: true }, ...COMMUNITY]
       : COMMUNITY;
 
+    if (rows.length === 0) {
+      // 응원이 하나도 없을 때: 첫 응원 유도 카드 (mn-cheer-empty)
+      listEl.hidden = true;
+      let empty = section.querySelector(".mn-cheer-empty");
+      if (!empty) {
+        empty = document.createElement("div");
+        empty.className = "mn-cheer-empty";
+        empty.innerHTML =
+          `<span class="mn-cheer-empty-msg">오늘의 첫 응원을 기다리고 있어요<br>` +
+          `퀴즈를 풀고 작품에 첫 응원을 남겨보세요!</span>` +
+          `<button type="button" class="mn-cheer-empty-tag">스토릿</button>`;
+        section.appendChild(empty);
+      }
+      empty.hidden = false;
+      return;
+    }
     listEl.innerHTML = rows
       .map(
         (r) => `
@@ -257,6 +278,39 @@
         expModal.hidden = true;
       });
     });
+  }
+
+  // 레벨업 모달 — ?levelup 프리뷰 / 실제 레벨업 시 open
+  // 실제 연동: openLevelUp(newLevel) 로 호출하면 동적으로 표시됨
+  const lvModal = document.querySelector(".mn-levelup");
+  const openLevelUp = (newLevel) => {
+    if (!lvModal) return;
+    const to = Number(newLevel);
+    const from = to - 1;
+    const setTxt = (sel, v) => {
+      const e = lvModal.querySelector(sel);
+      if (e) e.textContent = v;
+    };
+    setTxt(".mn-levelup-lv--from", `LV ${from}`);
+    setTxt(".mn-levelup-lv--to", `LV ${to}`);
+    // 매 5레벨 달성 시에만 보너스 쿠키 문구 노출
+    const bonus = lvModal.querySelector(".mn-levelup-bonus");
+    if (bonus) bonus.hidden = to % 5 !== 0;
+    lvModal.hidden = false;
+    lvModal.querySelectorAll("[data-close-levelup]").forEach((el) => {
+      el.addEventListener("click", () => {
+        lvModal.hidden = true;
+      });
+    });
+  };
+  const lvParams = new URLSearchParams(location.search);
+  if (lvModal && lvParams.has("levelup")) {
+    // ?levelup=N → 새 레벨 N (없으면 헤더 현재 레벨 +1)
+    const curMatch = (
+      document.querySelector(".mn-level-name")?.textContent || ""
+    ).match(/(\d+)/);
+    const curLevel = curMatch ? parseInt(curMatch[1], 10) : 8;
+    openLevelUp(parseInt(lvParams.get("levelup"), 10) || curLevel + 1);
   }
 
   // 헤더 알림(종) → 알림 페이지로 이동

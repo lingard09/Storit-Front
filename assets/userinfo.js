@@ -27,7 +27,7 @@
   const NICK_RE = /^[가-힣a-zA-Z0-9]{2,10}$/;
 
   // TODO: 백엔드 연동 시 중복 확인 API로 교체
-  const TAKEN = ["내가그린기린그림", "스토릿", "관리자", "admin"];
+  const TAKEN = ["내가그린기린그림", "스토릿", "관리자", "admin", "막시무스"];
 
   let nickState = "empty"; // empty | invalid | taken | ok
 
@@ -158,7 +158,7 @@
     };
   }
 
-  const NEXT = "loading.html";
+  const NEXT = "welcome.html"; // 로딩 페이지 건너뛰고 welcome 으로 바로 이동
 
   cta.addEventListener("click", () => {
     if (cta.disabled) return;

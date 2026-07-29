@@ -43,8 +43,9 @@
     </div>`;
 
   // 등록된 퀴즈가 있으면 안내 박스(mq-info) 숨김
+  // (.mq-info 는 display:flex 라 hidden 속성이 안 먹혀 인라인 display 로 숨김)
   const infoEl = $(".mq-info");
-  if (infoEl && QUIZZES.length) infoEl.hidden = true;
+  if (infoEl && QUIZZES.length) infoEl.style.display = "none";
 
   // ── 등록퀴즈 통계 ─────────────────────────────
   $(".mq-reg-v").textContent = `${QUIZZES.length}개`;

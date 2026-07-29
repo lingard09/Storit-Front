@@ -79,7 +79,7 @@
 .ui-fields {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 10px; /* 필드 그룹 사이 간격(필드↔다음 라벨) 축소 25→16 */
 }
 
 .ui-label {
@@ -233,6 +233,13 @@
 }
 
 /* ── 프로필 설정 모달 ────────────────────── */
+
+/* 프레임(z-index:1) 밖 body 직속이라 z-index 없으면 프레임 아래로 깔림 → 최상단으로 */
+.ui-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+}
 
 .ui-modal[hidden] {
   display: none;
@@ -395,6 +402,13 @@
   height: 100%;
   border-radius: 9999px;
   object-fit: cover;
+}
+
+/* 샘플 아바타(svg)도 70×70 슬롯을 꽉 채움 — 옵션 2~8 svg 가 43×43 라 작게 좌상단에 박히던 문제 해결 */
+.ui-avatar svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* ── 출생연도 설정 모달 ──────────────────── */

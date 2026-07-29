@@ -247,7 +247,7 @@ body:has(.iq-page)::before {
   padding: 0;
   border: 2.26px dashed #ef9f27;
   border-radius: 6.03px;
-  background: var(--cta-bg) url("Vector.svg") center / 22px 18px no-repeat;
+  background: var(--cta-bg) url("icon_plus_orange.svg") center / 22px 18px no-repeat;
   cursor: pointer;
 }
 
