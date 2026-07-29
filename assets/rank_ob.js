@@ -1,6 +1,6 @@
 /**
  * 스토릿 - 랭킹 온보딩 전환
- * 1초 후 자동으로 다음 페이지 이동, 화면 아무 곳이나 탭하면 즉시 이동.
+ * 2초 후 자동으로 다음 페이지 이동, 화면 아무 곳이나 탭하면 즉시 이동.
  * 첫 페이지 진입 시 방문 기록을 남겨 다음부터는 온보딩을 건너뜀.
  */
 (function () {
@@ -27,8 +27,8 @@
     window.location.href = stay ? next + "?stay" : next;
   }
 
-  // 1초 후 자동 이동 (프리뷰 모드에서는 생략)
-  const timer = stay ? null : setTimeout(go, 1000);
+  // 2초 후 자동 이동 (프리뷰 모드에서는 생략)
+  const timer = stay ? null : setTimeout(go, 2000);
 
   // 탭 시 즉시 이동
   frame.addEventListener("click", () => {

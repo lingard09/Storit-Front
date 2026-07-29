@@ -233,8 +233,8 @@
 
 .sh-banner-top {
   position: relative;
-  height: 110px;
-  padding: 16px 23px;
+  min-height: 110px;
+  padding: 16px 23px 10px;
   background: #faefdf;
   border: 1px solid #f3ede3;
   border-radius: 10px 10px 0 0;
@@ -244,9 +244,9 @@
 /* 배너 배경 이미지 (우측, 은은하게) */
 .sh-banner-bg {
   position: absolute;
-  right: -120px;
-  bottom: -140px;
-  width: 580px;
+  right: -65px;
+  bottom: -100px;
+  width: 430px;
   max-width: none; /* base.css 의 img max-width:100% 해제 */
   height: auto;
   opacity: 0.5;
@@ -339,6 +339,9 @@
 
 .sh-mycookie-num {
   font-size: 12px;
+  line-height: 16px;
+  position: relative;
+  top: -1px;
 }
 
 .sh-storage {
@@ -385,8 +388,15 @@
 }
 
 .sh-cat-ico {
+  display: block;
   width: 24px;
   height: 24px;
+  background: var(--ico) center / contain no-repeat;
+}
+
+/* 활성 시 네거티브(갈색 채움 + 크림 디테일) 아이콘으로 교체 */
+.sh-cat.is-active .sh-cat-ico {
+  background-image: var(--ico-on);
 }
 
 .sh-cat-emoji {
@@ -423,9 +433,11 @@
 .sh-sort {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  gap: auto;
+  width: 80px;
   height: 24px;
-  padding: 0 8px;
+  padding: 0 7px;
   border: 1px solid var(--yellow);
   border-radius: 10px;
   background: var(--cta-bg);
@@ -437,11 +449,73 @@
 }
 
 .sh-sort-caret {
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid #1c1000;
+  width: 12px;
+  height: 12px;
+  background: url("ooui_next-ltr.svg") center / contain no-repeat;
+}
+
+/* ── 정렬 드롭다운 ─────────────────────── */
+.sh-sort-wrap {
+  position: relative;
+}
+
+.sh-sort-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  width: 80px;
+  padding: 12px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fef4d2;
+  border: 1px solid #ffd95e;
+  border-radius: 10px;
+}
+
+.sh-sort-menu[hidden] {
+  display: none;
+}
+
+.sh-sort-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 8.63px;
+  font-weight: 700;
+  line-height: 12.07px;
+  color: #1c1000;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.sh-sort-radio {
+  position: relative;
+  flex-shrink: 0;
+  width: 9.92px;
+  height: 9.92px;
+  border-radius: 50%;
+  border: 0.86px solid var(--cookie, #f9c356);
+  box-sizing: border-box;
+}
+
+.sh-sort-opt.is-selected .sh-sort-radio::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6.47px;
+  height: 6.47px;
+  border-radius: 50%;
+  background: var(--cookie, #f9c356);
 }
 
 /* 쿠키 가격 pill (공통) */

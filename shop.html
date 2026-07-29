@@ -42,7 +42,7 @@
               지금까지 모은 내 쿠키
               <img class="sh-mycookie-arrow" src="assets/icon_next.svg" alt="" />
               <span class="sh-mycookie-count">
-                <img class="sh-cookie-ico" src="assets/shop_cookie.svg" alt="" />
+                <img class="sh-cookie-ico" src="assets/shop_cookie_ico.svg" alt="" />
                 <b class="sh-mycookie-num">80개</b>
               </span>
             </div>
@@ -67,7 +67,26 @@
           <h3 class="sh-sec-title">전체상품</h3>
           <div class="sh-sec-sub">
             <span class="sh-count">상품 <b>1357</b>개</span>
-            <button type="button" class="sh-sort">인기순 <span class="sh-sort-caret"></span></button>
+            <div class="sh-sort-wrap">
+              <button type="button" class="sh-sort" aria-expanded="false">
+                <span class="sh-sort-label">인기순</span>
+                <span class="sh-sort-caret"></span>
+              </button>
+              <div class="sh-sort-menu" hidden>
+                <button type="button" class="sh-sort-opt is-selected" data-sort="popular">
+                  인기순<span class="sh-sort-radio"></span>
+                </button>
+                <button type="button" class="sh-sort-opt" data-sort="price-asc">
+                  낮은 가격 순<span class="sh-sort-radio"></span>
+                </button>
+                <button type="button" class="sh-sort-opt" data-sort="price-desc">
+                  높은 가격 순<span class="sh-sort-radio"></span>
+                </button>
+                <button type="button" class="sh-sort-opt" data-sort="latest">
+                  최신순<span class="sh-sort-radio"></span>
+                </button>
+              </div>
+            </div>
           </div>
           <div class="sh-grid"></div>
         </section>
@@ -93,7 +112,11 @@
             <span class="mn-nav-icon"></span>
             홈
           </button>
-          <button type="button" class="mn-nav-item mn-nav-item--ranking">
+          <button
+            type="button"
+            class="mn-nav-item mn-nav-item--ranking"
+            onclick="location.href = localStorage.getItem('rankObSeen') ? 'ranking.html' : 'rank_onboarding1.html'"
+          >
             <span class="mn-nav-icon"></span>
             랭킹
           </button>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 쿠키 굽는 중</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <!-- loading 페이지 배경(주방 body::before) + 연기 효과 재사용 -->
+    <link rel="stylesheet" href="assets/loading.css" />
+    <link rel="stylesheet" href="assets/baking.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="assets/frame-scale.js"></script>
+  </head>
+  <body>
+    <!-- 전체폭 상단 띠 (프레임 밖) -->
+    <div class="bk-topband" aria-hidden="true"></div>
+
+    <div class="frame bk-page">
+      <!-- 헤더 (ms-header 와 동일: 노란 띠 + 크림 시트) -->
+      <div class="bk-topsheet">
+        <header class="bk-header">
+          <button
+            type="button"
+            class="bk-back"
+            aria-label="뒤로 가기"
+            onclick="location.href='mission_done.html'"
+          ></button>
+          <h1 class="bk-title">쿠키 굽는 중</h1>
+        </header>
+      </div>
+
+      <!-- 굽는 중 스테이지 (배경 주방 씬 위) -->
+      <div class="bk-stage">
+        <div class="bk-heading">
+          <img class="bk-spark" src="assets/sparkle_lg.svg" alt="" />
+          <span>쿠키 굽는 중</span>
+          <img class="bk-spark" src="assets/sparkle_lg.svg" alt="" />
+        </div>
+
+        <div class="bk-dots" aria-label="굽는 중">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="bk-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <script src="assets/baking.js"></script>
+  </body>
+</html>

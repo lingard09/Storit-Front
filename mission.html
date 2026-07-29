@@ -179,6 +179,20 @@
             </div>
           </article>
         </section>
+
+        <!-- 오늘 이미 구운 상태 (mission.js 가 조건부 표시) -->
+        <section class="ms-complete ms-baked" hidden>
+          <h2 class="ms-complete-title">오늘의 쿠키를 이미 구웠어요</h2>
+          <p class="ms-complete-sub">내일도 맛있는 쿠키를 만들어봐요!</p>
+          <img
+            class="ms-complete-mascot"
+            src="assets/mission_complete_mascot.svg"
+            alt=""
+          />
+          <button type="button" class="ms-bake-btn" disabled>
+            초코칩 쿠키 제작 완료!
+          </button>
+        </section>
       </div>
 
       <!-- 하단 스캘럽 장식 -->
@@ -186,5 +200,6 @@
         <span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
     </div>
+    <script src="assets/mission.js"></script>
   </body>
 </html>

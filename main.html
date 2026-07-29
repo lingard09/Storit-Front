@@ -33,7 +33,11 @@
           <span class="mn-hearts-pill"></span>
         </div>
 
-        <button type="button" class="mn-cookies" onclick="location.href='cookies.html'">
+        <button
+          type="button"
+          class="mn-cookies"
+          onclick="location.href = 'cookies.html'"
+        >
           <img src="assets/icon_cookie_sm.svg" alt="" />602
         </button>
 
@@ -54,7 +58,11 @@
               <span class="accent">쿠키</span> 받아가세요
             </p>
 
-            <button type="button" class="mn-hero-cta" onclick="location.href='mission.html'">
+            <button
+              type="button"
+              class="mn-hero-cta"
+              onclick="location.href = 'mission.html'"
+            >
               오늘의 미션 보기
               <img src="assets/icon_arrow_next.svg" alt="" />
             </button>
@@ -64,23 +72,35 @@
 
           <!-- 퀵 메뉴 -->
           <nav class="mn-tiles">
-            <button type="button" class="mn-tile">
+            <button
+              type="button"
+              class="mn-tile"
+              onclick="location.href = 'mission.html'"
+            >
               <img src="assets/tile_invite.svg" alt="" />오늘의 미션
             </button>
-            <button type="button" class="mn-tile">
+            <button
+              type="button"
+              class="mn-tile"
+              onclick="location.href = 'checkin.html'"
+            >
               <img src="assets/tile_attendance.svg" alt="" />출석체크
             </button>
             <button type="button" class="mn-tile">
               <img src="assets/tile_mission.svg" alt="" />친구 초대
             </button>
-            <button type="button" class="mn-tile">
+            <button type="button" class="mn-tile" onclick="location.href = 'myquiz.html'">
               <img src="assets/tile_myquiz.svg" alt="" />내 퀴즈
             </button>
           </nav>
 
           <!-- 오늘의 퀴즈 -->
           <section class="mn-quizbar">
-            <img class="mn-quizbar-cookie" src="assets/icon_cookie_lg.svg" alt="" />
+            <img
+              class="mn-quizbar-cookie"
+              src="assets/icon_cookie_lg.svg"
+              alt=""
+            />
             <p class="mn-quizbar-title">오늘의 퀴즈</p>
             <span class="mn-quizbar-free">무료 기회 2회</span>
             <p class="mn-quizbar-lead">웹툰 퀴즈 풀면 최대 5,000원!</p>
@@ -123,7 +143,9 @@
 
           <div class="mn-sheet-body">
             <div class="mn-sheet-copy">
-              <p class="mn-sheet-title">오늘의 퀴즈부터<br />가볍게 시작해볼까요?</p>
+              <p class="mn-sheet-title">
+                오늘의 퀴즈부터<br />가볍게 시작해볼까요?
+              </p>
               <p class="mn-sheet-desc">
                 웹툰을 읽고 퀴즈를 풀면<br />점수와 쿠키를 얻을 수 있어요!!
               </p>
@@ -144,7 +166,11 @@
           <button
             type="button"
             class="mn-nav-item"
-            onclick="location.href = localStorage.getItem('rankObSeen') ? 'ranking.html' : 'rank_onboarding1.html'"
+            onclick="
+              location.href = localStorage.getItem('rankObSeen')
+                ? 'ranking.html'
+                : 'rank_onboarding1.html'
+            "
           >
             <span class="mn-nav-icon"></span>
             랭킹
@@ -156,7 +182,7 @@
           <button
             type="button"
             class="mn-nav-item"
-            onclick="location.href='mypage.html'"
+            onclick="location.href = 'mypage.html'"
           >
             <span class="mn-nav-icon"></span>
             마이페이지
@@ -168,11 +194,37 @@
 
       <!-- 하트 충전 모달 (헤더 + 버튼 클릭 시) -->
       <div class="mn-heart-modal" hidden>
-        <button type="button" class="mn-hm-overlay" data-close-heart aria-label="닫기"></button>
-        <div class="mn-hm-card" role="dialog" aria-modal="true" aria-labelledby="mn-hm-title">
-          <button type="button" class="mn-hm-close" data-close-heart aria-label="닫기">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <button
+          type="button"
+          class="mn-hm-overlay"
+          data-close-heart
+          aria-label="닫기"
+        ></button>
+        <div
+          class="mn-hm-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mn-hm-title"
+        >
+          <button
+            type="button"
+            class="mn-hm-close"
+            data-close-heart
+            aria-label="닫기"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 4l10 10M14 4L4 14"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
 
@@ -190,7 +242,9 @@
             </div>
           </div>
 
-          <p class="mn-hm-desc">광고를 시청하면 하트 1개를 즉시 충전할 수 있어요!</p>
+          <p class="mn-hm-desc">
+            광고를 시청하면 하트 1개를 즉시 충전할 수 있어요!
+          </p>
 
           <div class="mn-hm-adcount">
             <img src="assets/boxicons_movie-play-filled.svg" alt="" />
@@ -198,25 +252,61 @@
           </div>
 
           <div class="mn-hm-actions">
-            <button type="button" class="mn-hm-btn mn-hm-btn--wait" data-close-heart>기다리기</button>
-            <button type="button" class="mn-hm-btn mn-hm-btn--go">보러가기</button>
+            <button
+              type="button"
+              class="mn-hm-btn mn-hm-btn--wait"
+              data-close-heart
+            >
+              기다리기
+            </button>
+            <button type="button" class="mn-hm-btn mn-hm-btn--go">
+              보러가기
+            </button>
           </div>
         </div>
       </div>
 
       <!-- 친구 초대 모달 (바텀시트) -->
       <div class="mn-invite" hidden>
-        <button type="button" class="mn-iv-overlay" data-close-invite aria-label="닫기"></button>
-        <div class="mn-iv-sheet" role="dialog" aria-modal="true" aria-labelledby="mn-iv-title">
+        <button
+          type="button"
+          class="mn-iv-overlay"
+          data-close-invite
+          aria-label="닫기"
+        ></button>
+        <div
+          class="mn-iv-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mn-iv-title"
+        >
           <img class="mn-iv-gift" src="assets/invite_gift.svg" alt="" />
-          <button type="button" class="mn-iv-close" data-close-invite aria-label="닫기">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <button
+            type="button"
+            class="mn-iv-close"
+            data-close-invite
+            aria-label="닫기"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 4l10 10M14 4L4 14"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
 
           <div class="mn-iv-head">
-            <h2 id="mn-iv-title" class="mn-iv-title">친구에게 링크를 보내주세요</h2>
+            <h2 id="mn-iv-title" class="mn-iv-title">
+              친구에게 링크를 보내주세요
+            </h2>
             <p class="mn-iv-desc">
               초대한 친구가 신규 가입자일 경우에만 혜택을 받을 수 있어요!
             </p>
@@ -228,28 +318,55 @@
           </button>
 
           <button type="button" class="mn-iv-cta">카카오톡으로 초대하기</button>
-          <button type="button" class="mn-iv-reward">친구 초대 별도 보상 보기</button>
+          <button type="button" class="mn-iv-reward">
+            친구 초대 별도 보상 보기
+          </button>
         </div>
       </div>
 
       <!-- 친구 초대 보상 안내 팝업 -->
       <div class="mn-reward-guide" hidden>
-        <button type="button" class="mn-rg-overlay" data-close-rg aria-label="닫기"></button>
-        <div class="mn-rg-card" role="dialog" aria-modal="true" aria-labelledby="mn-rg-title">
-          <button type="button" class="mn-rg-close" data-close-rg aria-label="닫기">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
+        <button
+          type="button"
+          class="mn-rg-overlay"
+          data-close-rg
+          aria-label="닫기"
+        ></button>
+        <div
+          class="mn-rg-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mn-rg-title"
+        >
+          <button
+            type="button"
+            class="mn-rg-close"
+            data-close-rg
+            aria-label="닫기"
+          >
+            <img src="assets/mingcute_close-fill.svg" alt="" />
           </button>
           <h2 id="mn-rg-title" class="mn-rg-title">친구 초대 보상 안내</h2>
           <table class="mn-rg-table">
             <thead>
-              <tr><th>조건</th><th>보상</th></tr>
+              <tr>
+                <th>조건</th>
+                <th>보상</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>친구 가입 완료</td><td>쿠키 2개</td></tr>
-              <tr><td>친구 퀴즈 3회 참여</td><td>쿠키 1개</td></tr>
-              <tr><td>친구가 3일 출석</td><td>쿠키 2개</td></tr>
+              <tr>
+                <td>친구 가입 완료</td>
+                <td>쿠키 2개</td>
+              </tr>
+              <tr>
+                <td>친구 퀴즈 3회 참여</td>
+                <td>쿠키 1개</td>
+              </tr>
+              <tr>
+                <td>친구가 3일 출석</td>
+                <td>쿠키 2개</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -257,9 +374,49 @@
 
       <!-- 초대코드 복사 완료 토스트 (하단) -->
       <div class="mn-toast" hidden>
+        <div class="mn-toast-overlay" aria-hidden="true"></div>
         <div class="mn-toast-card">
           <img src="assets/icon_paste_lg.svg" alt="" />
           <p>초대코드가 복사 되었어요!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 경험치 획득 모달 (body 레벨 — 프레임 밖 전체 화면 딤) -->
+    <div class="mn-exp" hidden>
+      <button
+        type="button"
+        class="mn-exp-overlay"
+        data-close-exp
+        aria-label="닫기"
+      ></button>
+      <div
+        class="mn-exp-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="mn-exp-title"
+      >
+        <button
+          type="button"
+          class="mn-exp-close"
+          data-close-exp
+          aria-label="닫기"
+        >
+          <img src="assets/icon_close.svg" alt="" />
+        </button>
+        <div class="mn-exp-top">
+          <div class="mn-exp-scallop" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span>
+          </div>
+          <img class="mn-exp-bg" src="assets/exp_bg.svg" alt="" />
+          <img class="mn-exp-char" src="assets/exp_char.svg" alt="" />
+        </div>
+        <div class="mn-exp-text">
+          <h2 id="mn-exp-title" class="mn-exp-title">
+            경험치를 획득하셨습니다!!!
+          </h2>
+          <p class="mn-exp-amount">+ 30 EXP</p>
         </div>
       </div>
     </div>

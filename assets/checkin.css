@@ -62,7 +62,6 @@
 
 /* ── 스크롤 영역 ──────────────────────── */
 .ci-scroll {
-  flex: 1;
   overflow-y: auto;
   padding: 3px 21px 0;
 }
@@ -94,15 +93,16 @@
   margin-top: 12px;
   background: #fff;
   border-radius: 10px 10px 0 0;
-  padding: 16px 14px;
+  padding: 16px 0px;
 }
 
 .ci-card-head {
   position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0 2px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 36px;
+  padding: 0 20px;
   min-height: 69px;
 }
 
@@ -149,9 +149,9 @@
 .ci-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 40px;
+  justify-content: space-between;
   height: 38px;
+  padding: 0 24px;
   background: #faefdf;
 }
 
@@ -267,7 +267,7 @@
 /* ── 출석하기 버튼 ────────────────────── */
 .ci-submit-wrap {
   flex-shrink: 0;
-  padding: 12px 20px 90px; /* 하단 스캘럽 위로 버튼 올림 */
+  padding: 20px 20px 90px; /* ci-card와 20px 간격, 하단 스캘럽 위로 버튼 올림 */
 }
 
 .ci-submit {
@@ -586,6 +586,13 @@
 
 .ci-scallop span + span {
   margin-left: -22.2px;
+}
+
+/* 모달 열림 시: 폰 뷰포트는 프레임이 화면 높이를 꽉 채워 프레임 아래(-39.58)로
+   매달린 스캘럽이 화면 밖으로 잘림 → 데스크톱(프레임 아래 여백 존재)과 달리 안 보임.
+   모달이 뜰 때만 스캘럽을 프레임 안쪽으로 끌어올려 어떤 화면에서도 온전히 노출. */
+.ci-page.has-open-modal .ci-scallop {
+  bottom: 0;
 }
 
 /* ── 레벨업 모달 ──────────────────────── */

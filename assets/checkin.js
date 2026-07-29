@@ -74,7 +74,7 @@
   const modal = document.querySelector(".rs-exp:not(.rs-lvup)");
   const overlay = modal && modal.querySelector(".rs-exp-overlay");
   const closeBtn = modal && modal.querySelector(".rs-exp-close");
-  const expNumEl = modal && modal.querySelector(".rs-exp-amount-num");
+  const amountEl = modal && modal.querySelector(".rs-exp-amount");
   const bonusEl = modal && modal.querySelector(".rs-exp-bonus");
 
   // 레벨업 모달
@@ -105,13 +105,15 @@
   function openModal(streak) {
     if (!modal) return;
     const r = getReward(streak);
-    if (expNumEl) expNumEl.textContent = r.exp;
-    if (bonusEl) {
-      bonusEl.hidden = !r.isBonus;
-      if (r.isBonus) {
-        bonusEl.textContent = `🎉 ${r.streak}일 연속 출석 보너스 +${r.bonusExp} EXP!`;
-      }
+    // 마일스톤(연속 출석) 날: "N일 연속 보너스 + {총합} EXP", 그 외: "+ {기본} EXP"
+    if (amountEl) {
+      const num = `<span class="rs-exp-amount-num">${r.exp}</span>`;
+      amountEl.innerHTML = r.isBonus
+        ? `${r.streak}일 연속 보너스 + ${num} EXP`
+        : `+ ${num} EXP`;
     }
+    // 스트릭 문구를 금액 라인에 통합 → 별도 보너스 라인 미사용
+    if (bonusEl) bonusEl.hidden = true;
     leveledUp = evalLevelUp(r.exp);
     modal.hidden = false;
   }

@@ -273,8 +273,8 @@
 }
 .rs-cheer-mascot {
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 20px;
+  top: 16px;
   width: 74px;
   height: 74px;
   object-fit: contain;

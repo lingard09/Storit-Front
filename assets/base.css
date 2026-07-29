@@ -104,6 +104,11 @@ body::before {
 }
 .frame.has-open-modal [class*="-overlay"] {
   inset: -100vmax;
+  /* 일부 오버레이(rs-exp/ci-guide)는 width:100% 를 갖고 있어 left/right(-100vmax)와
+     충돌 → 폭이 컨테이너(375)로 고정되고 왼쪽으로 밀려 딤이 화면을 못 덮음.
+     width/height:auto 로 풀어 좌우·상하가 -100vmax 까지 모두 늘어나게 함. */
+  width: auto;
+  height: auto;
 }
 
 /* ── terms 처럼 전체 폭 크림 시트 (표준 "노랑 + ::before 크림 시트" 패턴 페이지) ──
@@ -112,24 +117,24 @@ body::before {
    화면 전체 폭 레이어로 제공 → 카드처럼 보이지 않고 terms 와 동일하게 꽉 참. */
 .ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page, .ex-page,
 .nt-page, .pd-page, .qc-page, .qd-page, .mq-page, .se-page, .wd-page,
-.rk-page, .sh-page, .mp-page, .iq-page, .ms-page {
+.rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page {
   background: transparent !important;
 }
 .ci-page::before, .st-page::before, .nc-page::before, .cp-page::before,
 .vc-page::before, .ck-page::before, .ex-page::before, .nt-page::before,
 .pd-page::before, .qc-page::before, .qd-page::before, .mq-page::before,
 .se-page::before, .wd-page::before, .rk-page::before, .sh-page::before,
-.mp-page::before, .iq-page::before, .ms-page::before {
+.mp-page::before, .iq-page::before, .ms-page::before, .cr-page::before {
   display: none !important;
 }
 body:has(.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page,
     .ex-page, .nt-page, .pd-page, .qc-page, .qd-page, .mq-page,
-    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page) {
+    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page) {
   background: var(--yellow);
 }
 body:has(.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page,
     .ex-page, .nt-page, .pd-page, .qc-page, .qd-page, .mq-page,
-    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page)::before {
+    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page)::before {
   inset: calc(16px * var(--frame-scale, 1)) 0 0 0;
   background: var(--bg);
   border-radius: calc(20px * var(--frame-scale, 1))
@@ -186,7 +191,9 @@ body > .mn-nav .mn-nav-indicator {
 .pd-scallop,
 .rf-scallop,
 .ui-scallop,
-.ms-scallop {
+.ms-scallop,
+.cr-scallop,
+.bk-scallop {
   /* 각 페이지 CSS가 display:flex 를 명시하므로 !important 로 확실히 숨김 */
   display: none !important;
 }
@@ -203,7 +210,9 @@ html:has(
     .pd-scallop,
     .rf-scallop,
     .ui-scallop,
-    .ms-scallop
+    .ms-scallop,
+    .cr-scallop,
+    .bk-scallop
   )::after {
   content: "";
   position: fixed;

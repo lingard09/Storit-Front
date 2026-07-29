@@ -83,9 +83,19 @@
 
   // 하단 버튼
   const rank = document.querySelector(".rs-action--weak");
-  if (rank) rank.addEventListener("click", () => (window.location.href = "ranking.html"));
+  if (rank)
+    rank.addEventListener("click", () => {
+      window.location.href = localStorage.getItem("rankObSeen")
+        ? "ranking.html"
+        : "rank_onboarding1.html";
+    });
   const more = document.querySelector(".rs-action--fill");
   if (more) more.addEventListener("click", () => (window.location.href = "main.html"));
+
+  // 미션 확인하기 → 오늘의 미션 페이지
+  const missionBtn = document.querySelector(".rs-mission-btn");
+  if (missionBtn)
+    missionBtn.addEventListener("click", () => (window.location.href = "mission.html"));
 
   // 뒤로가기 → 메인
   const back = document.querySelector(".rs-back");

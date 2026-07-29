@@ -20,7 +20,7 @@
           type="button"
           class="ci-back"
           aria-label="뒤로 가기"
-          onclick="location.href='main.html'"
+          onclick="location.href = 'main.html'"
         ></button>
         <h1 class="ci-title">출석체크</h1>
       </header>
@@ -80,7 +80,7 @@
       <!-- 출석하기 / 완료 후 보상 배너 -->
       <div class="ci-submit-wrap">
         <button type="button" class="ci-submit">출석하기</button>
-        <div class="ci-reward" hidden>
+        <div class="ci-reward" hidden onclick="location.href = 'mission.html'">
           <img class="ci-reward-icon" src="assets/icon_butter.svg" alt="" />
           <div class="ci-reward-text">
             <p class="ci-reward-title">오늘의 미션 출석체크 달성!!</p>
@@ -142,7 +142,9 @@
             <img class="rs-lvup-char" src="assets/levelup_mascot.svg" alt="" />
           </div>
           <div class="rs-exp-text">
-            <h2 id="ci-lvup-title" class="rs-exp-title">레벨업 되었습니다!!!</h2>
+            <h2 id="ci-lvup-title" class="rs-exp-title">
+              레벨업 되었습니다!!!
+            </h2>
             <p class="rs-lvup-levels">
               <span class="rs-lvup-from">LV 8</span>
               <img class="rs-lvup-arrow" src="assets/icon_next.svg" alt="→" />
@@ -154,7 +156,11 @@
 
       <!-- 연속 출석 보상 안내 (ci-info 클릭) -->
       <div class="ci-guide" hidden>
-        <button type="button" class="ci-guide-overlay" aria-label="닫기"></button>
+        <button
+          type="button"
+          class="ci-guide-overlay"
+          aria-label="닫기"
+        ></button>
         <div
           class="ci-guide-card"
           role="dialog"
@@ -164,10 +170,15 @@
           <button type="button" class="ci-guide-close" aria-label="닫기">
             <img src="assets/icon_close.svg" alt="" />
           </button>
-          <h2 id="ci-guide-title" class="ci-guide-title">연속 출석 보상 안내</h2>
+          <h2 id="ci-guide-title" class="ci-guide-title">
+            연속 출석 보상 안내
+          </h2>
           <table class="ci-guide-table">
             <thead>
-              <tr><th>구간</th><th>보상</th></tr>
+              <tr>
+                <th>구간</th>
+                <th>보상</th>
+              </tr>
             </thead>
             <tbody class="ci-guide-rows"></tbody>
           </table>

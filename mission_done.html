@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 오늘의 미션 완료</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/mission.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="assets/frame-scale.js"></script>
+  </head>
+  <body>
+    <div class="frame ms-page">
+      <!-- 헤더 -->
+      <header class="ms-header">
+        <button
+          type="button"
+          class="ms-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='main.html'"
+        ></button>
+        <h1 class="ms-title">오늘의 미션</h1>
+      </header>
+
+      <!-- 본문 스크롤 -->
+      <div class="ms-scroll">
+        <!-- A) 레시피 배너 -->
+        <section class="ms-recipe">
+          <div class="ms-recipe-text">
+            <div class="ms-recipe-label">
+              <img class="ms-recipe-sparkle" src="assets/sparkle_sm.svg" alt="" />
+              <span>오늘의 쿠키 레시피</span>
+              <img class="ms-recipe-sparkle" src="assets/sparkle_sm.svg" alt="" />
+            </div>
+            <h2 class="ms-recipe-title">초코칩 쿠키 만들기</h2>
+            <p class="ms-recipe-desc">
+              5가지 재료를 모두 모으면<br />쿠키 1개를 드려요! 🍪
+            </p>
+          </div>
+          <img class="ms-recipe-mascot" src="assets/recipe_scene.svg" alt="" />
+        </section>
+
+        <!-- B) 타이머 바 -->
+        <section class="ms-timer">
+          <span class="ms-timer-label">오늘의 미션 종료까지</span>
+          <span class="ms-timer-time">03:41:29 남음</span>
+        </section>
+
+        <!-- C) 재료 원형 (5개 모두 완료) -->
+        <section class="ms-ingredients">
+          <span class="ms-ing-line" aria-hidden="true"></span>
+
+          <div class="ms-ing">
+            <div class="ms-ing-circle is-done">
+              <img src="assets/mission_cookie2.svg" alt="" />
+              <span class="ms-ing-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" width="14" height="14">
+                  <path d="M3.4 7.2 L6 9.6 L10.6 4.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="ms-ing-name">버터</span>
+          </div>
+
+          <div class="ms-ing">
+            <div class="ms-ing-circle is-done">
+              <img src="assets/mission_cookie4.svg" alt="" />
+              <span class="ms-ing-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" width="14" height="14">
+                  <path d="M3.4 7.2 L6 9.6 L10.6 4.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="ms-ing-name">밀가루</span>
+          </div>
+
+          <div class="ms-ing">
+            <div class="ms-ing-circle is-done">
+              <img src="assets/mission_cookie5.svg" alt="" />
+              <span class="ms-ing-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" width="14" height="14">
+                  <path d="M3.4 7.2 L6 9.6 L10.6 4.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="ms-ing-name">우유</span>
+          </div>
+
+          <div class="ms-ing">
+            <div class="ms-ing-circle is-done">
+              <img src="assets/mission_cookie3.svg" alt="" />
+              <span class="ms-ing-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" width="14" height="14">
+                  <path d="M3.4 7.2 L6 9.6 L10.6 4.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="ms-ing-name">설탕</span>
+          </div>
+
+          <div class="ms-ing">
+            <div class="ms-ing-circle is-done">
+              <img src="assets/mission_cookie1.svg" alt="" />
+              <span class="ms-ing-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" width="14" height="14">
+                  <path d="M3.4 7.2 L6 9.6 L10.6 4.6" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="ms-ing-name">초콜릿</span>
+          </div>
+        </section>
+
+        <!-- D) 완료 카드 -->
+        <section class="ms-complete">
+          <h2 class="ms-complete-title">모든 재료를 다 모았어요!</h2>
+          <p class="ms-complete-sub">오늘의 쿠키를 구워볼까요?</p>
+          <img
+            class="ms-complete-mascot"
+            src="assets/mission_complete_mascot.svg"
+            alt=""
+          />
+          <button
+            type="button"
+            class="ms-bake-btn"
+            onclick="location.href='baking.html'"
+          >
+            초코칩 쿠키 굽기 시작!
+          </button>
+        </section>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="ms-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </body>
+</html>

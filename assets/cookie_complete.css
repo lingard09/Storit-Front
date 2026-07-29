@@ -1,0 +1,41 @@
+/* 스토릿 - 쿠키 완성 (baking.css 헤더/제목 + loading.css 배경 재사용) */
+
+/* 오븐 창 안 완성 쿠키 (onboarding1 ob-cookie 와 동일 위치) */
+.cc-cookie {
+  position: absolute;
+  left: 151px;
+  top: 464px;
+  width: 84px;
+  height: 81px;
+}
+
+/* 완성된 쿠키를 든 셰프 마스코트 (Figma: 150x225 @ 202,482 → 우하단) */
+.cc-mascot {
+  position: absolute;
+  right: 22px;
+  bottom: 96px;
+  width: 135px;
+  height: 203px;
+}
+
+/* 말풍선 (기존 에셋 speech_bubble.svg) + 텍스트 오버레이 — onboarding1 과 동일 위치 */
+.cc-bubble {
+  position: absolute;
+  left: 66px;
+  top: 565px;
+  width: 125.2px;
+  height: 96.86px;
+}
+.cc-bubble-text {
+  position: absolute;
+  left: 80px;
+  top: 593px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--brown-900);
+}
+.cc-bubble-hl {
+  color: var(--orange);
+}

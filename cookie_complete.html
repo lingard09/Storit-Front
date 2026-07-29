@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 쿠키 완성</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <!-- 주방 배경(body::before)은 loading.css 재사용, 헤더·제목은 baking.css 재사용 -->
+    <link rel="stylesheet" href="assets/loading.css" />
+    <link rel="stylesheet" href="assets/baking.css" />
+    <link rel="stylesheet" href="assets/cookie_complete.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="assets/frame-scale.js"></script>
+  </head>
+  <body>
+    <!-- 전체폭 상단 띠 (프레임 밖) -->
+    <div class="bk-topband" aria-hidden="true"></div>
+
+    <div class="frame bk-page">
+      <!-- 헤더 (ms-header 와 동일) -->
+      <div class="bk-topsheet">
+        <header class="bk-header">
+          <button
+            type="button"
+            class="bk-back"
+            aria-label="뒤로 가기"
+            onclick="location.href='main.html'"
+          ></button>
+          <h1 class="bk-title">쿠키 완성</h1>
+        </header>
+      </div>
+
+      <div class="bk-stage">
+        <!-- 제목: 세로 1/3 -->
+        <div class="bk-heading">
+          <img class="bk-spark" src="assets/sparkle_lg.svg" alt="" />
+          <span>쿠키 완성</span>
+          <img class="bk-spark" src="assets/sparkle_lg.svg" alt="" />
+        </div>
+
+        <!-- 오븐 안 완성된 쿠키 (onboarding1 과 동일 위치) -->
+        <img class="cc-cookie" src="assets/cookie.svg" alt="" />
+
+        <!-- 완성 결과: 말풍선(에셋) + 셰프 마스코트 -->
+        <img class="cc-bubble" src="assets/speech_bubble.svg" alt="" />
+        <p class="cc-bubble-text">
+          <span class="cc-bubble-hl">오늘의 쿠키</span>가<br />완성됐어요!
+        </p>
+        <img
+          class="cc-mascot"
+          src="assets/cookie_done_mascot.svg"
+          alt="완성된 쿠키를 든 셰프"
+        />
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="bk-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <script>
+      // 완성 화면을 잠시 보여준 뒤 쿠키 획득 완료(리워드) 화면으로 이동
+      setTimeout(function () {
+        location.href = "cookie_reward.html";
+      }, 2500);
+    </script>
+  </body>
+</html>

@@ -167,7 +167,7 @@
           <button
             type="button"
             class="mn-nav-item mn-nav-item--ranking"
-            onclick="location.href = 'ranking.html'"
+            onclick="location.href = localStorage.getItem('rankObSeen') ? 'ranking.html' : 'rank_onboarding1.html'"
           >
             <span class="mn-nav-icon"></span>랭킹
           </button>

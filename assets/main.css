@@ -1148,7 +1148,10 @@ body > .mn-header > .mn-hearts {
 .mn-iv-sheet {
   position: relative;
   z-index: 1;
-  width: 375px;
+  /* 기기 화면 전체 폭. 프레임이 --frame-scale 로 스케일되므로 렌더 폭이 실제
+     뷰포트 폭(100vw)이 되도록 역보정. (모달 열림 시 has-open-modal 로 프레임
+     overflow:visible → 375 밖으로 확장 가능, 프레임 중앙정렬이라 좌우 대칭으로 참) */
+  width: calc(100vw / var(--frame-scale, 1));
   padding: 16px 20px 24px;
   background: #fff;
   border-radius: 24px 24px 0 0;
@@ -1199,7 +1202,7 @@ body > .mn-header > .mn-hearts {
 .mn-iv-code {
   width: 320px;
   height: 48px;
-  margin-top: 6px;
+  margin-top: 20px;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -1239,7 +1242,7 @@ body > .mn-header > .mn-hearts {
 }
 /* 별도 보상 링크 */
 .mn-iv-reward {
-  margin-top: 8px;
+  margin-top: 32px;
   padding: 0 0 2px;
   border: 0;
   border-bottom: 1px solid var(--orange);
@@ -1296,6 +1299,10 @@ body > .mn-header > .mn-hearts {
   align-items: center;
   justify-content: center;
 }
+.mn-rg-close img {
+  width: 25px;
+  height: 25px;
+}
 .mn-rg-title {
   margin-top: 4px;
   text-align: center;
@@ -1337,12 +1344,24 @@ body > .mn-header > .mn-hearts {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding: 0 20px 10px 20px;
   pointer-events: none;
 }
 .mn-toast[hidden] {
   display: none;
 }
+/* 토스트 표시 중 뒤 화면(초대 시트 포함) 딤 — 카드만 제외.
+   -overlay 이름 → base.css has-open-modal 규칙으로 기기 전체 폭까지 확장됨. */
+.mn-toast-overlay {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
 .mn-toast-card {
+  position: relative;
+  z-index: 1; /* 딤 오버레이 위 */
   width: 375px;
   display: flex;
   flex-direction: column;
@@ -1350,8 +1369,8 @@ body > .mn-header > .mn-hearts {
   gap: 10px;
   padding: 22px 24px 30px;
   background: var(--bg);
-  border-radius: 24px 24px 0 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 24px; /* 떠 있는 카드 → 네 모서리 모두 라운드 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 .mn-toast-card img {
   width: 48px;
@@ -1363,4 +1382,112 @@ body > .mn-header > .mn-hearts {
   line-height: 20px;
   text-align: center;
   color: rgba(0, 12, 30, 0.8);
+}
+
+/* ── 경험치 획득 모달 (쿠키 획득 완료 → 홈 이동 시) — result rs-exp 재현 ──
+   body 레벨(프레임 밖) fixed 로 전체 화면을 확실히 덮는다(헤더/네비 포함). */
+.mn-exp {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mn-exp[hidden] {
+  display: none;
+}
+.mn-exp-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+.mn-exp-card {
+  position: relative;
+  z-index: 2;
+  width: 330px;
+  height: 446px;
+  background: var(--bg);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.mn-exp-top {
+  position: relative;
+  height: 323px;
+  overflow: hidden;
+}
+.mn-exp-scallop {
+  position: absolute;
+  left: -68px;
+  top: -38px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+.mn-exp-scallop span {
+  flex-shrink: 0;
+  width: 96.58px;
+  height: 96.58px;
+  border-radius: 9999px;
+  background: #9a8ff2;
+}
+.mn-exp-scallop span + span {
+  margin-left: -22.2px;
+}
+.mn-exp-bg {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 330px;
+  height: auto;
+  z-index: 0;
+}
+.mn-exp-char {
+  position: absolute;
+  left: 50%;
+  top: 101px;
+  transform: translateX(-50%);
+  width: 206px;
+  height: 209px;
+  object-fit: contain;
+  z-index: 1;
+}
+.mn-exp-close {
+  position: absolute;
+  right: 13px;
+  top: 13px;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+  z-index: 3;
+}
+.mn-exp-close img {
+  width: 25px;
+  height: 25px;
+}
+.mn-exp-text {
+  padding: 20px 24px 0;
+  text-align: center;
+}
+.mn-exp-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--brown-800);
+}
+.mn-exp-amount {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #6c53c5;
 }

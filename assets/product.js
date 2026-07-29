@@ -7,7 +7,7 @@
   ];
 
   const pricePill = (n) =>
-    `<span class="pd-price"><img src="assets/shop_cookie.svg" alt="" /><span class="pd-price-num">${n}</span></span>`;
+    `<span class="pd-price"><img src="assets/shop_cookie_ico.svg" alt="" /><span class="pd-price-num">${n}</span></span>`;
 
   const recoEl = document.querySelector(".pd-reco");
   if (recoEl) {

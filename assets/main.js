@@ -244,6 +244,21 @@
     });
   }
 
+  // 경험치 획득 모달 (쿠키 획득 완료 화면에서 "홈으로 가기" 로 넘어온 경우)
+  const expModal = document.querySelector(".mn-exp");
+  const expGain = sessionStorage.getItem("storit.showExpModal");
+  if (expModal && expGain) {
+    sessionStorage.removeItem("storit.showExpModal");
+    const amt = expModal.querySelector(".mn-exp-amount");
+    if (amt) amt.textContent = `+ ${expGain} EXP`;
+    expModal.hidden = false;
+    expModal.querySelectorAll("[data-close-exp]").forEach((el) => {
+      el.addEventListener("click", () => {
+        expModal.hidden = true;
+      });
+    });
+  }
+
   // 헤더 알림(종) → 알림 페이지로 이동
   const bell = document.querySelector(".mn-bell");
   if (bell) {
@@ -314,7 +329,7 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         toast.hidden = true;
-      }, 1800);
+      }, 1000);
     }
     // 복사되는 초대 메시지 (설치 링크는 배포 시 실제 URL 로 교체)
     const INSTALL_LINK = "";

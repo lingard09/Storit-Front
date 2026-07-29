@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스토릿 - 쿠키 획득 완료</title>
+    <link rel="stylesheet" href="assets/base.css" />
+    <link rel="stylesheet" href="assets/cookie_reward.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="assets/frame-scale.js"></script>
+    <script src="assets/cookie_reward.js" defer></script>
+  </head>
+  <body>
+    <div class="frame cr-page">
+      <!-- 헤더 -->
+      <header class="cr-header">
+        <button
+          type="button"
+          class="cr-back"
+          aria-label="뒤로 가기"
+          onclick="location.href='main.html'"
+        ></button>
+        <h1 class="cr-title">쿠키 획득 완료</h1>
+      </header>
+
+      <!-- 본문 (크림 시트 위) -->
+      <div class="cr-content">
+        <!-- 1) +1 쿠키 획득 뱃지 -->
+        <div class="cr-badge">+ 1 쿠키 획득</div>
+
+        <!-- 컨페티 (경험치 획득 모달과 동일한 exp_bg 컨페티, 일러스트 뒤) -->
+        <img class="cr-confetti" src="assets/exp_bg.svg" alt="" aria-hidden="true" />
+
+        <!-- 2) 메인 일러스트 -->
+        <img
+          class="cr-scene"
+          src="assets/cookie_reward_scene.svg"
+          alt="오븐에서 쿠키를 꺼내는 요리사 쿠키"
+        />
+
+        <!-- 3) 보상 카드 -->
+        <div class="cr-card">
+          <!-- 하단 흰색 영역 -->
+          <div class="cr-card-white"></div>
+
+          <!-- 축하 메시지 (노란 상단) -->
+          <div class="cr-congrats">
+            <h2 class="cr-congrats-title">정말 잘했어요!</h2>
+            <p class="cr-congrats-desc">
+              내일도 재료를 모두 모아 맛있는 쿠키를 만들어봐요
+            </p>
+          </div>
+
+          <!-- 보유 쿠키 라벨 -->
+          <div class="cr-hold-label">보유 쿠키</div>
+
+          <!-- 개수 변화 4 → 5 -->
+          <div class="cr-count-row">
+            <div class="cr-count-item">
+              <img src="assets/cookie.svg" alt="" />
+              <span class="cr-count-before">4</span>
+            </div>
+            <img class="cr-count-arrow" src="assets/carbon_next-filled.svg" alt="에서" />
+            <div class="cr-count-item">
+              <img src="assets/cookie.svg" alt="" />
+              <span class="cr-count-after">5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4) 홈으로 가기 버튼 -->
+        <button type="button" class="cr-home-btn">홈으로 가기</button>
+      </div>
+
+      <!-- 하단 스캘럽 장식 -->
+      <div class="cr-scallop" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </body>
+</html>

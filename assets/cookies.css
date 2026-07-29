@@ -78,9 +78,9 @@
 
 .ck-top-mascot {
   position: absolute;
-  right: -4px;
-  bottom: -2px;
-  width: 140px;
+  right: 5px;
+  bottom: 10px;
+  width: 120px;
   height: auto;
   z-index: 2;
   pointer-events: none;

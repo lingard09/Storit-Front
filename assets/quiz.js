@@ -107,7 +107,7 @@
     if (numEl) numEl.textContent = `Q${idx + 1}.`;
     if (textEl) textEl.innerHTML = q.text;
     if (epEl) epEl.textContent = q.episode;
-    if (badge) badge.hidden = !creator; // 유저 제작이면 계속 표시
+    if (badge) badge.hidden = !(creator && idx === 3); // 유저 제작 배지는 4번 문항에만
 
     // 진행바 (현재/전체)
     const pct = (idx + 1) / QUESTIONS.length;
@@ -235,7 +235,7 @@
     if (textEl) textEl.innerHTML = q.text;
     if (epEl) epEl.textContent = q.episode;
     if (timerEl) timerEl.textContent = q.timer + "초";
-    if (badge) badge.hidden = !creator;
+    if (badge) badge.hidden = !(creator && idx === 3); // 유저 제작 배지는 4번 문항에만
     const pct = (idx + 1) / QUESTIONS.length;
     if (fillEl) fillEl.style.width = `${pct * 100}%`;
     if (curEl) curEl.textContent = String(idx + 1);

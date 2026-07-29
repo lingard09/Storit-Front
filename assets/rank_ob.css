@@ -56,6 +56,12 @@
   left: -1px;
 }
 
+/* 페이지 2: 배경(body::before cover)을 아래로 조금 내리고 확대 — rank_onboarding2 한정 */
+body:has(.rank-ob2)::before {
+  background-position: center 30%;
+  background-size: 120%;
+}
+
 .r2-col {
   width: 110px;
   display: flex;
@@ -168,9 +174,9 @@
 .r2-hero {
   position: absolute;
   left: 50%;
-  top: 438px;
+  top: 455px;
   transform: translateX(-50%);
-  width: 122px;
+  width: 150px;
   height: auto;
   z-index: 1;
   pointer-events: none;
