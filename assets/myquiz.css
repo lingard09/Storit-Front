@@ -69,14 +69,24 @@
   padding: 25px 30px;
   border-radius: 10px;
   overflow: hidden;
-  background: #faefdf url("myquiz_banner_bg.png") 0% 20% /
-    120% no-repeat;
+  background: #faefdf;
 }
+/* 배경 이미지 — 별도 레이어로 분리해 밝기 필터가 마스코트/텍스트엔 영향 없게 */
 .mq-banner::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  background: url("myquiz_banner_bg.png") 0% 20% / 120% no-repeat;
+  filter: brightness(1.3);
+}
+/* 텍스트 대비용 어두운 오버레이 */
+.mq-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(0, 0, 0, 0.3);
 }
 .mq-banner-text {
   position: relative;
@@ -128,7 +138,7 @@
   transform: translateY(-50%);
   width: 73.7px;
   height: 99px;
-  z-index: 0;
+  z-index: 1; /* 오버레이(::after) 위 — 마스코트는 밝기/딤 영향 없이 원본 */
 }
 
 /* ── 섹션 공통 ─────────────────────────── */

@@ -106,9 +106,9 @@
   position: absolute;
   right: 4px;
   bottom: 0;
-  width: 112px;
+  width: 130px;
   height: auto;
-  z-index: 1;
+  z-index: 10;
 }
 
 /* 남은 시간 */
@@ -160,13 +160,22 @@
 .sn-podium {
   margin-top: 10px;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
+}
+
+/* 3개 pod 폭 균등 · 간격 없이 sn-info 전체 폭을 채움
+   overflow:hidden 으로 긴 이름의 min-content 가 폭을 밀어내지 못하게 막아 정확히 1/3씩 */
+.sn-podium > .sn-pod,
+.sn-podium > .sn-pod-col {
+  flex: 0 0 calc(100% / 3);
+  min-width: 0;
+  width: auto;
+  overflow: hidden;
 }
 
 .sn-pod {
   position: relative;
-  width: 105px;
+  width: 110px;
   box-sizing: border-box;
   padding: 10px 8px 12px;
   border-radius: 10px;
@@ -197,9 +206,12 @@
 }
 
 .sn-pod--1 {
+  padding: 10px 8px 0;
   align-self: stretch;
+  width: auto; /* .sn-pod 고정폭(110) 해제 → 컬럼 폭에 맞춰 stretch */
   height: 144px;
   background: var(--yellow);
+  justify-content: center;
 }
 
 .sn-pod-rank {
@@ -231,8 +243,9 @@
 }
 
 .sn-pod-score {
-  margin-top: auto;
+  width: 80px;
   padding: 5px 7px;
+  text-align: center;
   background: #fff;
   border-radius: 10px;
   font-size: 10px;
@@ -254,6 +267,11 @@
 
 .sn-list .rk-row--me {
   background: var(--yellow);
+}
+
+/* 생략(…) 행: ranking 페이지와 동일한 배경색 (.sn-list .rk-row 의 #fff 덮어쓰기) */
+.sn-list .rk-row--gap {
+  background: #f3ede3;
 }
 
 .sn-list .rk-row-rank {
@@ -403,6 +421,21 @@
 /* 일간에서 상속된 리스트 opacity 흐림은 해제 (오버레이로 대체) */
 .sn-page.rk-guide-on .rk-list {
   opacity: 1;
+}
+
+/* 비활성 탭(일간 랭킹)도 배경과 함께 dim.
+   .rk-tabs 컨테이너가 오버레이(z50) 위(z60)라 자체 딤 오버레이로 처리 (활성 탭은 밝게 유지) */
+.sn-page.rk-guide-on .rk-tab:not(.is-active) {
+  position: relative;
+}
+
+.sn-page.rk-guide-on .rk-tab:not(.is-active)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 16, 0, 0.5);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 /* 가이드 바텀시트: 시즌 문구/마스코트 크기 보정 */

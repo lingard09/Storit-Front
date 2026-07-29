@@ -6,7 +6,9 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: var(--bg) url("quiz_complete_bg.png") center / cover no-repeat;
+  /* 이미지 비율이 프레임과 거의 같아 cover 로는 세로 여백이 없음(위치 조절 불가).
+     세로 120% 로 키워 여백을 만든 뒤 position-y 로 아래로 이동 */
+  background: var(--bg) url("quiz_complete_bg.png") 50% 10% / auto 100% no-repeat;
   transform: scaleX(-1); /* 원본 좌우반전 유지 */
 }
 
@@ -14,7 +16,9 @@ body::before {
   display: flex;
   flex-direction: column;
   padding-top: 16px;
-  background: transparent; /* 배경은 body::before가 담당 → 프레임은 투명 */
+  /* 상단 노란 띠(다른 페이지와 동일). 헤더 라운드(20px) 코너 틈에도 노란색이 비치도록
+     16+20=36px 까지 노랑 → 헤더가 가리는 부분 외 코너에서만 노랑이 드러남. 그 아래는 투명(이미지) */
+  background: linear-gradient(var(--yellow) 36px, transparent 36px) no-repeat;
 }
 .qcc-header,
 .qcc-body,
@@ -95,7 +99,7 @@ body::before {
 .qcc-mascot {
   position: absolute;
   right: 32px;
-  bottom: 125px;
+  bottom: 150px;
   width: 202px;
   height: auto;
 }

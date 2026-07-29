@@ -35,6 +35,10 @@
     const reason = p.get("reason");
     if (reason) document.querySelector(".qd-reject-reason").textContent = reason;
     const btn = document.querySelector(".qd-btn");
-    if (btn) btn.textContent = "재등록하기";
+    if (btn) {
+      btn.textContent = "재등록하기";
+      // 재등록하기 → 퀴즈 생성 페이지로 (기본 onclick 의 myquiz.html 대체)
+      btn.onclick = () => (location.href = "quizcreate.html");
+    }
   }
 })();

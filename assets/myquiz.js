@@ -42,6 +42,10 @@
       <span>평균 ${esc(q.time)}</span>
     </div>`;
 
+  // 등록된 퀴즈가 있으면 안내 박스(mq-info) 숨김
+  const infoEl = $(".mq-info");
+  if (infoEl && QUIZZES.length) infoEl.hidden = true;
+
   // ── 등록퀴즈 통계 ─────────────────────────────
   $(".mq-reg-v").textContent = `${QUIZZES.length}개`;
   $(".mq-reg-sub").textContent = `심사중 ${countBy("review")}개`;

@@ -4,7 +4,7 @@
   const RANKS = [
     { rank: 1, name: "무케대마왕", score: 850 },
     { rank: 2, name: "웹툰도하", score: 840 },
-    { rank: 3, name: "격일출가좌", score: 830 },
+    { rank: 3, name: "격삼추가좀", score: 830 },
     { rank: 4, name: "쿠키러버", score: 820 },
     { rank: 5, name: "퀴즈마스터", score: 810 },
     { rank: 6, name: "웹툰중독", score: 800 },
@@ -154,9 +154,11 @@
         frame.insertBefore(pieClone, modal);
         const listHead = document.querySelector(".rk-list-head");
         if (listHead) {
-          const y =
-            listHead.getBoundingClientRect().top -
-            frame.getBoundingClientRect().top;
+          // 프레임은 transform:scale(--frame-scale)로 렌더되므로 rect(렌더 좌표) 차이를
+          // 스케일로 나눠 프레임 로컬(언스케일) top 으로 변환해야 rk-list-head 와 정확히 일치.
+          const frameRect = frame.getBoundingClientRect();
+          const scale = frameRect.width / frame.offsetWidth || 1;
+          const y = (listHead.getBoundingClientRect().top - frameRect.top) / scale;
           pieClone.style.top = y + "px";
           pieClone.style.transform = "none";
         }

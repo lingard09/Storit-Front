@@ -70,6 +70,7 @@
 }
 .wd-hello {
   padding-top: 26px;
+  padding-left: 23px; /* 다른 행들과 동일한 좌측 들여쓰기 */
 }
 .wd-hello-name {
   display: block;
@@ -81,7 +82,7 @@
 }
 .wd-hello-sub {
   display: block;
-  margin-top: 4px;
+  margin-top: -8px; /* line-height leading 상쇄 → 이름과 시각적 간격 ~5px */
   font-size: 18px;
   font-weight: 700;
   line-height: 25px;
@@ -89,7 +90,7 @@
 }
 .wd-mascot {
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 0;
   z-index: -1;
   width: 97px;
@@ -149,7 +150,7 @@
   display: flex;
   align-items: center;
   gap: 6.7px;
-  padding: 6.7px 0;
+  padding: 6.7px 0 6.7px 12px;
   cursor: pointer;
 }
 .wd-agree-check {
@@ -179,7 +180,8 @@
 
 /* 탈퇴 사유 */
 .wd-reason-label {
-  margin-top: 9px;
+  margin-top: 20px;
+  padding-left: 12px; /* 다른 행들과 동일한 좌측 들여쓰기 */
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
@@ -187,9 +189,10 @@
 }
 .wd-reason-box {
   margin-top: 9px;
+  margin-left: 12px; /* 다른 행들과 동일한 좌측 들여쓰기 */
   height: 127px;
   padding: 18px 13px;
-  background: var(--yellow-beige, #faefdf);
+  background: rgba(250, 239, 223, 0.7); /* #faefdf 투명도 0.7 */
   border-radius: 10px;
 }
 .wd-reason {
@@ -229,6 +232,7 @@
   color: #5d3300;
 }
 .wd-submit:disabled {
-  opacity: 0.3;
+  background: var(--yellow); /* 비활성도 활성과 동일한 배경색 */
+  color: rgba(93, 51, 0, 0.3); /* 글자는 이전(opacity 0.3)처럼 흐리게 — #5d3300 알파 0.3 */
   cursor: not-allowed;
 }

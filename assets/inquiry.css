@@ -6,7 +6,8 @@
   padding-top: 16px;
   background: var(--yellow);
 }
-/* 전체 폭 크림 시트는 base.css의 시트 패턴 규칙(.iq-page 포함)이 담당 */
+/* 전체 폭 시트는 base.css의 시트 패턴 규칙(.iq-page 포함)이 담당.
+   단, inquiry 는 시트를 흰색으로 오버라이드 → 크림(var(--bg))이 iq-textbox 배경으로만 보이게 */
 .iq-page::before {
   content: "";
   position: absolute;
@@ -14,6 +15,9 @@
   background: #fff;
   border-radius: 20px 20px 0 0;
   z-index: 0;
+}
+body:has(.iq-page)::before {
+  background: #fff;
 }
 .iq-header,
 .iq-scroll,
@@ -88,6 +92,7 @@
   margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 8px;
 }
 .iq-type {
@@ -147,6 +152,7 @@
 .iq-textbox {
   position: relative;
   margin-top: 5.5px;
+  margin-bottom: 10px;
   height: 229px;
   padding: 11px 15px;
   background: var(--bg);
@@ -207,6 +213,42 @@
   font-weight: 700;
   line-height: 18px;
   color: #000;
+}
+/* 사진이 첨부되면(썸네일 표시 상태) 카운트 아래 여백 확대 */
+.iq-page:has(.iq-thumbs:not([hidden])) .iq-attach-count {
+  margin-bottom: 35px;
+}
+
+/* 첨부 후: 썸네일 + 추가버튼 한 줄 (넘치면 가로 스크롤) */
+.iq-thumbs {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  overflow-x: auto;
+}
+.iq-thumb {
+  flex-shrink: 0;
+  width: 113px;
+  height: 130px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  overflow: hidden;
+}
+.iq-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 사진 추가 버튼 (+ 아이콘) */
+.iq-add-more {
+  flex-shrink: 0;
+  width: 89px;
+  height: 62px;
+  padding: 0;
+  border: 2.26px dashed #ef9f27;
+  border-radius: 6.03px;
+  background: var(--cta-bg) url("Vector.svg") center / 22px 18px no-repeat;
+  cursor: pointer;
 }
 
 /* ── 문의 완료 안내 ────────────────────── */

@@ -62,6 +62,8 @@
           <!-- 스크린샷 첨부 -->
           <div class="iq-attach-row">
             <button type="button" class="iq-attach">스크린샷 첨부하기 (선택)</button>
+            <!-- 파일 추가 시 JS 가 썸네일 + 추가버튼을 여기에 렌더 -->
+            <div class="iq-thumbs" hidden></div>
             <input
               class="iq-file"
               type="file"
@@ -70,12 +72,13 @@
               hidden
             />
           </div>
+          <!-- 첨부 카운트: 스크롤 영역 안에 두어 콘텐츠와 함께 스크롤 -->
+          <span class="iq-attach-count">(<b class="iq-attach-n">0</b>/5)</span>
         </div>
       </form>
 
       <!-- 제출 -->
       <div class="iq-submit-bar">
-        <span class="iq-attach-count">(<b class="iq-attach-n">0</b>/5)</span>
         <button type="submit" form="iq-form" class="iq-submit" disabled>
           문의하기
         </button>

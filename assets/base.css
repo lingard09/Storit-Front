@@ -193,7 +193,8 @@ body > .mn-nav .mn-nav-indicator {
 .ui-scallop,
 .ms-scallop,
 .cr-scallop,
-.bk-scallop {
+.bk-scallop,
+.se-scallop {
   /* 각 페이지 CSS가 display:flex 를 명시하므로 !important 로 확실히 숨김 */
   display: none !important;
 }
@@ -212,7 +213,8 @@ html:has(
     .ui-scallop,
     .ms-scallop,
     .cr-scallop,
-    .bk-scallop
+    .bk-scallop,
+    .se-scallop
   )::after {
   content: "";
   position: fixed;

@@ -107,7 +107,7 @@
     const nameError = $(".mp-edit-error");
     const pageName = $(".mp-name");
     // 데모: 이미 사용 중인 닉네임 (백엔드 중복 확인으로 교체)
-    const TAKEN = ["김철수", "이영희", "베이커리왕", "쿠키몬스터"];
+    const TAKEN = ["김철수", "이영희", "베이커리왕", "쿠키몬스터", "막시무스"];
     const NAME_RE = /^[가-힣a-zA-Z0-9]{2,10}$/; // 특수문자 제외 2~10자
     // 검증: 유효하면 true. 오류 시 빨간 문구 + 저장 비활성.
     const validateName = () => {
@@ -116,7 +116,7 @@
       const origin = pageName ? pageName.textContent.trim() : "";
       let msg = "";
       if (!NAME_RE.test(v)) {
-        msg = "특수문자 제외 2~10자로 입력해주세요";
+        msg = "2-10자만 가능해요. (특수문자 불가)";
       } else if (v !== origin && TAKEN.includes(v)) {
         msg = "이미 사용 중인 닉네임이에요";
       }
@@ -178,8 +178,7 @@
         if (pageAvatar) pageAvatar.src = selectedSrc;
         if (nameInput && pageName) pageName.textContent = nameInput.value.trim();
         editModal.hidden = true;
-        // 닉네임 수정 후 → 선호 장르 선택 시트로 이어짐
-        if (openGenreModal) openGenreModal();
+        // 수정하기 → 마이페이지로 돌아옴 (체이닝 없음)
       });
     }
 
@@ -256,8 +255,7 @@
         if (genrePref)
           genrePref.textContent = vals.length ? vals.join(", ") : "설정하기";
         genreModal.hidden = true;
-        // 장르 선택 후 → 나의 인생 웹툰 시트로 이어짐
-        if (openWebtoonModal) openWebtoonModal();
+        // 수정하기 → 마이페이지로 돌아옴 (체이닝 없음)
       });
     }
 

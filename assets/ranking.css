@@ -210,7 +210,6 @@
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
-  letter-spacing: -0.9px;
   color: #3d2000;
   white-space: nowrap;
 }
@@ -437,7 +436,7 @@
   justify-content: center;
   gap: 4px;
   border: 0;
-  background: var(--cta-bg); /* 1등 행과 동일 */
+  background: #F3EDE3; 
   cursor: pointer;
 }
 
@@ -447,7 +446,7 @@
   opacity: 0.6;
 }
 
-/* ── 오늘의 파이 구간 (플로팅) ────────── */
+/* ── 오늘의 행운 구간 (플로팅) ────────── */
 .rk-pie {
   position: absolute;
   left: 20px;
@@ -698,9 +697,9 @@
   z-index: 100;
   width: 375px;
   box-sizing: border-box;
-  padding: 16px 20px 30px;
+  padding: 10px 20px 40px 30px;
   background: #fff;
-  border-radius: 28px 28px 0 0;
+  border-radius: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -737,7 +736,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px 0;
+  padding: 40px 0 20px 0;
 }
 
 .rk-modal-text {
@@ -787,14 +786,26 @@
   z-index: 60;
 }
 
-/* 하이라이트 제외 요소는 흐리게 (뒤 오버레이가 비침) */
-.rk-guide-on .rk-tab:not(.is-active) {
-  opacity: 0.4;
+/* 하이라이트 제외 요소: 페이지 배경색(크림 시트)으로 채운 뒤 그 위에 딤을 덮음
+   → 뒤 오버레이 대신 '페이지 배경 + 딤'이라 콘텐츠가 어둡게 가려짐.
+   ⚠ .rk-page 전용 — season(.sn-page)은 자체 오버레이 딤을 쓰므로 스코프해서 이중 딤 방지 */
+.rk-page:not(.sn-page).rk-guide-on .rk-tab:not(.is-active),
+.rk-page:not(.sn-page).rk-guide-on .rk-list-head,
+.rk-page:not(.sn-page).rk-guide-on .rk-list {
+  position: relative;
+  background: var(--bg);
 }
 
-.rk-guide-on .rk-list-head,
-.rk-guide-on .rk-list {
-  opacity: 0.35;
+.rk-page:not(.sn-page).rk-guide-on .rk-tab:not(.is-active)::after,
+.rk-page:not(.sn-page).rk-guide-on .rk-list-head::after,
+.rk-page:not(.sn-page).rk-guide-on .rk-list::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgba(28, 16, 0, 0.5);
+  border-radius: inherit; /* 둥근 모서리 바깥이 검게 보이지 않도록 요소 라운드 상속 */
+  pointer-events: none;
 }
 
 /* 스크롤 잠금 (가이드 중) */

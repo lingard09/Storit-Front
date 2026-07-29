@@ -74,7 +74,7 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
-  color: #3d2000;
+  color: #1c1000;
 }
 .qd-mt {
   margin-top: 20px;
@@ -113,8 +113,11 @@
 }
 .qd-badge {
   align-self: flex-start;
+  box-sizing: border-box;
+  width: 72px; /* is-approved(승인완료) 너비에 맞춰 모든 상태 배지 동일 폭 */
   padding: 7px 15px;
   border-radius: 5px;
+  text-align: center;
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
