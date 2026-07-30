@@ -227,6 +227,11 @@
   // (평탄화 안 하면 filter 의 h 가 개별 항목이 아니라 내부 배열이 됨 → 내역이 안 뜸)
   const ITEMS = HISTORY.flat();
 
+  // 프리뷰 라우트: cookies.html?empty → 쿠키 없을 때(빈 상태) 화면.
+  // 내역을 비우고 요약 수치도 0 으로 렌더 (백엔드 연동 전 디자인 확인용)
+  const EMPTY_PREVIEW = new URLSearchParams(location.search).has("empty");
+  const S = EMPTY_PREVIEW ? { balance: 0, won: 0, earned: 0, used: 0 } : SUMMARY;
+
   const fmt = (n) => n.toLocaleString("en-US");
 
   // ── 요약 채우기 ──────────────────────────────────
@@ -234,18 +239,15 @@
     const el = document.querySelector(sel);
     if (el) el.textContent = txt;
   };
-  setText(
-    ".ck-summary-col:nth-child(1) .ck-summary-val b",
-    fmt(SUMMARY.balance),
-  );
-  setText(".ck-summary-col:nth-child(2) .ck-summary-val b", fmt(SUMMARY.won));
+  setText(".ck-summary-col:nth-child(1) .ck-summary-val b", fmt(S.balance));
+  setText(".ck-summary-col:nth-child(2) .ck-summary-val b", fmt(S.won));
   setText(
     ".ck-substats .ck-substat:nth-child(1) .ck-substat-val",
-    fmt(SUMMARY.earned),
+    fmt(S.earned),
   );
   setText(
     ".ck-substats .ck-substat:nth-child(2) .ck-substat-val",
-    fmt(SUMMARY.used),
+    fmt(S.used),
   );
 
   // ── 내역 렌더 ────────────────────────────────────
@@ -282,8 +284,8 @@
   };
 
   function render() {
-    // 전체 내역이 없으면 빈 상태
-    if (!ITEMS.length) {
+    // 전체 내역이 없으면 빈 상태 (?empty 프리뷰 시 강제)
+    if (EMPTY_PREVIEW || !ITEMS.length) {
       if (emptyEl) emptyEl.hidden = false;
       if (listEl) listEl.hidden = true;
       return;

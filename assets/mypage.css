@@ -68,7 +68,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 8px 3px 20px;
+  padding: 8px 3px 15px;
 }
 
 .mp-avatar {
@@ -381,7 +381,7 @@
   bottom: 13px;
   height: 35px;
   display: inline-flex;
-  align-items: center;
+  align-items: center; /* 글자와 화살표의 세로 중앙(center-Y)을 일치시킴 */
   justify-content: center;
   gap: 5px;
   border: 0;

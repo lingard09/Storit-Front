@@ -1,7 +1,7 @@
 (function () {
   // ── 샘플 데이터 (백엔드 연동 시 API 응답으로 교체) ──
   // 값이 비어있으면(null/"") 빈 상태 문구를 유지한다.
-  const DATA = {
+  const FILLED = {
     name: "감자도리",
     level: 8,
     expPercent: 67,
@@ -14,6 +14,24 @@
     storageCount: 2,
     quizCount: 1,
   };
+
+  // 초기(신규 가입 직후) 상태 — HTML 기본값과 동일
+  const INITIAL = {
+    name: "감자도리",
+    level: 1,
+    expPercent: 0,
+    nextExp: 100,
+    achievements: { rank: "-", luck: "-", attend: "0일", score: "0회" },
+    cookies: { balance: "0", earned: "0", used: "0" },
+    lifeWebtoon: "설정하기",
+    genre: "설정하기",
+    storageCount: 0,
+    quizCount: 0,
+  };
+
+  // 프리뷰 라우트: mypage.html?init → 신규 가입 직후 초기 화면
+  const INIT_PREVIEW = new URLSearchParams(location.search).has("init");
+  const DATA = INIT_PREVIEW ? INITIAL : FILLED;
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));

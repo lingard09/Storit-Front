@@ -40,6 +40,12 @@
     });
   });
 
+  // 프리뷰 라우트: exchange.html?lack (보유 쿠키 부족 모달) / ?fail (쿠폰 발급 실패 모달)
+  // 실제 흐름에선 submit 시 조건(MY_COOKIES < PRICE)으로만 뜨므로, 디자인 확인용 직접 노출.
+  const previewParams = new URLSearchParams(location.search);
+  if (lackModal && previewParams.has("lack")) lackModal.hidden = false;
+  if (failModal && previewParams.has("fail")) failModal.hidden = false;
+
   // 실패 모달의 확인 → 교환 완료 페이지로 이동
   const failOk = failModal && failModal.querySelector(".ex-modal-ok");
   if (failOk) {

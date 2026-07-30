@@ -110,10 +110,22 @@
   color: #1c1c1c;
 }
 
+/* 한 줄 안에서: 쿠키 수(아이콘+숫자)는 좌측, '쿠키' 라벨은 정중앙.
+   3열 그리드(1fr auto 1fr)로 가운데 열을 컨테이너 중앙에 고정하고,
+   쿠키는 좌측 열에 붙임. */
 .ex-product-cost {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 9px;
+  width: 100%;
+}
+.ex-product-cost .ex-cookie {
+  grid-column: 1;
+  justify-self: start;
+}
+.ex-product-cost .ex-cookie-label {
+  grid-column: 2;
+  justify-self: center;
 }
 
 /* 쿠키 아이콘 + 수 (공통) */
@@ -121,7 +133,7 @@
 .ex-balance-val {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   color: #3d2000;
 }
 
@@ -154,6 +166,7 @@
 }
 
 .ex-balance-col {
+  flex: 1; /* divider 기준 양쪽 col 이 반반씩 점거 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -168,18 +181,21 @@
 }
 
 .ex-balance-val b {
+  align-self: baseline; /* 숫자와 단위(개)를 같은 베이스라인에 정렬 */
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
 }
 
 .ex-balance-val small {
+  align-self: baseline; /* b 와 같은 y(베이스라인)에 앉힘 */
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
 }
 
 .ex-balance-div {
+  flex-shrink: 0; /* 가운데 구분선은 1px 고정 */
   width: 1px;
   height: 39px;
   background: #faefdf;
