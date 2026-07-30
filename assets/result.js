@@ -121,46 +121,59 @@
     const statsEl = document.querySelector(".rs-stats");
     if (!ringEl || !statsEl) return;
     const fr = frame.getBoundingClientRect();
-    const W = fr.width;
-    const H = fr.height;
+    const scale = fr.width / 375 || 1; // 렌더폭/로컬폭 = --frame-scale
 
-    // 프레임 기준 사각형 구멍 헬퍼 (여유 pad, 라운드 rad)
+    // 프레임-로컬 좌표 구멍 헬퍼 (렌더 오프셋을 scale 로 나눠 프레임 좌표로 환산)
     const holeRect = (el, pad, rad) => {
       if (!el) return "";
       const b = el.getBoundingClientRect();
-      const x = b.left - fr.left - pad;
-      const y = b.top - fr.top - pad;
-      const w = b.width + pad * 2;
-      const h = b.height + pad * 2;
+      const x = (b.left - fr.left) / scale - pad;
+      const y = (b.top - fr.top) / scale - pad;
+      const w = b.width / scale + pad * 2;
+      const h = b.height / scale + pad * 2;
       return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rad}" fill="#000"/>`;
     };
 
     const rr = ringEl.getBoundingClientRect();
-    const cx = rr.left - fr.left + rr.width / 2;
-    const cy = rr.top - fr.top + rr.height / 2;
-    const r = rr.width / 2 + 6; // 링 원형 구멍
+    const cx = (rr.left - fr.left + rr.width / 2) / scale;
+    const cy = (rr.top - fr.top + rr.height / 2) / scale;
+    const r = rr.width / scale / 2 + 6; // 링 원형 구멍
 
     const bubbleEl = document.querySelector(".rs-hero-bubble");
     const scoreEl = document.querySelector(".rs-score");
-    const scoreH = scoreEl ? scoreEl.getBoundingClientRect().height : 0;
+    const scoreH = scoreEl ? scoreEl.getBoundingClientRect().height / scale : 0;
+
+    // 뷰포트 전체를 덮도록 viewBox·크기 계산(프레임-로컬). 단일 레이어라
+    // 프레임/여백 경계선·밝은 여백이 아예 생기지 않음. 구멍은 프레임 좌표 유지.
+    const vw = window.innerWidth / scale;
+    const vh = window.innerHeight / scale;
+    const offX = (375 - vw) / 2;
+    const offY = (812 - vh) / 2;
 
     const svg =
-      `<svg class="rs-spotlight" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">` +
+      `<svg class="rs-spotlight" viewBox="${offX} ${offY} ${vw} ${vh}" preserveAspectRatio="none" aria-hidden="true" ` +
+      `style="left:${offX}px;top:${offY}px;width:${vw}px;height:${vh}px">` +
       `<defs><mask id="rs-holes">` +
-      `<rect width="${W}" height="${H}" fill="#fff"/>` +
+      `<rect x="-2000" y="-2000" width="4000" height="4000" fill="#fff"/>` +
       `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#000"/>` + // 링
       holeRect(bubbleEl, 4, 16) + // 말풍선
       holeRect(scoreEl, 4, scoreH / 2 + 4) + // 점수 박스(알약)
       holeRect(statsEl, 2, 12) + // 통계바
       `</mask></defs>` +
-      `<rect width="${W}" height="${H}" fill="rgba(0,0,0,0.6)" mask="url(#rs-holes)"/>` +
+      `<rect x="-2000" y="-2000" width="4000" height="4000" fill="rgba(0,0,0,0.6)" mask="url(#rs-holes)"/>` +
       `</svg>`;
     frame.insertAdjacentHTML("beforeend", svg);
+    frame.classList.add("rs-spotlighting");
   }
   function hideSpotlight() {
     const sp = frame && frame.querySelector(".rs-spotlight");
     if (sp) sp.remove();
+    if (frame) frame.classList.remove("rs-spotlighting");
   }
+  // 리사이즈 시 스포트라이트가 떠 있으면 위치 재실측
+  window.addEventListener("resize", () => {
+    if (frame && frame.querySelector(".rs-spotlight")) showSpotlight();
+  });
 
   // 점수 설명 시트: 핸들 닫기 → 스포트라이트 제거
   if (sheet) {

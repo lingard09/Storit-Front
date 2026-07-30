@@ -17,6 +17,16 @@
   box-sizing: border-box;
 }
 
+/* 폼 요소는 폰트를 상속하지 않고 UA 기본(시스템) 폰트를 씀 → 본문 폰트로 강제.
+   font-family 미지정 버튼/입력의 텍스트가 시스템 폰트로 렌더돼 같은 font-weight 여도
+   Noto Sans KR 보다 얇게 보이던 문제 방지. (font-family 를 명시한 버튼은 그대로 우선) */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
 /* 스크롤바 전역 숨김 (스크롤 기능은 유지) */
 * {
   scrollbar-width: none; /* Firefox */
@@ -31,6 +41,10 @@
   /* 프레임 규격 */
   --frame-w: 375px;
   --frame-h: 812px;
+
+  /* 바텀시트를 뷰포트 바닥에 붙이는 하단 보정(프레임 세로 중앙정렬 여백만큼 당김, ≤0).
+     margin-bottom(플렉스 정렬 시트) 또는 bottom(absolute 시트)에 사용. */
+  --sheet-pull: calc((var(--frame-h) - 100vh / var(--frame-scale, 1)) / 2);
 
   /* 컬러 */
   --bg: #fefaf4;

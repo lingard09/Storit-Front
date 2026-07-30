@@ -46,7 +46,7 @@
   display: block;
   width: 24px;
   height: 24px;
-  margin: 0 auto;
+  margin: 0;
   background: url("icon_back.svg") center / contain no-repeat;
 }
 

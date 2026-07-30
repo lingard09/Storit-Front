@@ -64,7 +64,10 @@ body::before {
 
 .wc-bubble-text {
   position: absolute;
-  left: 125px;
+  /* 페이지(프레임 375) 기준 수평 중앙. left/right:0 + text-align:center 라
+     이름 길이와 무관하게 항상 페이지 정중앙에 정렬. */
+  left: 0;
+  right: 0;
   top: 475px;
   text-align: center;
   font-family: var(--font-display);

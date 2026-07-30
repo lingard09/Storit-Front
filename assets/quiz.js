@@ -219,6 +219,30 @@
     // 코치가 뜬 동안엔 타이머 시작 전에 첫 문항만 렌더 (타이머는 시작 후)
     renderQuestionStatic();
     coach.hidden = false;
+    // 딤 SVG 를 뷰포트 전체로 확장(단일 레이어) — 프레임 밖 여백까지 이음매 없이 덮되
+    // 스포트라이트 구멍은 프레임 좌표 유지. 프레임 스케일/뷰포트에 맞춰 viewBox·크기 실측.
+    const dim = coach.querySelector(".qz-dim");
+    if (dim) {
+      const sizeDim = () => {
+        const sc =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--frame-scale",
+            ),
+          ) || 1;
+        const vw = window.innerWidth / sc;
+        const vh = window.innerHeight / sc;
+        const offX = (375 - vw) / 2;
+        const offY = (812 - vh) / 2;
+        dim.setAttribute("viewBox", `${offX} ${offY} ${vw} ${vh}`);
+        dim.style.left = offX + "px";
+        dim.style.top = offY + "px";
+        dim.style.width = vw + "px";
+        dim.style.height = vh + "px";
+      };
+      sizeDim();
+      window.addEventListener("resize", sizeDim);
+    }
     coach.querySelector(".qz-sheet-cta").addEventListener("click", () => {
       localStorage.setItem("storit.quizIntroSeen", "1");
       coach.hidden = true;

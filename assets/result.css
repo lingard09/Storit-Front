@@ -8,7 +8,7 @@
 .rs-scroll {
   position: absolute;
   inset: 0;
-  bottom: 96px; /* 하단 버튼 영역(rs-actions 높이) 확보 */
+  bottom: 102px; /* 하단 버튼 영역(rs-actions 높이) 확보 */
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -36,13 +36,13 @@
   width: 50px;
   height: 50px;
   margin-top: 5px;
-  padding: 0;
+  padding: 0 0 0 16px; /* 아이콘을 헤더 좌측 16px 에 맞춤(다른 페이지와 통일) */
   border: 0;
   background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: var(--ink);
 }
 .rs-title {
@@ -273,10 +273,13 @@
 }
 .rs-cheer-mascot {
   position: absolute;
-  right: 20px;
+  right: 10px;
   top: 16px;
-  width: 74px;
-  height: 74px;
+  /* 이미지(48×47, 거의 정사각형)를 contain 으로 담는 박스. 이전엔 width(74)가 한계라
+     이미지가 74×72.5 로 렌더됨 → 한계 치수인 width 를 +5(79)로 키워 이미지 확대,
+     height 도 이미지에 맞춰(78) 세로 빈 여백 정리. */
+  width: 79px;
+  height: 78px;
   object-fit: contain;
 }
 .rs-cheer-row {
@@ -431,8 +434,7 @@
 }
 .rs-mission-btn {
   margin-top: 10px;
-}
-.rs-mission-btn {
+  margin-left: 5px;
   padding: 4.5px 9px;
   border: 0;
   border-radius: 4.5px;
@@ -498,10 +500,10 @@
   left: 0;
   bottom: 0;
   width: 375px;
-  /* 버튼(56px) + 상하 패딩(20px×2) = 96px. box-sizing:border-box 라
-     높이가 72px 면 세로 패딩이 들어갈 자리가 없어 무시된 것처럼 보임. */
-  height: 96px;
-  padding: 20px 10px;
+  /* 버튼(56px) + 상하 패딩(23px×2) = 102px. box-sizing:border-box 라
+     높이가 이보다 작으면 버튼이 콘텐츠 영역을 넘쳐 세로 패딩이 잠식(무시된 것처럼 보임). */
+  height: 102px;
+  padding: 23px 10px;
   background: var(--bg);
   display: flex;
   align-items: center;
@@ -536,7 +538,7 @@
 .rs-sheet {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: var(--sheet-pull); /* 뷰포트 바닥에 붙임(프레임 여백 보정) */
   transform: translateX(-50%);
   z-index: 45;
   width: 372px;
@@ -625,11 +627,14 @@
 /* 링·통계바만 밝게 남기고 나머지를 어둡게 (구멍 뚫린 딤, 프레임 레벨) */
 .rs-spotlight {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  /* left/top/width/height 는 result.js 가 '뷰포트 전체 커버'로 실측 설정(단일 레이어) */
   pointer-events: none;
   z-index: 42; /* 콘텐츠 위, 시트(45)·팝업(50) 아래 */
+}
+/* 스포트라이트가 뜬 동안: 프레임 밖 여백까지 딤이 덮이도록 클리핑 해제 +
+   프레임 배경/페이지필을 크림으로 통일해 딤 톤을 맞춤(경계선 방지). */
+.rs-page.rs-spotlighting {
+  overflow: visible; /* 스포트라이트 딤이 프레임 밖 여백까지 덮도록 클리핑 해제 */
 }
 .rs-exp-card {
   position: relative;

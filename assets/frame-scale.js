@@ -63,15 +63,14 @@
     //  본문과 정렬됨. 전체 폭 갈색 바는 body::before 가 담당.)
   }
 
-  /* terms.html(약관 동의 체크리스트)의 뒤로가기 버튼을 화면 좌상단 코너로:
-     이 페이지는 375 스케일 프레임(중앙정렬)이라 백버튼이 프레임 코너에 갇혀,
-     전폭인 약관 상세 페이지들의 백버튼과 위치가 어긋난다.
-     → body 직속으로 옮겨 뷰포트 좌상단에 고정(상세 페이지와 동일 좌표).
-     대상은 .terms-page 이면서 .terms-doc(상세)이 아닌 terms.html 뿐. */
+  /* terms.html(약관 체크리스트) · sheet-page(referral·userinfo)의 뒤로가기 버튼을
+     화면 좌상단 코너로: 이 페이지들은 375 스케일 프레임(중앙정렬)이라 프레임 안 백버튼이
+     스케일(예: 50→52.4px)·오프셋되어, 전폭 문서(약관 상세) 백버튼과 크기·위치가 어긋난다.
+     → body 직속으로 옮겨 언스케일 50px 로 뷰포트 좌상단에 고정(상세 페이지와 동일 좌표).
+     단, .terms-doc(약관 상세: 이미 전폭)은 이동하지 않는다. */
   function initTermsBack() {
-    if (!document.querySelector(".terms-page") || document.querySelector(".terms-doc"))
-      return;
-    var back = document.querySelector(".frame .terms-back");
+    if (document.querySelector(".terms-doc")) return;
+    var back = document.querySelector(".frame .terms-back, .frame .sheet-back");
     if (back) {
       document.body.appendChild(back);
       document.body.classList.add("has-terms-back");

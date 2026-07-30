@@ -78,6 +78,16 @@ body:has(.sheet-page, .terms-page)::after {
   background: url("icon_back.svg") center / contain no-repeat;
 }
 
+/* frame-scale.js 가 body 직속으로 옮긴 뒤 화면 좌상단 고정.
+   프레임 스케일에서 벗어나 언스케일 50px 로 렌더 → terms-back 과 동일 크기·좌표.
+   top 21 = 시트16 + 백5 (terms.css 의 body > .terms-back 과 동일) */
+body > .sheet-back {
+  position: fixed;
+  left: 0;
+  top: 21px;
+  z-index: 25;
+}
+
 /* 헤더 타이틀 (Figma: 272x22 @ 50, 19) */
 .sheet-title,
 .terms-header-title {

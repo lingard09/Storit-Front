@@ -588,9 +588,10 @@
   z-index: 1;
   width: 375px;
   box-sizing: border-box;
+  margin-bottom: var(--sheet-pull); /* 뷰포트 바닥에 붙임(프레임 여백 보정) */
   padding: 0 10px 20px;
   background: #fff;
-  border-radius: 28px 28px 0 0;
+  border-radius: 28px; /* 상·하단 곡률 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -711,7 +712,7 @@
   display: block;
 }
 
-/* 웹툰에서 사진 선택 (비활성) */
+/* 앨범에서 사진 선택 (비활성) */
 .mp-edit-webtoon {
   width: 275px;
   height: 50px;
@@ -785,8 +786,9 @@
 .mp-genre-sheet {
   position: relative;
   z-index: 1;
+  margin-bottom: var(--sheet-pull); /* 뷰포트 바닥에 붙임 */
   background: #fff;
-  border-radius: 28px 28px 0 0;
+  border-radius: 28px; /* 상·하단 곡률 */
   padding: 0 0 20px;
   display: flex;
   flex-direction: column;
@@ -875,8 +877,9 @@
 .mp-webtoon-sheet {
   position: relative;
   z-index: 1;
+  margin-bottom: var(--sheet-pull); /* 뷰포트 바닥에 붙임 */
   background: #fff;
-  border-radius: 28px 28px 0 0;
+  border-radius: 28px; /* 상·하단 곡률 */
   padding: 0 0 20px;
   display: flex;
   flex-direction: column;

@@ -32,13 +32,13 @@
   width: 50px;
   height: 50px;
   margin-top: 5px;
-  padding: 0;
+  padding: 0 0 0 16px; /* 아이콘을 헤더 좌측 16px 에 맞춤(다른 페이지와 통일) */
   border: 0;
   background: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: var(--ink);
 }
 
@@ -309,10 +309,21 @@ body:has(.qz-page)::after {
   z-index: 30;
 }
 
-/* 딤 레이어 — 둥근 사각형 구멍을 뚫어 하이라이트 내부는 밝게 유지 */
+/* 첫 방문 코치 딤:
+   .qz-dim SVG 하나가 뷰포트 전체(프레임+여백)를 덮는 '단일 레이어'라 프레임/여백
+   경계선이 아예 없다(quiz.js 가 viewBox·크기 실측 설정). 배경(상단 노란 띠 등)은
+   그대로 두고 딤만 위에 얹히므로, 띠는 원래대로 보이되 dim 처리만 된다. */
+.qz-page:has(.qz-coach:not([hidden])) .qz-scallop {
+  visibility: hidden; /* 코치 중엔 하단 스캘럽 장식 숨김(딤 밖으로 삐져나오는 것 방지) */
+}
+
+/* 딤 레이어 — 둥근 구멍(스포트라이트)만 밝게 남기는 반투명 딤.
+   quiz.js 가 뷰포트 전체를 덮도록 viewBox·위치·크기를 실측 설정한다(단일 레이어라
+   프레임/여백 경계선이 아예 없음). 구멍은 프레임 좌표(27·218)에 고정. */
 .qz-dim {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
   width: 375px;
   height: 812px;
 }
@@ -506,6 +517,7 @@ body:has(.qz-page)::after {
   padding-bottom: 30px;
   background: #fff;
   border-radius: 28px;
+  transform: translateY(calc(0px - var(--sheet-pull))); /* 뷰포트 바닥에 붙임 */
   display: flex;
   flex-direction: column;
   align-items: center;

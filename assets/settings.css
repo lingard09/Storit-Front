@@ -43,7 +43,7 @@
   display: block;
   width: 24px;
   height: 24px;
-  margin: 0 auto;
+  margin: 0;
   background: url("icon_back.svg") center / contain no-repeat;
 }
 .se-title {
@@ -128,6 +128,7 @@
   background: none;
   cursor: pointer;
   text-align: left;
+  font-family: inherit; /* 버튼은 폰트 상속 안 함 → 본문(Noto Sans KR) 강제. se-row 라벨과 두께 통일 */
 }
 .se-link-label {
   font-size: 14px;

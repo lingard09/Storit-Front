@@ -691,23 +691,8 @@ body > .mn-header > .mn-hearts {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  z-index: 2; /* 스택 컨텍스트 생성 → ::before(z:-1) 확장 배경이 딤 위에 유지 */
-}
-/* 첫 방문 코치 시트를 좌우 여백 없이 전체 폭으로 — 흰 배경만 프레임 밖까지 확장,
-   콘텐츠는 프레임(375) 안에 그대로 두어 중앙 정렬 유지.
-   (코치 열림 시 .frame.has-open-modal 이 overflow:visible 이라 확장분이 안 잘림) */
-.mn-sheet::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: -50vh;
-  /* 뷰포트 폭에 정확히 맞춰 상단 라운드가 화면 좌우 모서리에 (scale 보정) */
-  left: 50%;
-  width: calc(100vw / var(--frame-scale, 1));
-  transform: translateX(-50%);
-  z-index: -1;
-  background: #fff;
-  border-radius: 28px 28px 0 0;
+  z-index: 2;
+  transform: translateY(calc(0px - var(--sheet-pull))); /* 뷰포트 바닥에 붙임(카드형) */
 }
 
 .mn-sheet-handle {
@@ -1162,7 +1147,7 @@ body > .mn-header > .mn-hearts {
   /* 프레임이 폭 기준으로 스케일되면(예: 412×915) 세로 중앙정렬 때문에 프레임 하단과
      화면 바닥 사이에 여백이 생겨 바텀시트가 바닥에 닿지 않는다. 그 여백((프레임높이 −
      화면높이 환산)/2)만큼 시트를 아래로 당겨 화면 바닥에 딱 붙임. 세로 기준 스케일이면 0. */
-  margin-bottom: calc((var(--frame-h) - 100vh / var(--frame-scale, 1)) / 2);
+  margin-bottom: var(--sheet-pull);
   padding: 16px 20px 24px;
   background: #fff;
   border-radius: 24px 24px 0 0;
