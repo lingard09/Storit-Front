@@ -1011,10 +1011,15 @@ body > .mn-header > .mn-hearts {
   align-items: center;
   justify-content: center;
 }
+.mn-hm-close img {
+  width: 25px;
+  height: 25px;
+}
 /* 쿠키 마스코트 (154x81, 높이 102 영역 상단) */
 .mn-hm-cookie {
   height: 90px;
   margin-top: 2px;
+  margin-bottom: 8px;
   display: flex;
   align-items: flex-start;
   justify-content: center;

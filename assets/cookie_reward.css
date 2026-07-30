@@ -24,6 +24,13 @@
   z-index: 1;
 }
 
+/* 헤더(뒤로가기)를 최상단 레이어로.
+   .cr-content 가 translateY(-70px)로 헤더 영역까지 올라와 덮으면서
+   같은 z-index(1)·후순위 DOM 이라 뒤로가기 클릭을 가로채던 문제 해결. */
+.cr-header {
+  z-index: 5;
+}
+
 /* ── 헤더 ─────────────────────────────── */
 .cr-header {
   flex-shrink: 0;
@@ -73,6 +80,7 @@
   left: 50%;
   top: 114px;
   transform: translateX(-50%);
+  z-index: 1; /* cr-confetti(z:0) 보다 위 레이어 */
   width: 135px;
   height: 35px;
   box-sizing: border-box;
@@ -92,7 +100,7 @@
 .cr-confetti {
   position: absolute;
   left: 50%;
-  top: 128px;
+  top: 80px;
   transform: translateX(-50%);
   width: 100%;
   height: auto;

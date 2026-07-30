@@ -1,44 +1,51 @@
 /* 스토릿 - 쿠키 굽는 중 (로딩)
    배경(주방 body::before)·연기는 loading.css 재사용. 여긴 전경 콘텐츠만. */
 
+/* 주방 배경 페이지(baking·cookie_complete)는 프레임을 상단 정렬(기본은 중앙정렬).
+   → 상단 띠(.bk-topsheet)가 화면 맨 위에 붙어, 레터박스에서 띠 위에 주방이 비치는
+     여백이 생기지 않는다. (남는 letterbox 여백은 화면 하단으로 몰림) */
+body:has(.bk-page) {
+  align-items: flex-start;
+}
+
 .bk-page {
   background: transparent; /* 배경은 loading.css body::before(주방)가 담당 */
   z-index: 2; /* 연기(z:1) 위에 콘텐츠 (base .frame z:1 재정의) */
   display: flex;
   flex-direction: column;
+  /* 스케일 기준점을 상단으로 (base 는 center center).
+     align-items:flex-start 와 함께 → 스케일이 1 미만인 뷰포트에서도 프레임 시각적 top 이
+     화면 top 에 붙어, 상단 띠 위 여백이 생기지 않는다. */
+  transform-origin: top center;
 }
 
-/* 전체폭 상단 띠 (프레임 밖 body-level): 노란 띠 16 + 크림 시트 라운드 20.
-   넓은 화면에서도 화면 끝까지 이어짐(다른 페이지들과 동일). */
-.bk-topband {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: calc(76px * var(--frame-scale, 1));
-  z-index: 1; /* 주방 배경(body::before, z:0) 위, 프레임(z:2) 아래 */
+
+/* 헤더 내용 컨테이너 (프레임 안, 중앙).
+   자체 배경(노란 띠 16 + 크림 시트)을 프레임 기준으로 가져, 투명 프레임 너머 주방 이미지가
+   비치지 않고 어떤 뷰포트에서도 헤더 바로 위에 상단 띠가 붙는다.
+   (전엔 프레임 밖 fixed 전체폭 띠를 따로 뒀는데, 레터박스에서 프레임과 어긋나 헤더에
+    주방이 비치거나 띠가 두 줄로 보이는 문제가 있어 제거하고 이 프레임 띠로 일원화함) */
+.bk-topsheet {
+  flex-shrink: 0;
+  padding-top: 22px; /* 상단 노란 띠 두께 (기존 16 → 22) */
+  position: relative;
+  z-index: 30; /* 헤더를 최상단 레이어로 (연기·쿠키·말풍선 등 위) */
   background: var(--yellow);
-  pointer-events: none;
 }
-.bk-topband::before {
+.bk-topsheet::before {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(16px * var(--frame-scale, 1));
+  top: 22px; /* 크림 시트 시작 = 노란 띠 두께와 일치 */
   bottom: 0;
   background: var(--bg);
-  border-radius: calc(20px * var(--frame-scale, 1))
-    calc(20px * var(--frame-scale, 1)) 0 0;
-}
-
-/* 헤더 내용 컨테이너 (프레임 안, 중앙) — 배경은 위 전체폭 .bk-topband 가 담당 */
-.bk-topsheet {
-  flex-shrink: 0;
-  padding-top: 16px;
+  border-radius: 20px 20px 0 0;
 }
 
 .bk-header {
+  position: relative;
+  z-index: 1; /* 크림 시트(::before) 위에 헤더 내용 */
   height: 60px;
   display: flex;
   align-items: center;

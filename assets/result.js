@@ -196,10 +196,10 @@
   const leveledUp = newLevel > oldLevel;
   localStorage.setItem("storit.xp", String(newXp));
 
-  const lvupModal = document.querySelector(".rs-lvup");
+  const lvupModal = document.querySelector(".mn-levelup");
   if (lvupModal) {
-    const fromEl = lvupModal.querySelector(".rs-lvup-from");
-    const toEl = lvupModal.querySelector(".rs-lvup-to");
+    const fromEl = lvupModal.querySelector(".mn-levelup-lv--from");
+    const toEl = lvupModal.querySelector(".mn-levelup-lv--to");
     if (fromEl) fromEl.textContent = `LV ${oldLevel}`;
     if (toEl) toEl.textContent = `LV ${newLevel}`;
   }
@@ -220,8 +220,9 @@
       lvupModal.hidden = true;
       proceedToSheet();
     };
-    lvupModal.querySelector(".rs-exp-overlay").addEventListener("click", closeLv);
-    lvupModal.querySelector(".rs-exp-close").addEventListener("click", closeLv);
+    lvupModal
+      .querySelectorAll("[data-close-levelup]")
+      .forEach((el) => el.addEventListener("click", closeLv));
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !lvupModal.hidden) closeLv();
     });
@@ -229,7 +230,7 @@
 
   // 경험치 획득 팝업 (진입 시 표시)
   //  → 닫을 때 레벨업이면 레벨업 모달, 아니면 점수 설명 시트
-  const expModal = document.querySelector(".rs-exp:not(.rs-lvup)");
+  const expModal = document.querySelector(".rs-exp");
   if (expModal) {
     expModal.hidden = false; // 팝업일 땐 일반 딤, 하이라이트 없음
     const close = () => {

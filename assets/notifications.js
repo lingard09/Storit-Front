@@ -33,7 +33,6 @@
     // thumb: 재사용할 원본 에셋 id (제목 매칭)
     { id: 101, tab: "done", thumb: 6, title: "TOP30 까지 12점 남았어요!", desc: "퀴즈 1개만 더 풀면 진입 가능!", time: "8/8" },
     { id: 102, tab: "done", thumb: 1, title: "오늘의 퀴즈가 오픈됐어요!", desc: "새로운 쿠키를 구워볼 시간이에요.", time: "8/9" },
-    { id: 103, tab: "done", thumb: 18, title: "쿠키 20개가 지급되었어요!", desc: "지금 상점에서 사용해보세요.", time: "8/5" },
     { id: 104, tab: "done", thumb: 20, title: "신규 이벤트가 시작됐어요!", desc: "7일 연속 출석 시 쿠키 3개 지급!", time: "5/3" },
     { id: 105, tab: "done", thumb: 23, title: "퀴즈가 승인되었어요!", desc: "내 퀴즈가 세상 밖으로 나왔어요.", time: "3/3" },
     { id: 106, tab: "done", thumb: 24, title: "퀴즈가 반려되었어요!", desc: "이유를 확인하고, 재등록 하세요.", time: "2/3" },

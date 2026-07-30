@@ -30,7 +30,8 @@
   var beforeEl = document.querySelector(".cr-count-before");
   var afterEl = document.querySelector(".cr-count-after");
   if (beforeEl) beforeEl.textContent = before;
-  if (afterEl) afterEl.textContent = balance;
+  // 이 화면은 쿠키 획득 완료 화면 → 항상 "획득 후"(before + REWARD)를 표시
+  if (afterEl) afterEl.textContent = before + REWARD;
 
   // "홈으로 가기" → 경험치 30 EXP 획득 플래그 세팅 후 메인으로 이동
   // (메인화면에서 mn-exp 모달이 뜸)

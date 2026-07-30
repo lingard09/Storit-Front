@@ -210,32 +210,31 @@
         </div>
       </div>
 
-      <!-- 레벨업 모달 (경험치 획득으로 레벨업 시) -->
-      <div class="rs-exp rs-lvup" hidden>
-        <button type="button" class="rs-exp-overlay" aria-label="닫기"></button>
-        <div
-          class="rs-exp-card"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="rs-lvup-title"
-        >
-          <button type="button" class="rs-exp-close" aria-label="닫기">
+      <!-- 레벨업 모달 (경험치 획득으로 레벨업 시) — main.html 과 동일: 컨페티 + 쿠키 2개, 초록 배경 없음 -->
+      <div class="mn-levelup" hidden>
+        <button type="button" class="mn-levelup-overlay" data-close-levelup aria-label="닫기"></button>
+        <div class="mn-levelup-card" role="dialog" aria-modal="true" aria-label="레벨 업">
+          <!-- 상단 컨페티 배경 (경험치 모달과 동일한 exp_bg.svg) -->
+          <img class="mn-levelup-green" src="assets/exp_bg.svg" alt="" aria-hidden="true" />
+          <!-- 보라 스캘럽 -->
+          <div class="mn-exp-scallop" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span>
+          </div>
+          <button type="button" class="mn-exp-close" data-close-levelup aria-label="닫기">
             <img src="assets/icon_close.svg" alt="" />
           </button>
-          <div class="rs-exp-top rs-lvup-top">
-            <div class="rs-exp-scallop">
-              <span></span><span></span><span></span><span></span><span></span
-              ><span></span>
+          <!-- 캐릭터 + 양옆 쿠키 2개 -->
+          <img class="mn-levelup-cookie mn-levelup-cookie--l" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" />
+          <img class="mn-levelup-char" src="assets/levelup_mascot.svg" alt="레벨 업!" />
+          <img class="mn-levelup-cookie mn-levelup-cookie--r" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" />
+          <div class="mn-levelup-text">
+            <h2 class="mn-levelup-title">레벨업 되었습니다!!!</h2>
+            <div class="mn-levelup-levels">
+              <span class="mn-levelup-lv mn-levelup-lv--from">LV 8</span>
+              <img class="mn-levelup-arrow" src="assets/carbon_next-filled.svg" alt="에서" />
+              <span class="mn-levelup-lv mn-levelup-lv--to">LV 9</span>
             </div>
-            <img class="rs-lvup-char" src="assets/levelup_mascot.svg" alt="" />
-          </div>
-          <div class="rs-exp-text">
-            <h2 id="rs-lvup-title" class="rs-exp-title">레벨업 되었습니다!!!</h2>
-            <p class="rs-lvup-levels">
-              <span class="rs-lvup-from">LV 8</span>
-              <img class="rs-lvup-arrow" src="assets/icon_next.svg" alt="→" />
-              <span class="rs-lvup-to">LV 9</span>
-            </p>
           </div>
         </div>
       </div>

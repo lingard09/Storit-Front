@@ -71,14 +71,14 @@
   // ── 출석하기 → 오늘 스탬프 + 경험치 모달 ──
   const submit = document.querySelector(".ci-submit");
   const reward = document.querySelector(".ci-reward");
-  const modal = document.querySelector(".rs-exp:not(.rs-lvup)");
+  const modal = document.querySelector(".rs-exp");
   const overlay = modal && modal.querySelector(".rs-exp-overlay");
   const closeBtn = modal && modal.querySelector(".rs-exp-close");
   const amountEl = modal && modal.querySelector(".rs-exp-amount");
   const bonusEl = modal && modal.querySelector(".rs-exp-bonus");
 
   // 레벨업 모달
-  const lvupModal = document.querySelector(".rs-lvup");
+  const lvupModal = document.querySelector(".mn-levelup");
   let leveledUp = false;
 
   // 경험치 획득이 레벨업을 유발하는지 판정 (백엔드 연동 시 교체)
@@ -93,8 +93,8 @@
     const newLevel = Math.floor(newXp / XP_PER_LEVEL) + 1;
     localStorage.setItem("storit.xp", String(newXp));
     if (lvupModal) {
-      const f = lvupModal.querySelector(".rs-lvup-from");
-      const t = lvupModal.querySelector(".rs-lvup-to");
+      const f = lvupModal.querySelector(".mn-levelup-lv--from");
+      const t = lvupModal.querySelector(".mn-levelup-lv--to");
       if (f) f.textContent = `LV ${oldLevel}`;
       if (t) t.textContent = `LV ${newLevel}`;
     }
@@ -129,8 +129,14 @@
     const closeLv = () => {
       lvupModal.hidden = true;
     };
-    lvupModal.querySelector(".rs-exp-overlay").addEventListener("click", closeLv);
-    lvupModal.querySelector(".rs-exp-close").addEventListener("click", closeLv);
+    lvupModal
+      .querySelectorAll("[data-close-levelup]")
+      .forEach((el) => el.addEventListener("click", closeLv));
+
+    // 프리뷰: checkin.html?levelup → 레벨업 모달 바로 표시 (디자인 확인용)
+    if (new URLSearchParams(location.search).has("levelup")) {
+      lvupModal.hidden = false;
+    }
   }
 
   let done = CONFIG.today <= CONFIG.attended;

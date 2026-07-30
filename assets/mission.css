@@ -68,7 +68,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 9px;
 }
 
 /* ── A) 레시피 배너 ───────────────────── */
@@ -175,8 +175,19 @@
   left: 30px;
   right: 30px;
   top: 30px;
-  height: 1px;
-  background: #ffd95e;
+  height: 0;
+  border-top: 1px dashed #ffd95e;
+  z-index: 0;
+}
+
+/* 진척도: 완료된(is-done) 재료까지 연결선을 solid 로 채움 (--ing-fill: 0~1, mission.js 설정) */
+.ms-ing-line-fill {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  width: calc((100% - 60px) * var(--ing-fill, 0));
+  height: 0;
+  border-top: 1px solid #ffd95e;
   z-index: 0;
 }
 
@@ -196,6 +207,7 @@
   border-radius: 9999px;
   background: #fefaf4;
   outline: 0.9px solid #ffd95e;
+  outline-offset: -0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,9 +218,6 @@
   height: 24px;
 }
 
-.ms-ing-circle img.is-dimmed {
-  opacity: 0.25;
-}
 
 .ms-ing-check {
   position: absolute;
@@ -244,7 +253,10 @@
   height: 70px;
   background: #fff;
   border-radius: 10px;
-  outline: 1px solid #ede5cc;
+  /* 테두리를 inset(안쪽)으로 → 불투명한 상태 패널이 위를 덮어,
+     ms-card-status 와 겹치는 부분은 상태 패널 배경색이 보이고 흰 본문 쪽만 테두리가 남음.
+     (outline 은 박스 바깥에 그려져 overflow 로도 못 덮어서 box-shadow inset 사용) */
+  box-shadow: inset 0 0 0 1px #ede5cc;
   overflow: hidden;
 }
 
@@ -262,8 +274,9 @@
 }
 
 .ms-card-icon img {
-  width: 34px;
-  height: 34px;
+  width: 37px;
+  height: 37px;
+  max-width: none; /* base.css 의 img{max-width:100%} 캡 해제 → 자유롭게 크기 조절 */
 }
 
 .ms-card-mid {
@@ -393,6 +406,12 @@
 }
 
 /* ── 완료 카드 (재료 다 모음 → mission_done.html) ───────── */
+/* mission_done(완료 화면)은 스크롤 없이 한 화면에 들어오도록 하단 여백 축소.
+   .ms-complete 를 가진 스크롤에만 적용 → mission.html(카드 리스트) 스크롤엔 영향 없음. */
+.ms-scroll:has(.ms-complete) {
+  padding-bottom: 60px;
+}
+
 .ms-complete {
   flex-shrink: 0;
   width: 340px;
@@ -418,7 +437,7 @@
   color: #3d2000;
 }
 .ms-complete-mascot {
-  margin-top: 14px;
+  margin-top: 30px;
   width: 130px;
   height: 173px;
 }
