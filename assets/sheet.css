@@ -53,38 +53,40 @@ body:has(.sheet-page, .terms-page)::after {
   height: 60px;
 }
 
+/* 헤더 40x40 버튼 @ 16, 10 — 다른 페이지 헤더(.xx-header 패딩 0 16px + 40px 버튼)와
+   동일 규격. 헤더 높이 60 기준 세로 중앙. */
 .sheet-back,
 .terms-back {
   position: absolute;
-  left: 0;
-  top: 5px;
-  width: 50px;
-  height: 50px;
+  left: 16px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
 }
 
-/* 아이콘 24x24 @ 9, 13 (Figma 좌표) */
+/* 아이콘 24x24 버튼 중앙 → 프레임 좌측에서 24px (다른 페이지와 동일 지점) */
 .sheet-back::before,
 .terms-back::before {
   content: "";
   position: absolute;
-  left: 9px;
-  top: 13px;
+  left: 8px;
+  top: 8px;
   width: 24px;
   height: 24px;
   background: url("icon_back.svg") center / contain no-repeat;
 }
 
 /* frame-scale.js 가 body 직속으로 옮긴 뒤 화면 좌상단 고정.
-   프레임 스케일에서 벗어나 언스케일 50px 로 렌더 → terms-back 과 동일 크기·좌표.
-   top 21 = 시트16 + 백5 (terms.css 의 body > .terms-back 과 동일) */
+   프레임 스케일에서 벗어나 언스케일 40px 로 렌더 → terms-back 과 동일 크기·좌표.
+   top 26 = 시트16 + 백10 (terms.css 의 body > .terms-back 과 동일) */
 body > .sheet-back {
   position: fixed;
-  left: 0;
-  top: 21px;
+  left: 16px;
+  top: 26px;
   z-index: 25;
 }
 

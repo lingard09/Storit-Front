@@ -221,11 +221,11 @@ body:has(.terms-doc) .terms-cta {
 }
 
 /* terms.html 뒤로가기 버튼: frame-scale.js 가 body 직속으로 옮긴 뒤
-   화면 좌상단에 고정 — 약관 상세 페이지 백버튼과 동일 좌표(top 21 = 시트16+백5).
-   (크기 50·아이콘 ::before 는 sheet.css .terms-back 규칙을 그대로 사용) */
+   화면 좌상단에 고정 — 약관 상세 페이지 백버튼과 동일 좌표(top 26 = 시트16+백10).
+   (크기 40·아이콘 ::before 는 sheet.css .terms-back 규칙을 그대로 사용) */
 body > .terms-back {
   position: fixed;
-  left: 0;
-  top: 21px;
+  left: 16px;
+  top: 26px;
   z-index: 25;
 }
