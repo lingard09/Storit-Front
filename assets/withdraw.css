@@ -189,7 +189,9 @@
 }
 .wd-reason-box {
   margin-top: 9px;
-  margin-left: 12px; /* 다른 행들과 동일한 좌측 들여쓰기 */
+  /* 유의사항 카드(.wd-notice)와 같은 폭이 되도록 좌측 들여쓰기 없음.
+     예전엔 margin-left:12px 이라 12px 좁고 오른쪽으로 밀려 있었다.
+     (12px 들여쓰기는 .wd-reason-label 같은 '텍스트 행'에만 적용) */
   height: 127px;
   padding: 18px 13px;
   background: rgba(250, 239, 223, 0.7); /* #faefdf 투명도 0.7 */

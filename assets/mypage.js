@@ -7,7 +7,12 @@
     expPercent: 67,
     nextExp: 120,
     // 나의 업적 (순서: 최고 랭킹 · 행운 횟수 · 누적 출석 · 최고 점수)
-    achievements: { rank: "10위", luck: "7회", attend: "15일", score: "98.8점" },
+    achievements: {
+      rank: "10위",
+      luck: "7회",
+      attend: "15일",
+      score: "98.8점",
+    },
     cookies: { balance: "80", earned: "1,240", used: "1,160" },
     lifeWebtoon: "기자매",
     genre: "공포, 스릴러",
@@ -21,7 +26,7 @@
     level: 1,
     expPercent: 0,
     nextExp: 100,
-    achievements: { rank: "-", luck: "-", attend: "0일", score: "0회" },
+    achievements: { rank: "-", luck: "0회", attend: "0일", score: "-" },
     cookies: { balance: "0", earned: "0", used: "0" },
     lifeWebtoon: "설정하기",
     genre: "설정하기",
@@ -58,11 +63,16 @@
   $$(".mp-stat").forEach((stat) => {
     const k = stat.querySelector(".mp-stat-k");
     const v = stat.querySelector(".mp-stat-v");
-    if (k && k.textContent.trim() in achMap) set(v, achMap[k.textContent.trim()]);
+    if (k && k.textContent.trim() in achMap)
+      set(v, achMap[k.textContent.trim()]);
   });
 
   // 쿠키 내역
-  const cookieData = [DATA.cookies.balance, DATA.cookies.earned, DATA.cookies.used];
+  const cookieData = [
+    DATA.cookies.balance,
+    DATA.cookies.earned,
+    DATA.cookies.used,
+  ];
   $$(".mp-cookie-v").forEach((el, i) => set(el, cookieData[i]));
 
   // 인생 웹툰 / 좋아하는 장르
@@ -110,7 +120,7 @@
     // 회원가입(userinfo) 아바타 1~10 순서
     const AVATARS = Array.from(
       { length: 10 },
-      (_, i) => `assets/avatar_${String(i + 1).padStart(2, "0")}.svg`
+      (_, i) => `assets/avatar_${String(i + 1).padStart(2, "0")}.svg`,
     );
     const current = $(".mp-edit-current-img");
     const pageAvatar = $(".mp-avatar");
@@ -150,14 +160,14 @@
 
     editGrid.innerHTML = AVATARS.map(
       (src) =>
-        `<button type="button" class="mp-edit-opt" data-src="${src}"><img src="${src}" alt="" /><span class="mp-edit-check" aria-hidden="true"></span></button>`
+        `<button type="button" class="mp-edit-opt" data-src="${src}"><img src="${src}" alt="" /><span class="mp-edit-check" aria-hidden="true"></span></button>`,
     ).join("");
 
     const opts = $$(".mp-edit-opt", editGrid);
     const markSelected = (src) => {
       selectedSrc = src;
       opts.forEach((o) =>
-        o.classList.toggle("is-selected", o.dataset.src === src)
+        o.classList.toggle("is-selected", o.dataset.src === src),
       );
     };
     markSelected(selectedSrc);
@@ -194,7 +204,8 @@
       saveBtn.addEventListener("click", () => {
         if (saveBtn.disabled) return;
         if (pageAvatar) pageAvatar.src = selectedSrc;
-        if (nameInput && pageName) pageName.textContent = nameInput.value.trim();
+        if (nameInput && pageName)
+          pageName.textContent = nameInput.value.trim();
         editModal.hidden = true;
         // 수정하기 → 마이페이지로 돌아옴 (체이닝 없음)
       });
@@ -213,11 +224,25 @@
   const genreGrid = $(".mp-genre-grid");
   if (genreModal && genreGrid) {
     const GENRES = [
-      "판타지", "로맨스", "로맨스 판타지",
-      "음악", "무협", "드라마", "학원물",
-      "스릴러", "시대극", "액션", "모험",
-      "공포", "일상물", "스포츠", "개그",
-      "미스터리", "추리", "SF", "드라마",
+      "판타지",
+      "로맨스",
+      "로맨스 판타지",
+      "음악",
+      "무협",
+      "드라마",
+      "학원물",
+      "스릴러",
+      "시대극",
+      "액션",
+      "모험",
+      "공포",
+      "일상물",
+      "스포츠",
+      "개그",
+      "미스터리",
+      "추리",
+      "SF",
+      "히어로",
     ];
     const ROWS = [3, 4, 4, 4, 4]; // 한 줄에 3/4/4/4/4개
     const MAX_GENRE = 3;
@@ -225,7 +250,8 @@
     genreGrid.innerHTML = ROWS.map((n) => {
       const cells = GENRES.slice(gi, gi + n)
         .map(
-          (g) => `<button type="button" class="mp-genre-chip" data-genre="${g}">${g}</button>`
+          (g) =>
+            `<button type="button" class="mp-genre-chip" data-genre="${g}">${g}</button>`,
         )
         .join("");
       gi += n;
@@ -248,9 +274,10 @@
     // 열기: 현재 좋아하는 장르로 미리 선택
     openGenreModal = () => {
       const raw = genrePref ? genrePref.textContent.trim() : "";
-      const cur = raw && raw !== "설정하기" ? raw.split(",").map((s) => s.trim()) : [];
+      const cur =
+        raw && raw !== "설정하기" ? raw.split(",").map((s) => s.trim()) : [];
       chips.forEach((c) =>
-        c.classList.toggle("is-selected", cur.includes(c.dataset.genre))
+        c.classList.toggle("is-selected", cur.includes(c.dataset.genre)),
       );
       genreModal.hidden = false;
     };
@@ -267,7 +294,7 @@
           ...new Set(
             chips
               .filter((c) => c.classList.contains("is-selected"))
-              .map((c) => c.dataset.genre)
+              .map((c) => c.dataset.genre),
           ),
         ];
         if (genrePref)
@@ -294,13 +321,15 @@
     // 열기: 현재 인생 웹툰으로 입력값 채우기
     openWebtoonModal = () => {
       const cur = webtoonPref ? webtoonPref.textContent.trim() : "";
-      if (webtoonInput) webtoonInput.value = cur && cur !== "설정하기" ? cur : "";
+      if (webtoonInput)
+        webtoonInput.value = cur && cur !== "설정하기" ? cur : "";
       webtoonModal.hidden = false;
     };
 
     // 인생 웹툰 [수정하기] 버튼으로도 직접 열기
     const webtoonBtn = $$(".mp-pref-btn")[0];
-    if (webtoonBtn) webtoonBtn.addEventListener("click", () => openWebtoonModal());
+    if (webtoonBtn)
+      webtoonBtn.addEventListener("click", () => openWebtoonModal());
 
     // 수정하기 → 입력값을 페이지에 반영 후 닫기
     const webtoonSave = $(".mp-webtoon-save");

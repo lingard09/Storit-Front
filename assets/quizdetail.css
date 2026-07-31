@@ -114,8 +114,12 @@
 .qd-badge {
   align-self: flex-start;
   box-sizing: border-box;
-  width: 72px; /* is-approved(승인완료) 너비에 맞춰 모든 상태 배지 동일 폭 */
+  /* 상태 배지 폭 통일. 예전엔 width:72px 이었는데 좌우 패딩 30 을 빼면 내용 가용이 42px 뿐이라
+     가장 긴 "승인완료"(약 48px)가 두 줄로 접혔다. 78 = 48 + 패딩 30.
+     width 대신 min-width 라서 폰트가 더 넓어도 넘치지 않고 배지가 늘어난다. */
+  min-width: 78px;
   padding: 7px 15px;
+  white-space: nowrap;
   border-radius: 5px;
   text-align: center;
   font-size: 12px;
@@ -324,7 +328,7 @@
 .qd-reject-reason {
   display: block;
   margin-top: 4px;
-  padding-left: 29px;
+  padding-left: 3px;
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;

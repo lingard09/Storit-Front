@@ -758,90 +758,12 @@ body > .mn-header > .mn-hearts {
   cursor: pointer;
 }
 
-/* ── 하단 네비게이션 (375x84, 상단 라운드 24) ── */
-.mn-nav {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 375px;
-  height: 84px;
-  z-index: 10;
-  background: var(--yellow);
-  border-radius: 24px 24px 0 0;
-}
 
-/* 항목 4개 (Figma: @ 46, 20, gap 62) */
-.mn-nav-items {
-  position: absolute;
-  left: 46px;
-  top: 20px;
-  display: flex;
-  align-items: flex-end;
-  gap: 62px;
-}
 
-.mn-nav-item {
-  width: 24px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: var(--font-body);
-  font-size: 8px;
-  font-weight: 500;
-  color: var(--brown-700);
-  opacity: 0.4;
-  white-space: nowrap;
-}
 
-.mn-nav-item.is-active {
-  color: var(--brown-800);
-  opacity: 1;
-}
 
-/* 아이콘 색은 currentColor 를 따름 */
-.mn-nav-icon {
-  width: 25px;
-  height: 25px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-/* 아이콘(순서: 홈/랭킹/상점/마이페이지) — main.html 은 modifier 클래스가 없어 nth-child 로 지정.
-   인라인 --icon 의존 제거 → 어디서나 확실히 렌더 */
-.mn-nav-items .mn-nav-item:nth-child(1) .mn-nav-icon {
-  background-image: url("nav_home.svg");
-}
-.mn-nav-items .mn-nav-item:nth-child(2) .mn-nav-icon {
-  background-image: url("nav_ranking.svg");
-}
-.mn-nav-items .mn-nav-item:nth-child(3) .mn-nav-icon {
-  background-image: url("nav_gift.svg");
-}
-.mn-nav-items .mn-nav-item:nth-child(4) .mn-nav-icon {
-  background-image: url("nav_profile.svg");
-}
 
-/* 상점 아이콘만 23x23 + 라벨 간격 2px */
-.mn-nav-item--shop .mn-nav-icon {
-  width: 23px;
-  height: 23px;
-  margin-bottom: 2px;
-}
 
-/* 홈 인디케이터 (Figma: 72px @ 151, 70) */
-.mn-nav-indicator {
-  position: absolute;
-  left: 151px;
-  top: 70px;
-  width: 72px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--brown-700);
-}
 
 /* ── 오늘의 응원 한마디 ──────────────────── */
 .mn-cheer {

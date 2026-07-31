@@ -2,24 +2,52 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-  // ── 집계 통계 (백엔드 연동 시 API 응답으로 교체) ──
-  const STATS = {
-    plays: "255",
-    playsDelta: 18, // 어제 대비 (양수=상승/파랑, 음수=하락/빨강, 0/null=표시 안함)
-    correctRate: "42%",
-    correctRank: "상위 23%",
-    avgTime: "5.8 초",
-    timeRank: "상위 41%",
+  /* 프리뷰: 화면 상태를 파라미터로 지정 (main.html?hearts=N · result.html?score=N 과 동일한 용도)
+       myquiz.html?state=empty   → 등록한 퀴즈가 하나도 없는 초기 상태
+       myquiz.html?state=review  → 심사중 퀴즈 1개만 있는 상태 (아직 플레이 없음)
+       myquiz.html               → 기본 샘플(승인·심사중·반려 각 1개)
+     ?empty 는 ?state=empty 의 축약. 빈/대기 화면 렌더링은 원래 있던 분기를 그대로 타므로
+     데이터만 바꿔 끼우면 된다.
+     TODO: 백엔드 연동 시 이 프리뷰 분기는 제거 */
+  const qs = new URLSearchParams(location.search);
+  const state = qs.has("empty") ? "empty" : qs.get("state") || "";
+
+  // 승인된 퀴즈가 없으면 집계도 0 (플레이 기록이 쌓이기 전)
+  const ZERO_STATS = {
+    plays: "0",
+    playsDelta: 0,
+    correctRate: "0%",
+    correctRank: "-",
+    avgTime: "0 초",
+    timeRank: "-",
   };
+
+  // ── 집계 통계 (백엔드 연동 시 API 응답으로 교체) ──
+  const STATS =
+    state === "empty" || state === "review"
+      ? ZERO_STATS
+      : {
+          plays: "255",
+          playsDelta: 18, // 어제 대비 (양수=상승/파랑, 음수=하락/빨강, 0/null=표시 안함)
+          correctRate: "42%",
+          correctRank: "상위 23%",
+          avgTime: "5.8 초",
+          timeRank: "상위 41%",
+        };
 
   // ── 내 퀴즈 데이터 ────────────────────────────
   // status: "approved"(승인) · "review"(심사중) · "rejected"(반려)
   // 승인: plays/correct/time 지표 / 심사중·반려: date
-  const QUIZZES = [
+  const SAMPLE = [
     { title: "66666년 만에 환생한 흑마법사 퀴즈", status: "approved", thumb: "assets/webtoon_blackmage.png", plays: 255, correct: "42%", time: "5.8초", date: "2026.05.24" },
     { title: "나 혼자만 레벨업 퀴즈", status: "review", thumb: "assets/webtoon_solo.jpg", date: "2024.05.20" },
     { title: "나 혼자만 레벨업 퀴즈", status: "rejected", thumb: "assets/webtoon_solo.jpg", date: "2024.05.20", reason: "정답이 맞지 않음" },
   ];
+  const REVIEW_ONLY = [
+    { title: "나 혼자만 레벨업 퀴즈", status: "review", thumb: "assets/webtoon_solo.jpg", date: "2024.05.20" },
+  ];
+  const QUIZZES =
+    state === "empty" ? [] : state === "review" ? REVIEW_ONLY : SAMPLE;
 
   const STATUS = {
     approved: { label: "승인 완료", cls: "is-approved" },
@@ -42,10 +70,13 @@
       <span>평균 ${esc(q.time)}</span>
     </div>`;
 
-  // 등록된 퀴즈가 있으면 안내 박스(mq-info) 숨김
-  // (.mq-info 는 display:flex 라 hidden 속성이 안 먹혀 인라인 display 로 숨김)
+  /* 안내 박스(mq-info)는 "유저 참여 현황" 섹션이 아직 보여줄 게 없을 때만 노출.
+     기준은 등록 여부가 아니라 '플레이 기록'이다 — 심사중 퀴즈만 있으면 등록은 됐어도
+     통계가 전부 0이라 안내가 계속 필요하다.
+     (.mq-info 는 display:flex 라 hidden 속성이 안 먹혀 인라인 display 로 숨김) */
+  const hasPlays = QUIZZES.some((q) => (q.plays || 0) > 0);
   const infoEl = $(".mq-info");
-  if (infoEl && QUIZZES.length) infoEl.style.display = "none";
+  if (infoEl && hasPlays) infoEl.style.display = "none";
 
   // ── 등록퀴즈 통계 ─────────────────────────────
   $(".mq-reg-v").textContent = `${QUIZZES.length}개`;

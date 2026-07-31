@@ -87,20 +87,26 @@ body:has(.iq-page)::before {
   color: rgba(136, 136, 128, 0.8);
 }
 
-/* 문의 유형 칩 */
+/* 문의 유형 칩 — 3열 고정 그리드.
+   예전엔 flex-wrap 으로 내용 크기에 맡겨서, 폰트에 따라 한 줄에 2개가 됐다 3개가 됐다 했다
+   (Noto Sans KR 이면 2개, 대체 폰트면 3개 — 여유가 7px 뿐이라 폰트 폭 차이에 뒤집혔다).
+   그리드로 3열을 못박되 각 열은 auto(내용 크기) — 칩 폭이 라벨 길이를 따른다.
+   1fr 균등 분할이면 가장 긴 칩에 맞춰 모든 칸이 좁아져 글자를 줄여야 했다. */
 .iq-types {
   margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between; /* 좌우 끝 정렬 */
   gap: 8px;
 }
 .iq-type {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center; /* 칸을 꽉 채우므로 내용은 가운데 */
   gap: 6px;
   height: 30px;
-  padding: 0 10px;
+  min-width: 0;
+  padding: 0 8px;
   border: 1px solid #ef9f27;
   border-radius: 21px;
   background: var(--cta-bg);
@@ -110,6 +116,7 @@ body:has(.iq-page)::before {
   font-weight: 500;
   line-height: 15px;
   color: #3d2000;
+  white-space: nowrap;
 }
 .iq-type .iq-type-emoji {
   font-size: 14px;

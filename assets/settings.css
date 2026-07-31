@@ -136,17 +136,26 @@
   line-height: 20px;
   color: #3d2000;
 }
+/* 행 이동 화살표. 에셋(15x15)은 도형이 박스를 넘겨 그려지고 clip 으로 잘린 형태라
+   박스를 15x15 그대로 두어야 시안과 같은 모양이 나온다. */
 .se-chevron {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
-  background: url("icon_arrow_next_brown.svg") center / contain no-repeat;
+  background: url("se_arrow.svg") center / contain no-repeat;
+}
+
+/* 기기 알림 권한 행만 별도 화살표 — 에셋 자체가 12x19 (도형이 박스를 꽉 채움) */
+.se-perm .se-chevron {
+  width: 12px;
+  height: 19px;
+  background-image: url("se_arrow_perm.svg");
 }
 
 /* 기기 알림 권한 (상태 텍스트 + 화살표) */
 .se-perm-status {
   margin-left: auto;
-  margin-right: 8px;
+  margin-right: 10.96px;
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;

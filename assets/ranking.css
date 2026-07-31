@@ -596,85 +596,12 @@
   right: 0;
 }
 
-/* ── 하단 네비게이션 (메인과 동일) ────── */
-.mn-nav {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 375px;
-  /* main.css 와 동일한 84px. 76px 이던 값은 실제로 적용된 적이 없는 죽은 값이었다 —
-     frame-scale.js 가 네비를 body 로 옮기면 base.css 의 body > .mn-nav(84px * scale)가
-     특이도에서 이겨 항상 84 로 렌더됨. 내부(아이템 top 20 / 인디케이터 top 70)도 main 과 동일. */
-  height: 84px;
-  z-index: 10;
-  background: var(--yellow);
-  border-radius: 24px 24px 0 0;
-}
 
-.mn-nav-items {
-  position: absolute;
-  left: 46px;
-  top: 20px;
-  display: flex;
-  align-items: flex-end;
-  gap: 62px;
-}
 
-.mn-nav-item {
-  width: 24px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: var(--font-body);
-  font-size: 8px;
-  font-weight: 500;
-  color: var(--brown-700);
-  opacity: 0.4;
-  white-space: nowrap;
-}
 
-.mn-nav-item.is-active {
-  color: var(--brown-800);
-  opacity: 1;
-}
 
-.mn-nav-icon {
-  width: 25px;
-  height: 25px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
 
-.mn-nav-item--home .mn-nav-icon {
-  background-image: url("nav_home.svg");
-}
-.mn-nav-item--ranking .mn-nav-icon {
-  background-image: url("nav_ranking.svg");
-}
-.mn-nav-item--profile .mn-nav-icon {
-  background-image: url("nav_profile.svg");
-}
-.mn-nav-item--shop .mn-nav-icon {
-  width: 23px;
-  height: 23px;
-  margin-bottom: 2px;
-  background-image: url("nav_gift.svg");
-}
 
-.mn-nav-indicator {
-  position: absolute;
-  left: 151px;
-  top: 70px;
-  width: 72px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--brown-700);
-}
 
 /* ── 첫 진입 안내 바텀시트 ────────────── */
 .rk-modal[hidden] {

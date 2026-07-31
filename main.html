@@ -159,13 +159,13 @@
 
       <nav class="mn-nav">
         <div class="mn-nav-items">
-          <button type="button" class="mn-nav-item is-active">
+          <button type="button" class="mn-nav-item mn-nav-item--home is-active">
             <span class="mn-nav-icon"></span>
             홈
           </button>
           <button
             type="button"
-            class="mn-nav-item"
+            class="mn-nav-item mn-nav-item--ranking"
             onclick="
               location.href = localStorage.getItem('rankObSeen')
                 ? 'ranking.html'
@@ -181,7 +181,7 @@
           </button>
           <button
             type="button"
-            class="mn-nav-item"
+            class="mn-nav-item mn-nav-item--profile"
             onclick="location.href = 'mypage.html'"
           >
             <span class="mn-nav-icon"></span>

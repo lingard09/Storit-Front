@@ -65,12 +65,12 @@
             <div class="mp-stat">
               <img class="mp-stat-ico" src="assets/mp_ach_luck.svg" alt="" />
               <span class="mp-stat-k">행운 횟수</span>
-              <span class="mp-stat-v">-</span>
+              <span class="mp-stat-v">0회</span>
             </div>
             <div class="mp-stat">
               <img class="mp-stat-ico" src="assets/mp_ach_score.svg" alt="" />
               <span class="mp-stat-k">최고 점수</span>
-              <span class="mp-stat-v">0회</span>
+              <span class="mp-stat-v">-</span>
             </div>
             <div class="mp-stat">
               <img class="mp-stat-ico" src="assets/mp_ach_attend.svg" alt="" />
@@ -146,7 +146,7 @@
             <button
               type="button"
               class="mp-link-btn"
-              onclick="location.href='myquiz.html'"
+              onclick="location.href = 'myquiz.html'"
             >
               내 퀴즈 가기<span class="mp-link-arrow"></span>
             </button>
@@ -167,7 +167,11 @@
           <button
             type="button"
             class="mn-nav-item mn-nav-item--ranking"
-            onclick="location.href = localStorage.getItem('rankObSeen') ? 'ranking.html' : 'rank_onboarding1.html'"
+            onclick="
+              location.href = localStorage.getItem('rankObSeen')
+                ? 'ranking.html'
+                : 'rank_onboarding1.html'
+            "
           >
             <span class="mn-nav-icon"></span>랭킹
           </button>
@@ -207,11 +211,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>퀴즈 완료</td><td>구간별 15-70 EXP</td></tr>
-              <tr><td>출석체크</td><td>매일 15 EXP</td></tr>
-              <tr><td>연속 출석</td><td>일주일마다 추가</td></tr>
-              <tr><td>일일 미션 완료</td><td>30 EXP</td></tr>
-              <tr><td>레벨 달성 (최대 30)</td><td>5 레벨당 쿠키 1</td></tr>
+              <tr>
+                <td>퀴즈 완료</td>
+                <td>구간별 15-70 EXP</td>
+              </tr>
+              <tr>
+                <td>출석체크</td>
+                <td>매일 15 EXP</td>
+              </tr>
+              <tr>
+                <td>연속 출석</td>
+                <td>일주일마다 추가</td>
+              </tr>
+              <tr>
+                <td>일일 미션 완료</td>
+                <td>30 EXP</td>
+              </tr>
+              <tr>
+                <td>레벨 달성 (최대 30)</td>
+                <td>5 레벨당 쿠키 1</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -224,7 +243,11 @@
           <span class="mp-edit-handle"></span>
           <h2 class="mp-edit-heading">프로필 수정</h2>
           <div class="mp-edit-current">
-            <img class="mp-edit-current-img" src="assets/mp_avatar.svg" alt="" />
+            <img
+              class="mp-edit-current-img"
+              src="assets/mp_avatar.svg"
+              alt=""
+            />
           </div>
           <p class="mp-edit-error" hidden></p>
           <input
@@ -256,9 +279,15 @@
         <div class="mp-genre-sheet" role="dialog" aria-modal="true">
           <span class="mp-genre-handle"></span>
           <div class="mp-genre-icon">
-            <img src="assets/stash_heart-duotone.svg" alt="" aria-hidden="true" />
+            <img
+              src="assets/stash_heart-duotone.svg"
+              alt=""
+              aria-hidden="true"
+            />
           </div>
-          <h2 class="mp-genre-heading">선호 웹툰 장르 <span>(최대 3개)</span></h2>
+          <h2 class="mp-genre-heading">
+            선호 웹툰 장르 <span>(최대 3개)</span>
+          </h2>
           <div class="mp-genre-grid"></div>
           <div class="mp-edit-actions">
             <button type="button" class="mp-edit-cancel" data-genre-close>
@@ -275,7 +304,11 @@
         <div class="mp-webtoon-sheet" role="dialog" aria-modal="true">
           <span class="mp-webtoon-handle"></span>
           <div class="mp-webtoon-icon">
-            <img src="assets/line-md_pencil-twotone.svg" alt="" aria-hidden="true" />
+            <img
+              src="assets/line-md_pencil-twotone.svg"
+              alt=""
+              aria-hidden="true"
+            />
           </div>
           <h2 class="mp-webtoon-heading">나의 인생 웹툰</h2>
           <input
