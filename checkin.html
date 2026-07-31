@@ -137,9 +137,10 @@
             <img src="assets/icon_close.svg" alt="" />
           </button>
           <!-- 캐릭터 + 양옆 쿠키 2개 -->
-          <img class="mn-levelup-cookie mn-levelup-cookie--l" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" />
+          <!-- 쿠키는 5레벨 배수 달성 시에만 노출 (JS 가 표시/숨김) -->
+          <img class="mn-levelup-cookie mn-levelup-cookie--l" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" hidden />
           <img class="mn-levelup-char" src="assets/levelup_mascot.svg" alt="레벨 업!" />
-          <img class="mn-levelup-cookie mn-levelup-cookie--r" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" />
+          <img class="mn-levelup-cookie mn-levelup-cookie--r" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" hidden />
           <div class="mn-levelup-text">
             <h2 class="mn-levelup-title">레벨업 되었습니다!!!</h2>
             <div class="mn-levelup-levels">

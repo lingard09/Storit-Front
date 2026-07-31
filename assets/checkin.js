@@ -97,6 +97,10 @@
       const t = lvupModal.querySelector(".mn-levelup-lv--to");
       if (f) f.textContent = `LV ${oldLevel}`;
       if (t) t.textContent = `LV ${newLevel}`;
+      // 캐릭터 양옆 쿠키 아이콘은 5레벨 배수 달성 시에만 노출
+      lvupModal.querySelectorAll(".mn-levelup-cookie").forEach((c) => {
+        c.hidden = newLevel % 5 !== 0;
+      });
     }
     return newLevel > oldLevel;
   }

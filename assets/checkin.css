@@ -660,6 +660,11 @@
   position: absolute;
   z-index: 1;
 }
+/* base 의 img{display:block} 이 기본 [hidden] 을 덮으므로 명시적으로 숨김 처리
+   (5레벨 배수가 아닐 땐 쿠키 없이 캐릭터만 — 캐릭터는 absolute 라 위치 안 밀림) */
+.mn-levelup-cookie[hidden] {
+  display: none;
+}
 .mn-levelup-cookie--l {
   width: 35px;
   height: 35px;

@@ -8,9 +8,29 @@
   const elapsed = Number(sessionStorage.getItem("storit.quizElapsed") || 0);
   const title = sessionStorage.getItem("storit.quizTitle");
 
+  /* 메인 카드의 "결과 보기" 로 다시 열람하는 경우(재열람).
+     경험치는 최초 완료 때 이미 지급됐으므로 재지급하지 않고,
+     획득 팝업·레벨업 축하·점수 설명 시트 같은 최초 1회 연출도 띄우지 않는다. */
+  const isReview = sessionStorage.getItem("storit.resultReview") === "1";
+  sessionStorage.removeItem("storit.resultReview");
+
+  /* 프리뷰: ?score=N — 점수를 강제해 상태별 화면을 바로 확인 (main.html?hearts=N 과 동일한 용도)
+       result.html?score=85  → 70점 이상: 축하 문구 + 기본 마스코트
+       result.html?score=69  → 69점 이하: "아쉬워요" 문구 + 책 보는 마스코트
+     맞춘 문제 수·경험치는 이 점수에서 환산해 표시가 서로 어긋나지 않게 한다.
+     TODO: 백엔드 연동 시 이 프리뷰 분기는 제거 */
+  const scoreParam = new URLSearchParams(location.search).get("score");
+  const previewScore =
+    scoreParam !== null && scoreParam !== "" && Number.isFinite(Number(scoreParam))
+      ? Math.max(0, Math.min(100, Math.round(Number(scoreParam))))
+      : null;
+
   // 파생값: 경험치 = 맞춘 문제 x 12, 점수 = 정답률 기반
-  const exp = correct * 12;
-  const score = Math.round((correct / total) * 100);
+  const correctCount =
+    previewScore === null ? correct : Math.round((previewScore / 100) * total);
+  const exp = correctCount * 12;
+  const score =
+    previewScore === null ? Math.round((correctCount / total) * 100) : previewScore;
 
   const set = (sel, text) => {
     const el = document.querySelector(sel);
@@ -42,7 +62,7 @@
     fill.style.strokeDasharray = String(C);
     fill.style.strokeDashoffset = String(C * (1 - pct / 100));
   }
-  set(".rs-correct", `${correct}개`);
+  set(".rs-correct", `${correctCount}개`);
   set(".rs-exp-val", `${exp}XP`);
   set(".rs-exp-amount-num", String(exp));
   if (elapsed > 0) set(".rs-time", `${elapsed.toFixed(2)}초`);
@@ -145,10 +165,15 @@
 
     // 뷰포트 전체를 덮도록 viewBox·크기 계산(프레임-로컬). 단일 레이어라
     // 프레임/여백 경계선·밝은 여백이 아예 생기지 않음. 구멍은 프레임 좌표 유지.
-    const vw = window.innerWidth / scale;
-    const vh = window.innerHeight / scale;
-    const offX = (375 - vw) / 2;
-    const offY = (812 - vh) / 2;
+    // 뷰포트에 "딱 맞게" 잡으면 서브픽셀 반올림으로 가장자리 1px 이 딤 밖으로 새어
+    // 원본 배경이 줄로 비친다 → 사방으로 여유를 줘 넘치게 그린다(quiz.js 와 동일).
+    const PAD = 8;
+    const vw = window.innerWidth / scale + PAD * 2;
+    const vh = window.innerHeight / scale + PAD * 2;
+    // 화면 원점을 프레임 좌표로 환산. 프레임 정렬 방식(중앙/상단)에 상관없이 맞도록
+    // 계산이 아니라 실측(fr)에서 구한다. (이 페이지는 상단 정렬이라 offY ≈ 0)
+    const offX = -fr.left / scale - PAD;
+    const offY = -fr.top / scale - PAD;
 
     const svg =
       `<svg class="rs-spotlight" viewBox="${offX} ${offY} ${vw} ${vh}" preserveAspectRatio="none" aria-hidden="true" ` +
@@ -191,10 +216,11 @@
   let oldXp = storedXp == null ? 790 : Number(storedXp);
   if (!Number.isFinite(oldXp) || oldXp < 0) oldXp = 790;
   const oldLevel = Math.floor(oldXp / XP_PER_LEVEL) + 1;
-  const newXp = oldXp + exp;
+  // 재열람이면 경험치 증가 없음 (열 때마다 중복 지급되는 것을 막음)
+  const newXp = oldXp + (isReview ? 0 : exp);
   const newLevel = Math.floor(newXp / XP_PER_LEVEL) + 1;
   const leveledUp = newLevel > oldLevel;
-  localStorage.setItem("storit.xp", String(newXp));
+  if (!isReview) localStorage.setItem("storit.xp", String(newXp));
 
   const lvupModal = document.querySelector(".mn-levelup");
   if (lvupModal) {
@@ -202,6 +228,10 @@
     const toEl = lvupModal.querySelector(".mn-levelup-lv--to");
     if (fromEl) fromEl.textContent = `LV ${oldLevel}`;
     if (toEl) toEl.textContent = `LV ${newLevel}`;
+    // 캐릭터 양옆 쿠키 아이콘은 5레벨 배수 달성 시에만 노출
+    lvupModal.querySelectorAll(".mn-levelup-cookie").forEach((c) => {
+      c.hidden = newLevel % 5 !== 0;
+    });
   }
 
   // 점수 설명 시트로 진행 (스포트라이트 유지)
@@ -231,7 +261,7 @@
   // 경험치 획득 팝업 (진입 시 표시)
   //  → 닫을 때 레벨업이면 레벨업 모달, 아니면 점수 설명 시트
   const expModal = document.querySelector(".rs-exp");
-  if (expModal) {
+  if (expModal && !isReview) {
     expModal.hidden = false; // 팝업일 땐 일반 딤, 하이라이트 없음
     const close = () => {
       expModal.hidden = true;

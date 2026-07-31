@@ -169,26 +169,32 @@
   flex-shrink: 0;
 }
 
-/* 원 중심을 관통하는 연결선 */
-.ms-ing-line {
-  position: absolute;
-  left: 30px;
-  right: 30px;
-  top: 30px;
-  height: 0;
-  border-top: 1px dashed #ffd95e;
-  z-index: 0;
-}
-
-/* 진척도: 완료된(is-done) 재료까지 연결선을 solid 로 채움 (--ing-fill: 0~1, mission.js 설정) */
+/* 원 중심을 관통하는 연결선 — 배경선·채움선 모두 점선.
+   border-dashed 는 대시 길이를 브라우저가 박스 길이에 맞춰 늘려서 간격이 들쭉날쭉하고,
+   길이가 다른 두 선(배경/채움) 사이의 위상도 어긋난다.
+   → 반복 그라디언트로 대시 3px + 간격 2px 를 고정하고, 두 선 모두 left:30px 기준으로
+   같은 패턴을 깔아 대시 위치가 정확히 겹치게 한다. */
+.ms-ing-line,
 .ms-ing-line-fill {
   position: absolute;
   left: 30px;
   top: 30px;
-  width: calc((100% - 60px) * var(--ing-fill, 0));
-  height: 0;
-  border-top: 1px solid #ffd95e;
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #ffd95e 0 3px,
+    transparent 3px 5px
+  );
   z-index: 0;
+}
+
+.ms-ing-line {
+  right: 30px;
+}
+
+/* 진척도: 완료된(is-done) 재료까지의 구간 (--ing-fill: 0~1, mission.js 설정) */
+.ms-ing-line-fill {
+  width: calc((100% - 60px) * var(--ing-fill, 0));
 }
 
 .ms-ing {
@@ -216,6 +222,17 @@
 .ms-ing-circle img {
   width: 24px;
   height: 24px;
+}
+
+/* 에셋별 여백 차이 보정 — 원 안에서 크기가 고르게 보이도록 개별 조정 */
+.ms-ing--butter .ms-ing-circle img {
+  width: 25px;
+  height: 25px;
+}
+
+.ms-ing--milk .ms-ing-circle img,
+.ms-ing--sugar .ms-ing-circle img {
+  width: 25px;
 }
 
 

@@ -602,7 +602,10 @@
   left: 0;
   bottom: 0;
   width: 375px;
-  height: 76px;
+  /* main.css 와 동일한 84px. 76px 이던 값은 실제로 적용된 적이 없는 죽은 값이었다 —
+     frame-scale.js 가 네비를 body 로 옮기면 base.css 의 body > .mn-nav(84px * scale)가
+     특이도에서 이겨 항상 84 로 렌더됨. 내부(아이템 top 20 / 인디케이터 top 70)도 main 과 동일. */
+  height: 84px;
   z-index: 10;
   background: var(--yellow);
   border-radius: 24px 24px 0 0;
@@ -692,14 +695,20 @@
 
 .rk-modal-sheet {
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: var(--sheet-pull); /* 뷰포트 바닥에 붙임(카드형) */
   z-index: 100;
-  width: 375px;
+  /* 기기 화면 전체 폭 — 프레임이 --frame-scale 로 스케일되므로 렌더 폭이 실제
+     뷰포트 폭(100vw)이 되도록 역보정 (mn-iv-sheet 와 동일 방식).
+     모달 열림 시 has-open-modal 로 프레임 overflow:visible → 375 밖으로 확장 가능 */
+  /* +4px 는 서브픽셀 반올림 여유 — 딱 맞추면 가장자리 1~2px 이 비어 배경이 비친다
+     (넘치는 부분은 html{overflow:hidden} 이 잘라내므로 무해) */
+  width: calc(100vw / var(--frame-scale, 1) + 4px);
   box-sizing: border-box;
   padding: 10px 20px 40px 30px;
   background: #fff;
-  border-radius: 28px;
+  border-radius: 28px 28px 0 0; /* 전체 폭이므로 하단은 각지게 */
   display: flex;
   flex-direction: column;
   align-items: center;

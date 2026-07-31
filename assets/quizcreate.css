@@ -303,8 +303,15 @@
   flex-direction: column;
   max-height: 72%;
   padding: 0 20px 24px;
+  /* 기기 화면 전체 폭 — 프레임이 --frame-scale 로 스케일되므로 렌더 폭이 실제
+     뷰포트 폭(100vw)이 되도록 역보정 (mn-iv-sheet 와 동일 방식).
+     모달 열림 시 has-open-modal 로 프레임 overflow:visible → 375 밖으로 확장 가능 */
+  /* +4px 는 서브픽셀 반올림 여유 — 딱 맞추면 가장자리 1~2px 이 비어 배경이 비친다
+     (넘치는 부분은 html{overflow:hidden} 이 잘라내므로 무해) */
+  width: calc(100vw / var(--frame-scale, 1) + 4px);
+  align-self: center;
   background: #fff;
-  border-radius: 28px; /* 상·하단 곡률 */
+  border-radius: 28px 28px 0 0; /* 전체 폭이므로 하단은 각지게 */
 }
 .qc-search-handle {
   align-self: center;

@@ -13,10 +13,24 @@
     { title: "회귀자의 은퇴 라이프", thumb: 4, platform: 1, tags: ["사이다", "사이다"], cta: "퀴즈\n풀기", url: "https://comic.naver.com/search?keyword=%ED%9A%8C%EA%B7%80%EC%9E%90%EC%9D%98%20%EC%9D%80%ED%87%B4%20%EB%9D%BC%EC%9D%B4%ED%94%84" },
   ];
 
+  // 이미 푼 작품의 응시 기록 (quiz.js 가 작품 제목을 키로 저장)
+  // TODO: 백엔드 연동 시 응시 이력 API 응답으로 교체
+  const DONE_CTA = "결과\n보기";
+  const quizRecords = (function () {
+    let r;
+    try {
+      r = JSON.parse(localStorage.getItem("storit.quizResults") || "{}");
+    } catch (e) {
+      r = null;
+    }
+    return r && typeof r === "object" && !Array.isArray(r) ? r : {};
+  })();
+
   const list = document.querySelector(".mn-list");
   if (list) {
-    list.innerHTML = WEBTOONS.map(
-      (w, i) => `
+    list.innerHTML = WEBTOONS.map((w, i) => {
+      const done = Boolean(quizRecords[w.title]);
+      return `
       <article class="mn-card">
         <img class="mn-card-thumb" src="assets/webtoon_${w.thumb}.png" alt="" />
         <div class="mn-card-main">
@@ -26,11 +40,12 @@
             ${w.tags.map((t) => `<span class="mn-tag">${t}</span>`).join("")}
           </div>
         </div>
-        <button type="button" class="mn-card-cta" data-idx="${i}">${w.cta.replace("\n", "<br>")}</button>
-      </article>`,
-    ).join("");
+        <button type="button" class="mn-card-cta${done ? " is-done" : ""}" data-idx="${i}">${(done ? DONE_CTA : w.cta).replace("\n", "<br>")}</button>
+      </article>`;
+    }).join("");
 
-    // 퀴즈 풀기 → 퀴즈 화면으로 이동 (제목·제작자·원작 링크 전달)
+    // 퀴즈 풀기 → 퀴즈 화면 / 이미 푼 작품이면 결과 보기 → 결과 화면
+    // (둘 다 제목·제작자·원작 링크를 전달)
     list.querySelectorAll(".mn-card-cta").forEach((btn) => {
       btn.addEventListener("click", () => {
         const w = WEBTOONS[Number(btn.dataset.idx)];
@@ -39,6 +54,18 @@
         else sessionStorage.removeItem("storit.quizCreator");
         if (w.url) sessionStorage.setItem("storit.quizUrl", w.url);
         else sessionStorage.removeItem("storit.quizUrl");
+
+        const done = quizRecords[w.title];
+        if (done) {
+          // 저장된 기록을 결과 화면이 읽는 자리에 복원.
+          // 재열람이므로 경험치 재지급·획득 팝업은 뜨지 않게 표시(result.js 가 소비)
+          sessionStorage.setItem("storit.lastScore", String(done.score));
+          sessionStorage.setItem("storit.quizTotal", String(done.total));
+          sessionStorage.setItem("storit.quizElapsed", String(done.elapsed));
+          sessionStorage.setItem("storit.resultReview", "1");
+          window.location.href = "result.html";
+          return;
+        }
         window.location.href = "quiz.html";
       });
     });
@@ -293,9 +320,13 @@
     };
     setTxt(".mn-levelup-lv--from", `LV ${from}`);
     setTxt(".mn-levelup-lv--to", `LV ${to}`);
-    // 매 5레벨 달성 시에만 보너스 쿠키 문구 노출
+    // 매 5레벨 달성 시에만 보너스 쿠키 문구 + 캐릭터 양옆 쿠키 아이콘 노출
+    const isBonusLevel = to % 5 === 0;
     const bonus = lvModal.querySelector(".mn-levelup-bonus");
-    if (bonus) bonus.hidden = to % 5 !== 0;
+    if (bonus) bonus.hidden = !isBonusLevel;
+    lvModal.querySelectorAll(".mn-levelup-cookie").forEach((c) => {
+      c.hidden = !isBonusLevel;
+    });
     lvModal.hidden = false;
     lvModal.querySelectorAll("[data-close-levelup]").forEach((el) => {
       el.addEventListener("click", () => {

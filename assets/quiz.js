@@ -153,6 +153,9 @@
   // 퀴즈 종료(정상 완료) — 점수 반영 & 랭킹 등록 → 결과 화면
   function finishQuiz() {
     saveResult();
+    // 끝까지 푼 경우에만 응시 기록 → 메인 카드가 "결과 보기" 로 바뀜
+    // (중도 이탈은 다 푼 게 아니므로 기록하지 않고 "퀴즈 풀기" 유지)
+    saveQuizRecord();
     if (score > 0) registerRanking();
     window.location.href = "result.html";
   }
@@ -163,6 +166,29 @@
     sessionStorage.setItem("storit.quizTotal", String(QUESTIONS.length));
     sessionStorage.setItem("storit.quizElapsed", elapsedSec().toFixed(2));
     localStorage.setItem("storit.lastScore", String(score));
+  }
+
+  /* 작품별 응시 기록 — 메인 카드 CTA 가 "퀴즈 풀기" → "결과 보기" 로 바뀌고,
+     거기서 결과 화면을 다시 열 때 이 값을 복원해 쓴다.
+     정상 완료(finishQuiz)에서만 호출한다.
+     TODO: 백엔드 연동 시 서버의 응시 이력으로 교체 */
+  function saveQuizRecord() {
+    if (!title) return;
+    let records;
+    try {
+      records = JSON.parse(localStorage.getItem("storit.quizResults") || "{}");
+    } catch (e) {
+      records = null;
+    }
+    if (!records || typeof records !== "object" || Array.isArray(records)) {
+      records = {};
+    }
+    records[title] = {
+      score: score,
+      total: QUESTIONS.length,
+      elapsed: elapsedSec().toFixed(2),
+    };
+    localStorage.setItem("storit.quizResults", JSON.stringify(records));
   }
 
   // 1점 이상이면 랭킹 등록 (0점이면 미등록)
@@ -178,7 +204,8 @@
     stopTimer();
     saveResult();
     if (score > 0) registerRanking();
-    // 이동하기 → 메인 (결과는 저장돼 있어 두 경우 모두 접근 가능)
+    // 이동하기 → 메인. 응시 기록(saveQuizRecord)은 남기지 않으므로
+    // 메인 카드는 "퀴즈 풀기" 그대로 → 다시 풀 수 있다.
     window.location.href = "main.html";
   }
 
@@ -230,8 +257,12 @@
               "--frame-scale",
             ),
           ) || 1;
-        const vw = window.innerWidth / sc;
-        const vh = window.innerHeight / sc;
+        // 뷰포트에 "딱 맞게" 잡으면 서브픽셀 반올림 때문에 가장자리 1px 이 딤 밖으로
+        // 새어 원본 배경이 줄로 비친다 → 사방으로 여유를 줘 넘치게 그린다.
+        // (프레임이 overflow:visible 이라 넘쳐도 잘리지 않고, 딤은 단색이라 넘쳐도 무해)
+        const PAD = 8;
+        const vw = window.innerWidth / sc + PAD * 2;
+        const vh = window.innerHeight / sc + PAD * 2;
         const offX = (375 - vw) / 2;
         const offY = (812 - vh) / 2;
         dim.setAttribute("viewBox", `${offX} ${offY} ${vw} ${vh}`);
@@ -243,6 +274,47 @@
       sizeDim();
       window.addEventListener("resize", sizeDim);
     }
+
+    /* 코치마크(스포트라이트 구멍·링·말풍선) 가로 위치 보정.
+       .qz-card 는 뷰포트가 넓어지면 함께 넓어지므로, 375 기준으로 하드코딩된 좌표를
+       그대로 두면 칩과 어긋난다. 세로 배치는 카드 폭과 무관하므로 x 만 보정한다.
+       왼쪽(타이머) 칩은 카드 좌변을, 오른쪽(회차·보러가기) 칩은 카드 우변을 따라간다. */
+    const placeCoachMarks = () => {
+      const card = document.querySelector(".qz-card");
+      const frame = document.querySelector(".frame");
+      if (!card || !frame) return;
+      const sc =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--frame-scale",
+          ),
+        ) || 1;
+      const fb = frame.getBoundingClientRect();
+      const cb = card.getBoundingClientRect();
+      const cardL = (cb.left - fb.left) / sc;
+      const cardR = cardL + cb.width / sc;
+      const dL = cardL - 21; // 기본 레이아웃(left 21) 대비 좌변 이동량
+      const dR = cardR - 351; // 기본 레이아웃(right 351) 대비 우변 이동량
+
+      // 딤 마스크 구멍: [0]=전체 덮개, [1]=타이머 칩, [2]=회차·보러가기 칩
+      const holes = dim ? dim.querySelectorAll("mask rect") : [];
+      const setHoleX = (i, base, d) => {
+        if (holes[i]) holes[i].setAttribute("x", String(base + d));
+      };
+      setHoleX(1, 27, dL);
+      setHoleX(2, 218, dR);
+
+      const setLeft = (sel, base, d) => {
+        const el = coach.querySelector(sel);
+        if (el) el.style.left = base + d + "px";
+      };
+      setLeft(".qz-ring--timer", 27, dL);
+      setLeft(".qz-tip--timer", 24, dL);
+      setLeft(".qz-ring--link", 218, dR);
+      setLeft(".qz-tip--link", 218, dR);
+    };
+    placeCoachMarks();
+    window.addEventListener("resize", placeCoachMarks);
     coach.querySelector(".qz-sheet-cta").addEventListener("click", () => {
       localStorage.setItem("storit.quizIntroSeen", "1");
       coach.hidden = true;

@@ -306,7 +306,9 @@
 /* ── 하단 CTA ─────────────────────────── */
 .pd-submit-wrap {
   flex-shrink: 0;
-  padding: 10px 20px 66px; /* 하단 스캘럽 위로 버튼 올림 */
+  /* 하단 90px = 스캘럽(57px) 위로 33px 띄움.
+     교환 신청 화면(.ex-submit-wrap)과 동일한 값 → 두 화면을 오갈 때 버튼이 안 움직임 */
+  padding: 21px 20px 90px;
 }
 
 .pd-submit {

@@ -43,8 +43,12 @@ select {
   --frame-h: 812px;
 
   /* 바텀시트를 뷰포트 바닥에 붙이는 하단 보정(프레임 세로 중앙정렬 여백만큼 당김, ≤0).
-     margin-bottom(플렉스 정렬 시트) 또는 bottom(absolute 시트)에 사용. */
-  --sheet-pull: calc((var(--frame-h) - 100vh / var(--frame-scale, 1)) / 2);
+     margin-bottom(플렉스 정렬 시트) 또는 bottom(absolute 시트)에 사용.
+     높이는 100vh(주소창 숨김 가정) 대신 frame-scale.js 가 실측해 발행하는 --vh 를 쓴다.
+     100vh 는 모바일에서 실제 보이는 높이보다 커서 시트가 화면 밖으로 밀려났다. */
+  --sheet-pull: calc(
+    (var(--frame-h) - var(--vh, 100vh) / var(--frame-scale, 1)) / 2
+  );
 
   /* 컬러 */
   --bg: #fefaf4;
@@ -86,9 +90,14 @@ html {
   overscroll-behavior: none;
 }
 
-/* 화면 중앙에 프레임 배치 (스케일 시 상하좌우 여백은 --bg로 채워짐) */
+/* 화면 중앙에 프레임 배치 (스케일 시 상하좌우 여백은 --bg로 채워짐)
+   높이 기준은 --vh(실측). 100vh 로 잡으면 모바일에서 주소창 높이만큼 상자가 더 커져
+   프레임이 아래로 밀리고 상단 헤더가 화면 최상단에서 떨어져 보인다. */
 body {
-  min-height: 100vh;
+  min-height: var(--vh, 100vh);
+  /* html{height:100%} 의 기준(ICB)이 브라우저에 따라 "주소창 숨긴 큰 뷰포트"라
+     min-height 만으로는 body 가 화면보다 커질 수 있다 → 실측 높이로 못박는다. */
+  height: var(--vh, 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,6 +136,42 @@ body::before {
      → 모달 딤·시트가 네비게이션 바보다 위에 표시 */
   z-index: 30;
 }
+/* ── 모달 중 하단 네비의 레이어 순서 ─────────────────────────
+   .frame 은 transform 때문에 자체 스택 컨텍스트라, 네비가 프레임 밖(body)에 있으면
+   "프레임 전체보다 위" 아니면 "아래" 둘 중 하나만 가능하다. 모달이 열리면 프레임이
+   네비 위로 올라가므로(z:30) 프레임 안 스크롤 콘텐츠(흰 카드)까지 네비를 덮어버린다.
+   → 모달 중에는 frame-scale.js 가 네비를 프레임 "안"으로 옮겨(z:10) 같은 스택
+   컨텍스트에 넣는다. 그러면 본문(z:auto) < 네비(z:10) < 딤·모달(z:50) 순서가 된다.
+   프레임 안이므로 크기·좌표는 디자인 단위 그대로 쓰고(프레임이 스케일함),
+   폭만 화면 전체가 되도록 역보정한다. */
+.frame.has-open-modal > .mn-nav {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  /* 프레임 세로 중앙정렬 여백만큼 내려 화면 바닥에 밀착 */
+  bottom: var(--sheet-pull);
+  width: calc(100vw / var(--frame-scale, 1));
+  height: 84px;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: var(--yellow);
+  border-radius: 24px 24px 0 0;
+}
+.frame.has-open-modal > .mn-nav .mn-nav-items {
+  position: static;
+  inset: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0;
+}
+.frame.has-open-modal > .mn-nav .mn-nav-indicator {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .frame.has-open-modal [class*="-overlay"] {
   inset: -100vmax;
   /* 일부 오버레이(rs-exp/ci-guide)는 width:100% 를 갖고 있어 left/right(-100vmax)와
@@ -142,24 +187,29 @@ body::before {
    화면 전체 폭 레이어로 제공 → 카드처럼 보이지 않고 terms 와 동일하게 꽉 참. */
 .ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page, .ex-page,
 .nt-page, .pd-page, .qc-page, .qd-page, .mq-page, .se-page, .wd-page,
-.rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page {
+.rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page, .qz-page,
+.rs-page {
   background: transparent !important;
 }
 .ci-page::before, .st-page::before, .nc-page::before, .cp-page::before,
 .vc-page::before, .ck-page::before, .ex-page::before, .nt-page::before,
 .pd-page::before, .qc-page::before, .qd-page::before, .mq-page::before,
 .se-page::before, .wd-page::before, .rk-page::before, .sh-page::before,
-.mp-page::before, .iq-page::before, .ms-page::before, .cr-page::before {
+.mp-page::before, .iq-page::before, .ms-page::before, .cr-page::before,
+.qz-page::before,
+.rs-page::before {
   display: none !important;
 }
 body:has(.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page,
     .ex-page, .nt-page, .pd-page, .qc-page, .qd-page, .mq-page,
-    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page) {
+    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page,
+    .qz-page, .rs-page) {
   background: var(--yellow);
 }
 body:has(.ci-page, .st-page, .nc-page, .cp-page, .vc-page, .ck-page,
     .ex-page, .nt-page, .pd-page, .qc-page, .qd-page, .mq-page,
-    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page)::before {
+    .se-page, .wd-page, .rk-page, .sh-page, .mp-page, .iq-page, .ms-page, .cr-page,
+    .qz-page, .rs-page)::before {
   inset: calc(16px * var(--frame-scale, 1)) 0 0 0;
   background: var(--bg);
   border-radius: calc(20px * var(--frame-scale, 1))

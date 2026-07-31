@@ -90,23 +90,28 @@
   color: var(--orange);
 }
 
-/* ── 문제 카드 (330 @ left 21, top 127) ────── */
+/* ── 문제 카드 (330 @ left 21, top 127) ──────
+   뷰포트가 프레임(375)보다 넓으면 카드도 그만큼 조금 넓어진다(좌우 22.5 여백 유지, 최대 420).
+   폰 세로에서는 100vw/scale ≈ 375 라 기존 330 그대로. 카드가 프레임 밖으로 나갈 수 있게
+   .qz-page 는 overflow:visible (스캘럽과 동일 이유). */
 .qz-card {
   position: absolute;
-  left: 21px;
+  left: 50%;
+  transform: translateX(-50%);
   top: 127px;
-  width: 330px;
+  width: min(calc(100vw / var(--frame-scale, 1) - 45px), 420px);
   height: 685px;
   background: #fff;
   border-radius: 24px;
 }
 
-/* 질문 영역 (@ left 15, top 17) */
+/* 질문 영역 (@ left 15, top 17) — 카드 폭을 따라 늘어남 */
 .qz-q {
   position: absolute;
   left: 15px;
+  right: 15px;
   top: 17px;
-  width: 300px;
+  width: auto;
 }
 
 .qz-q-num {
@@ -211,18 +216,20 @@
 }
 
 /* 보기 목록 (@ left 12, top 228) */
+/* 보기 목록도 카드 폭을 따라 늘어남 (기존 좌 12 / 우 18 여백 유지) */
 .qz-options {
   position: absolute;
   left: 12px;
+  right: 18px;
   top: 228px;
-  width: 305px;
+  width: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .qz-option {
-  width: 300px;
+  width: 100%;
   height: 50px;
   padding: 10px 20px;
   border: 1px solid #faefdf;
@@ -243,27 +250,43 @@
 }
 
 /* ── 하단 장식 (노란 원 스캘럽 + 쿠키 마스코트) ── */
-/* 프레임 하단 물결 노란 테두리 — 원 96.58, 22.2 겹침, 프레임 밖으로 넘겨 클립 */
+/* 스캘럽을 화면 전체 폭으로 (cookie_reward 등과 동일한 모양).
+   다만 공용 html::after 스캘럽(프레임 밖 z:2)은 쓸 수 없다 — 그건 프레임(z:1) 위에
+   그려져서 프레임 안 마스코트(z:3)를 덮어버린다. 그래서 스캘럽을 프레임 안에 둔 채
+   폭만 화면 전체로 늘린다(마스코트가 계속 스캘럽 위에 올라감).
+   고정 개수 span 으로는 넓은 화면을 못 채우므로, 공용 스캘럽과 같은 반복 그라디언트로
+   그린다(원 지름 96.58 / 겹침 22.2 → pitch 74.38). */
+.qz-page {
+  /* 스캘럽이 프레임(375) 밖까지 그려져야 하므로 가로 클리핑 해제 */
+  overflow: visible;
+}
+
 .qz-scallop {
   position: absolute;
-  left: -52px;
+  left: 50%;
   top: 755px;
-  display: flex;
-  align-items: center;
-  z-index: 2;
-}
-
-.qz-scallop span {
-  flex-shrink: 0;
-  width: 96.58px;
+  transform: translateX(-50%);
+  width: calc(100vw / var(--frame-scale, 1));
   height: 96.58px;
-  border-radius: 9999px;
-  background: var(--yellow);
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+      circle 48.29px at 50% 48.29px,
+      var(--yellow) 48.29px,
+      transparent 48.79px
+    )
+    repeat-x;
+  background-size: 74.38px 96.58px;
+  /* 원 위상을 기존(프레임 기준 left:-52px)과 동일하게 유지 →
+     375 폭에서 보이던 물결 배치가 그대로 */
+  background-position-x: calc(
+    (100vw / var(--frame-scale, 1) - 375px) / 2 - 40.9px
+  );
 }
 
-/* 원끼리 22.2px 겹침 */
-.qz-scallop span + span {
-  margin-left: -22.2px;
+/* 원은 위 배경이 그리므로 span 은 사용하지 않음 */
+.qz-scallop span {
+  display: none;
 }
 
 /* 프레임이 세로 중앙정렬로 스케일될 때 프레임(812) 아래로 생기는 여백을 노랑으로 채움.
@@ -277,9 +300,10 @@ body:has(.qz-page)::after {
   left: 0;
   right: 0;
   bottom: 0;
-  /* 하단 여백 높이(+1px 은 프레임 뒤로 살짝 물려 이음매 sliver 방지) */
+  /* 하단 여백 높이(+1px 은 프레임 뒤로 살짝 물려 이음매 sliver 방지)
+     높이 기준은 --vh(실측) — base.css --sheet-pull 과 동일 */
   height: calc(
-    (100vh - var(--frame-h) * var(--frame-scale, 1)) / 2 + 1px
+    (var(--vh, 100vh) - var(--frame-h) * var(--frame-scale, 1)) / 2 + 1px
   );
   background: var(--yellow);
   z-index: 0;
@@ -508,16 +532,24 @@ body:has(.qz-page)::after {
 }
 
 /* 바텀시트 (Figma: 372x281 @ top 530.75) */
+/* 폭은 기기 화면 전체 (main 의 .mn-sheet / .mn-iv-sheet 와 동일 방식):
+   프레임이 --frame-scale 로 스케일되므로 렌더 폭이 실제 뷰포트 폭(100vw)이 되도록
+   역보정하고, 프레임이 중앙정렬이라 left:50% + translateX(-50%) 로 좌우 대칭 확장.
+   (코치 표시 중엔 has-open-modal 로 프레임 overflow:visible → 375 밖으로 확장 가능) */
 .qz-sheet {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 530.75px;
-  width: 372px;
+  /* +4px 는 서브픽셀 반올림 여유 — 딱 맞추면 가장자리 1~2px 이 비어 배경이 비친다
+     (넘치는 부분은 html{overflow:hidden} 이 잘라내므로 무해) */
+  width: calc(100vw / var(--frame-scale, 1) + 4px);
   min-height: 281px;
   padding-bottom: 30px;
   background: #fff;
-  border-radius: 28px;
-  transform: translateY(calc(0px - var(--sheet-pull))); /* 뷰포트 바닥에 붙임 */
+  /* 화면 폭을 꽉 채우므로 하단 모서리는 각지게(바텀시트 형태) */
+  border-radius: 28px 28px 0 0;
+  /* 뷰포트 바닥에 붙임 */
+  transform: translateX(-50%) translateY(calc(0px - var(--sheet-pull)));
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -274,20 +274,7 @@
             data-close-invite
             aria-label="닫기"
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M4 4l10 10M14 4L4 14"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
+            <img src="assets/invite_close-fill.svg" alt="" />
           </button>
 
           <div class="mn-iv-head">
@@ -438,12 +425,13 @@
         >
           <img src="assets/icon_close.svg" alt="" />
         </button>
-        <!-- 캐릭터 + 양옆 쿠키 -->
+        <!-- 캐릭터 + 양옆 쿠키 (쿠키는 5레벨 배수 달성 시에만 노출 — JS 가 표시/숨김) -->
         <img
           class="mn-levelup-cookie mn-levelup-cookie--l"
           src="assets/levelup_cookie.svg"
           alt=""
           aria-hidden="true"
+          hidden
         />
         <img class="mn-levelup-char" src="assets/levelup_mascot.svg" alt="레벨 업!" />
         <img
@@ -451,6 +439,7 @@
           src="assets/levelup_cookie.svg"
           alt=""
           aria-hidden="true"
+          hidden
         />
         <div class="mn-levelup-text">
           <h2 class="mn-levelup-title">레벨업 되었습니다!!!</h2>

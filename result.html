@@ -129,13 +129,14 @@
               <div class="rs-card-title">더 많은 쿠키를 받아가세요!</div>
               <button type="button" class="rs-mission-btn">
                 미션 확인하기
-                <svg viewBox="0 0 13 13" fill="none">
+                <!-- 오른쪽 꺾쇠. 에셋(ooui_next-ltr.svg)은 아래 방향 + 어두운 색이라
+                     버튼 위에서 안 보여, 같은 도형을 90° 돌려 인라인으로 넣고
+                     fill=currentColor 로 버튼 글자색을 따라가게 함 -->
+                <svg viewBox="0 0 12 12" width="13" height="13" fill="none" aria-hidden="true">
                   <path
-                    d="M4.5 2.5 8.5 6.5 4.5 10.5"
-                    stroke="#FEFAF4"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    d="M11.3984 4.20084L10.4984 3.36084L5.99844 7.80084L1.49844 3.36084L0.598438 4.20084L5.99844 9.60084L11.3984 4.20084Z"
+                    transform="rotate(-90 6 6)"
+                    fill="currentColor"
                   />
                 </svg>
               </button>
@@ -225,9 +226,10 @@
             <img src="assets/icon_close.svg" alt="" />
           </button>
           <!-- 캐릭터 + 양옆 쿠키 2개 -->
-          <img class="mn-levelup-cookie mn-levelup-cookie--l" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" />
+          <!-- 쿠키는 5레벨 배수 달성 시에만 노출 (JS 가 표시/숨김) -->
+          <img class="mn-levelup-cookie mn-levelup-cookie--l" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" hidden />
           <img class="mn-levelup-char" src="assets/levelup_mascot.svg" alt="레벨 업!" />
-          <img class="mn-levelup-cookie mn-levelup-cookie--r" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" />
+          <img class="mn-levelup-cookie mn-levelup-cookie--r" src="assets/levelup_cookie.svg" alt="" aria-hidden="true" hidden />
           <div class="mn-levelup-text">
             <h2 class="mn-levelup-title">레벨업 되었습니다!!!</h2>
             <div class="mn-levelup-levels">

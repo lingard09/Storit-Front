@@ -677,22 +677,30 @@ body > .mn-header > .mn-hearts {
   border-top: 8px solid var(--yellow);
 }
 
-/* 하단 시트 (Figma: 372x281 @ top 530.75) */
+/* 하단 시트 (Figma: 372x281 @ top 530.75)
+   폭은 기기 화면 전체(mn-iv-sheet 와 동일 방식): 프레임이 --frame-scale 로 스케일되므로
+   렌더 폭이 실제 뷰포트 폭(100vw)이 되도록 역보정하고, 프레임이 중앙정렬이라
+   left:50% + translateX(-50%) 로 좌우 대칭으로 펼친다.
+   (코치마크 표시 중엔 has-open-modal 로 프레임 overflow:visible → 375 밖으로 확장 가능) */
 .mn-sheet {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 530.75px;
-  width: 372px;
+  /* +4px 는 서브픽셀 반올림 여유 — 딱 맞추면 가장자리 1~2px 이 비어 배경이 비친다
+     (넘치는 부분은 html{overflow:hidden} 이 잘라내므로 무해) */
+  width: calc(100vw / var(--frame-scale, 1) + 4px);
   min-height: 281px;
   padding-bottom: 30px;
   background: #fff;
-  border-radius: 28px;
+  /* 화면 폭을 꽉 채우므로 하단 모서리는 각지게(바텀시트 형태) */
+  border-radius: 28px 28px 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   z-index: 2;
-  transform: translateY(calc(0px - var(--sheet-pull))); /* 뷰포트 바닥에 붙임(카드형) */
+  /* 뷰포트 바닥에 붙임 */
+  transform: translateX(-50%) translateY(calc(0px - var(--sheet-pull)));
 }
 
 .mn-sheet-handle {
@@ -1148,7 +1156,12 @@ body > .mn-header > .mn-hearts {
   /* 기기 화면 전체 폭. 프레임이 --frame-scale 로 스케일되므로 렌더 폭이 실제
      뷰포트 폭(100vw)이 되도록 역보정. (모달 열림 시 has-open-modal 로 프레임
      overflow:visible → 375 밖으로 확장 가능, 프레임 중앙정렬이라 좌우 대칭으로 참) */
-  width: calc(100vw / var(--frame-scale, 1));
+  /* +4px 는 서브픽셀 반올림 여유 — 딱 맞추면 가장자리 1~2px 이 비어 배경이 비친다
+     (넘치는 부분은 html{overflow:hidden} 이 잘라내므로 무해) */
+  width: calc(100vw / var(--frame-scale, 1) + 4px);
+  /* .mn-invite 가 가로 방향 flex 라 기본 flex-shrink:1 이면 컨테이너(375)까지 줄어든다
+     → 프레임보다 넓은 화면에서 폭이 375 로 깎이던 문제. 축소 금지. */
+  flex-shrink: 0;
   /* 프레임이 폭 기준으로 스케일되면(예: 412×915) 세로 중앙정렬 때문에 프레임 하단과
      화면 바닥 사이에 여백이 생겨 바텀시트가 바닥에 닿지 않는다. 그 여백((프레임높이 −
      화면높이 환산)/2)만큼 시트를 아래로 당겨 화면 바닥에 딱 붙임. 세로 기준 스케일이면 0. */
@@ -1545,6 +1558,11 @@ body > .mn-header > .mn-hearts {
 .mn-levelup-cookie {
   position: absolute;
   z-index: 1;
+}
+/* base 의 img{display:block} 이 기본 [hidden] 을 덮으므로 명시적으로 숨김 처리
+   (5레벨 배수가 아닐 땐 쿠키 없이 캐릭터만 — 캐릭터는 absolute 라 위치 안 밀림) */
+.mn-levelup-cookie[hidden] {
+  display: none;
 }
 .mn-levelup-cookie--l {
   width: 35px;
