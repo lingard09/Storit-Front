@@ -597,7 +597,7 @@ body:has(.rs-page) {
   min-height: 281px;
   padding-bottom: 30px;
   background: #fff;
-  border-radius: 28px; /* 상·하단 모두 곡률 */
+  border-radius: 28px 28px 0 0; /* 상·하단 모두 곡률 */
   display: flex;
   flex-direction: column;
   align-items: center;

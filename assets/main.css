@@ -614,9 +614,22 @@ body > .mn-header > .mn-hearts {
   cursor: pointer;
 }
 
+/* 이미 푼 작품(결과 보기) — 갈색 채움 + 크림 글자로 "완료" 상태를 구분.
+   박스(60x60)·라운드(12)·폰트(10/14/700)는 퀴즈 풀기와 동일하고 색만 반전된다. */
+.mn-card-cta.is-done {
+  background: #5d3300;
+  color: #fefaf4;
+}
+
 /* 눌렀을 때: 크림 → 노란색 강조 */
 .mn-card-cta:active {
   background: var(--yellow);
+}
+
+/* 눌림 배경은 공통(노랑)이라, 갈색 버튼은 글자색을 갈색으로 되돌려야 대비가 유지된다
+   (크림 글자 그대로면 노란 배경 위에서 안 읽힌다) */
+.mn-card-cta.is-done:active {
+  color: #5d3300;
 }
 
 /* ── 첫 진입 튜토리얼 코치 ───────────────── */
