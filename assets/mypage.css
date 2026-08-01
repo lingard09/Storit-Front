@@ -431,9 +431,9 @@
 .mp-modal-card {
   position: relative;
   z-index: 1;
-  width: 310px;
+  width: 330px;
   box-sizing: border-box;
-  padding: 16px 10px 20px;
+  padding: 26px 30px 40px;
   background: var(--cta-bg);
   border-radius: 24px;
   display: flex;
@@ -442,8 +442,8 @@
 }
 .mp-modal-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 15px;
+  right: 15px;
   width: 25px;
   height: 25px;
   padding: 0;
@@ -482,12 +482,16 @@
   border-radius: 4px;
   overflow: hidden;
 }
+/* 120px 고정폭이면 "레벨 달성 (최대 30)"(내용폭 96px 에 약 3px 부족)만 두 줄로 깨졌다.
+   nowrap 으로 한 줄을 보장하고, width 는 최소치로만 쓰이게 둔다(table-layout:auto 라
+   내용이 더 넓으면 그 열만 늘어남). 카드 안쪽 폭 290px 대비 여유가 충분하다. */
 .mp-reward-table th,
 .mp-reward-table td {
   width: 120px;
   box-sizing: border-box;
   padding: 10px 12px;
   text-align: left;
+  white-space: nowrap;
   font-size: 12px;
   line-height: 18px;
   color: #3d2000;

@@ -178,7 +178,11 @@
 .ms-ing-line-fill {
   position: absolute;
   left: 30px;
-  top: 30px;
+  /* 원(.ms-ing-circle)의 세로 중앙을 관통하도록.
+     원은 컨테이너(81) 안에서 top 11 ~ bottom 56 → 중앙 33.5.
+     선 높이가 1px 이므로 top 33 이면 선 중앙이 33.5 로 정확히 일치한다.
+     (예전 30px 은 원 중앙보다 3px 위였다) */
+  top: 33px;
   height: 1px;
   background-image: repeating-linear-gradient(
     to right,

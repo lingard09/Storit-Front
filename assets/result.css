@@ -41,6 +41,11 @@ body:has(.rs-page) {
   inset: 16px 0 calc(102px + var(--sheet-pull) * 2);
   overflow-y: auto;
   scrollbar-width: none;
+  /* 시트 상단 라운드(20px)를 스크롤 박스 자체에 걸어 클리핑한다.
+     헤더(.rs-top-inner)에만 라운드가 있으면, 스크롤할 때 본문(.rs-body, 불투명 크림·직각)이
+     sticky 헤더 뒤로 올라와 라운드가 깎아낸 모서리를 그대로 메워버려 띠가 각진 막대로 보였다.
+     스크롤 박스가 클리핑하면 안에서 무엇이 지나가든 모서리가 유지된다. */
+  border-radius: 20px 20px 0 0;
 }
 .rs-scroll::-webkit-scrollbar {
   display: none;
@@ -195,7 +200,7 @@ body:has(.rs-page) {
   z-index: 1;
   /* 말풍선 에셋의 꼬리 때문에 시각적 중심이 오른쪽으로 치우쳐 보여 왼쪽으로 3px (레이아웃은 그대로) */
   left: -3px;
-  text-align: center;
+  text-align: left;
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 400;
@@ -592,7 +597,7 @@ body:has(.rs-page) {
   min-height: 281px;
   padding-bottom: 30px;
   background: #fff;
-  border-radius: 28px 28px 0 0; /* 전체 폭이므로 하단은 각지게 */
+  border-radius: 28px; /* 상·하단 모두 곡률 */
   display: flex;
   flex-direction: column;
   align-items: center;

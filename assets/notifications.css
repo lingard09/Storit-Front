@@ -93,6 +93,10 @@
   padding: 0 16px 90px; /* 하단 스캘럽과 겹치지 않도록 여백 */
   background: var(--cta-bg);
   background-clip: content-box; /* 패딩 영역 제외하고 콘텐츠 영역에만 색 */
+  /* 빈 상태(.nt-empty)를 본문 중앙에 두기 위한 플렉스 컨테이너.
+     목록이 있을 땐 .nt-list 가 위에서부터 그대로 쌓인다. */
+  display: flex;
+  flex-direction: column;
 }
 
 .nt-list {
@@ -212,7 +216,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 90px;
+  /* 위아래 auto 마진으로 남는 공간을 반씩 나눠 본문 중앙 정렬
+     (예전엔 padding-top:90px 고정이라 화면 크기와 무관하게 위쪽에 붙어 있었다) */
+  margin: auto 0;
 }
 
 .nt-empty[hidden] {
