@@ -146,7 +146,6 @@
       "empty_no_top_quiz.svg",
       102,
       88,
-      `<button type="button" class="mq-empty-btn" onclick="location.href='quiz.html'">오늘의 퀴즈 시작<img src="assets/arrow_next_pill.svg" alt="" aria-hidden="true" /></button>`
     );
   } else if (!played.length) {
     top.innerHTML = emptyTop(

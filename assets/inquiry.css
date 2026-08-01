@@ -234,12 +234,31 @@ body:has(.iq-page)::before {
   overflow-x: auto;
 }
 .iq-thumb {
+  position: relative;
   flex-shrink: 0;
   width: 113px;
   height: 130px;
   border-radius: 10px;
   border: 1px solid #000;
   overflow: hidden;
+}
+/* 첨부 삭제 (이미지 우측 상단).
+   아이콘이 #3D2000 단색이라 어두운 사진 위에서 묻히므로 크림 바탕을 깐다.
+   원 대신 모서리에 맞춰 붙이는 방식: top/right 0 에 두면 부모(.iq-thumb)의
+   overflow:hidden + border-radius 가 바깥쪽을 잘라내 테두리 곡률을 그대로 따라간다.
+   안쪽(좌하단) 모서리만 직접 둥글게 준다. */
+.iq-thumb-del {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-bottom-left-radius: 10px;
+  background: url("iq_thumb_del.svg") center / 12px
+    12px no-repeat;
+  cursor: pointer;
 }
 .iq-thumb img {
   width: 100%;

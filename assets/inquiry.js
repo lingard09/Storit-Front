@@ -76,7 +76,10 @@
     const tiles = files
       .map(
         (_, i) =>
-          `<div class="iq-thumb"><img src="${urls[i]}" alt="첨부 ${i + 1}" /></div>`
+          `<div class="iq-thumb">` +
+          `<img src="${urls[i]}" alt="첨부 ${i + 1}" />` +
+          `<button type="button" class="iq-thumb-del" data-i="${i}" aria-label="첨부 ${i + 1} 삭제"></button>` +
+          `</div>`
       )
       .join("");
     const addMore =
@@ -86,6 +89,13 @@
     thumbs.innerHTML = tiles + addMore;
     const add = thumbs.querySelector(".iq-add-more");
     if (add) add.addEventListener("click", () => fileInput.click());
+    // 썸네일 우측 상단 X → 해당 첨부 삭제 후 재렌더
+    Array.from(thumbs.querySelectorAll(".iq-thumb-del")).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        files.splice(Number(btn.dataset.i), 1);
+        renderThumbs();
+      });
+    });
   }
 
   attachBtn.addEventListener("click", () => fileInput.click());
