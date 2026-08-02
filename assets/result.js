@@ -228,10 +228,13 @@
     const toEl = lvupModal.querySelector(".mn-levelup-lv--to");
     if (fromEl) fromEl.textContent = `LV ${oldLevel}`;
     if (toEl) toEl.textContent = `LV ${newLevel}`;
-    // 캐릭터 양옆 쿠키 아이콘은 5레벨 배수 달성 시에만 노출
+    // 캐릭터 양옆 쿠키 아이콘 + 보너스 문구는 5레벨 배수 달성 시에만 노출
+    const isBonusLevel = newLevel % 5 === 0;
     lvupModal.querySelectorAll(".mn-levelup-cookie").forEach((c) => {
-      c.hidden = newLevel % 5 !== 0;
+      c.hidden = !isBonusLevel;
     });
+    const bonusLv = lvupModal.querySelector(".mn-levelup-bonus");
+    if (bonusLv) bonusLv.hidden = !isBonusLevel;
   }
 
   // 점수 설명 시트로 진행 (스포트라이트 유지)

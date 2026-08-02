@@ -866,6 +866,18 @@ body:has(.rs-page) {
   line-height: 28px;
   color: var(--brown-800);
 }
+/* 매 5레벨 달성 보너스 문구 (JS 가 표시/숨김) — main.css 와 동일 */
+.mn-levelup-bonus {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #5d3300;
+}
+.mn-levelup-bonus[hidden] {
+  display: none;
+}
 .mn-levelup-levels {
   margin-top: 10px;
   display: flex;
