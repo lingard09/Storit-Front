@@ -69,7 +69,7 @@
     if (goBtn) {
       goBtn.addEventListener("click", () => {
         // TODO: 실제 로그아웃(세션 만료) 처리
-        location.href = "signup.html";
+        location.href = "login.html";
       });
     }
   }

@@ -347,7 +347,7 @@
 }
 
 .sh-sec-sub {
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -481,6 +481,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-top: 5px;
 }
 
 .sh-reco {

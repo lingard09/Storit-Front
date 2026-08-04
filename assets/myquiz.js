@@ -17,9 +17,9 @@
     plays: "0",
     playsDelta: 0,
     correctRate: "0%",
-    correctRank: "-",
+    correctRank: "상위 0%",
     avgTime: "0 초",
-    timeRank: "-",
+    timeRank: "상위 0%",
   };
 
   // ── 집계 통계 (백엔드 연동 시 API 응답으로 교체) ──

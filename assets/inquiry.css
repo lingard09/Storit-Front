@@ -87,26 +87,37 @@ body:has(.iq-page)::before {
   color: rgba(136, 136, 128, 0.8);
 }
 
-/* 문의 유형 칩 — 3열 고정 그리드.
-   예전엔 flex-wrap 으로 내용 크기에 맡겨서, 폰트에 따라 한 줄에 2개가 됐다 3개가 됐다 했다
-   (Noto Sans KR 이면 2개, 대체 폰트면 3개 — 여유가 7px 뿐이라 폰트 폭 차이에 뒤집혔다).
-   그리드로 3열을 못박되 각 열은 auto(내용 크기) — 칩 폭이 라벨 길이를 따른다.
-   1fr 균등 분할이면 가장 긴 칩에 맞춰 모든 칸이 좁아져 글자를 줄여야 했다. */
+/* 문의 유형 칩 — flex-wrap + 남는 폭을 칩이 나눠 갖는 방식.
+   grid(3열)로는 열 폭이 그 열의 가장 긴 칩에 맞춰져서,
+   칩을 늘리면 내부 패딩이 칩마다 달라지고(4.99~14.69px 편차),
+   안 늘리면 짧은 칩 오른쪽에 열 여백이 남아 칩 사이가 들쭉날쭉하게 벌어졌다.
+   1fr 균등 분할은 가장 긴 칩("내 웹툰 퀴즈/심사")이 칸을 넘겨서 못 쓴다.
+   → flex-wrap 으로 흘리고, 줄에 남는 폭은 gap 이 아니라 flex-grow 로
+     그 줄의 칩들이 똑같이 나눠 갖는다. 덕분에
+       · 칩 사이 간격 = gap 선언값 8px 고정
+       · 각 줄 오른쪽 끝이 컨테이너 우측(315px)에 맞아 1행·2행 끝선이 일치
+       · 한 줄 안에서 패딩이 균일 (줄끼리는 남는 폭 차이만큼 0.5px 이내) */
 .iq-types {
   margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  justify-content: space-between; /* 좌우 끝 정렬 */
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .iq-type {
   display: flex;
   align-items: center;
-  justify-content: center; /* 칸을 꽉 채우므로 내용은 가운데 */
+  /* grow 로 늘어난 폭이 오른쪽에만 붙어 글자가 왼쪽으로 쏠리지 않게 가운데 정렬 */
+  justify-content: center;
+  /* 1 0 auto: 줄바꿈은 내용 크기(auto)로 정해지고, 남는 폭만 균등 분배.
+     shrink 0 — 줄이 넘치면 폭을 줄이는 대신 줄바꿈되게 해서
+     내용이 패딩 밖으로 삐져나오는 걸 막는다. */
+  flex: 1 0 auto;
   gap: 6px;
   height: 30px;
-  min-width: 0;
-  padding: 0 8px;
+  /* 6px: 한 줄 3개 + gap 8px 가 컨테이너 315px 안에 여유를 두고 들어가야
+     폰트 대체(Noto Sans KR 미로드)로 글자폭이 늘어나도 2개로 줄바꿈되지 않는다.
+     8px 이면 여유가 7px 뿐이라 폰트에 따라 배치가 뒤집혔다. */
+  padding: 0 6px;
   border: 1px solid #ef9f27;
   border-radius: 21px;
   background: var(--cta-bg);
@@ -118,9 +129,20 @@ body:has(.iq-page)::before {
   color: #3d2000;
   white-space: nowrap;
 }
+/* 마지막 칩("기타 문의")은 7개 중 3+3+1 로 끊겨 혼자 3행에 남는다.
+   grow 를 그대로 두면 혼자 한 줄 315px 를 다 채워버리므로 내용 크기로 고정.
+   TODO: 유형 개수가 3의 배수로 바뀌면 이 규칙은 지워야 한다. */
+.iq-type:last-child {
+  flex-grow: 0;
+}
+
+/* 이모지 라인박스를 칩 텍스트와 동일하게(15px) 맞춘다.
+   line-height:1 이면 이모지 박스만 14px 이라 flex align-items:center 기준이
+   텍스트 라인박스(15px)와 어긋나 이모지가 0.5px 아래로 처졌다. */
 .iq-type .iq-type-emoji {
+  flex-shrink: 0;
   font-size: 14px;
-  line-height: 1;
+  line-height: 15px;
 }
 /* 선택된 칩은 원래 모양 그대로, 나머지 칩만 비활성처럼 흐리게 */
 .iq-types.has-selection .iq-type:not(.is-selected) {
