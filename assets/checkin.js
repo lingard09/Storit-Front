@@ -40,9 +40,20 @@
 
   const grid = document.querySelector(".ci-grid");
   const streakNum = document.querySelector(".ci-streak-num");
+  const nextBonus = document.querySelector(".ci-next-bonus");
+  const nextBonusNum = document.querySelector(".ci-next-bonus-num");
+
+  // 남은 보너스가 없으면(28일 초과) 배지를 숨긴다
+  function renderNextBonus() {
+    if (!nextBonus) return;
+    const next = BONUS_TABLE.find((b) => b.streak > CONFIG.attended);
+    nextBonus.hidden = !next;
+    if (next) nextBonusNum.textContent = next.streak - CONFIG.attended + "일";
+  }
 
   function renderGrid() {
     streakNum.textContent = CONFIG.attended + "일째";
+    renderNextBonus();
     let html = "";
     // 1일 앞의 빈 칸
     for (let i = 0; i < CONFIG.firstWeekday; i++) {
@@ -54,7 +65,12 @@
       let cell;
       if (d <= CONFIG.attended) {
         cls += " is-done";
-        cell = `<div class="ci-day-stamp"><img src="assets/checkin_stamp.svg" alt="출석" /></div>`;
+        // 연속 출석 보너스 지급일(3·7·14·21·28)은 쿠키 대신 불꽃 스탬프.
+        // 날짜 목록을 따로 두지 않고 BONUS_TABLE 을 그대로 사용(단일 소스).
+        const isBonus = BONUS_TABLE.some((b) => b.streak === d);
+        cell = isBonus
+          ? `<div class="ci-day-stamp is-fire"><img src="assets/onfire.svg" alt="연속 출석 보너스" /></div>`
+          : `<div class="ci-day-stamp"><img src="assets/checkin_stamp.svg" alt="출석" /></div>`;
       } else {
         if (d === CONFIG.today) cls += " is-today";
         else if (col === 0) cls += " is-sun";

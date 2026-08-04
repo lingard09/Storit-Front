@@ -181,6 +181,25 @@ body > .mn-header > .mn-hearts {
   width: 17.88px;
   height: 16.03px;
 }
+
+/* 첫날 무제한: 두 번째 하트 가운데에 무한대 마크(14x7)를 겹침 */
+.mn-heart-inf {
+  position: relative;
+  display: inline-flex;
+  line-height: 0;
+}
+
+.mn-hearts-row .mn-heart-inf-mark {
+  position: absolute;
+  left: 50%;
+  /* icon_heart.svg 는 viewBox 아래쪽에 약 1px 빈 공간이 있어 하트 그림의 실제 중앙이
+     img 박스 중앙보다 0.49px 위다. 그 잉크 중앙(= 박스 높이의 46.9%)에 맞춘다. */
+  top: 46.9%;
+  transform: translate(-50%, -50%);
+  /* 폭·높이 동시 지정은 획을 눌러 얇게 만든다 → 높이만 지정(원본 14x7 비율 유지) */
+  height: 6.5px;
+  width: auto;
+}
 /* 하트 충전(+) 버튼 (줄어든 상태에서만) */
 .mn-heart-add {
   width: 13px;
@@ -205,7 +224,14 @@ body > .mn-header > .mn-hearts {
   top: 25px;
   width: 62px;
   height: 22px;
-  padding: 3px 8px;
+  /* 세로 중앙은 flex 가 담당(패딩+line-height 조합은 1.5px 위로 치우쳤음) → 패딩은 좌우만.
+     가로도 flex 중앙정렬이어야 한다. 텍스트가 폭 62 안쪽(46px)보다 넓을 때
+     text-align:center 는 남는 공간이 없어 무시되고 오른쪽으로만 넘쳐 중심이 어긋났다.
+     justify-content:center 는 넘치는 만큼 양쪽으로 균등히 흘러 중심이 유지된다. */
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 10px;
   background: var(--yellow);
   text-align: center;
@@ -221,9 +247,6 @@ body > .mn-header > .mn-hearts {
 .mn-hearts-pill.is-timer {
   top: 26px;
   height: 21px; /* xp 와 동일 높이(15 트랙 + 상하 패딩 3) → 윗변·아랫변 모두 평행 */
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 21px; /* "28:44 남음" 세로 중앙 */
 }
 
 /* 말풍선 꼬리 (7x6) — 상단 중앙 */
@@ -452,10 +475,20 @@ body > .mn-header > .mn-hearts {
   height: 35px;
 }
 
-.mn-quizbar-title {
+/* "오늘의 퀴즈" + 뱃지 묶음.
+   뱃지 폭이 상태마다 달라지므로(무료 기회 73 / 보유 하트 무제한 auto) 제목 left 를
+   하드코딩하지 않고, 세로 스택 + align-items:center 로 항상 뱃지 가로 중앙에 오게 한다.
+   (좌표는 기존과 동일: 묶음 left 58 = 뱃지 left, top 16 = 제목 top, 제목 14px 아래 뱃지 30) */
+.mn-quizbar-today {
   position: absolute;
-  left: 70px;
+  left: 58px;
   top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mn-quizbar-title {
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
@@ -463,9 +496,6 @@ body > .mn-header > .mn-hearts {
 }
 
 .mn-quizbar-free {
-  position: absolute;
-  left: 58px;
-  top: 30px;
   width: 73px;
   height: 19px;
   padding: 2px 8px;
@@ -476,6 +506,33 @@ body > .mn-header > .mn-hearts {
   line-height: 14px;
   color: var(--brown-800);
   white-space: nowrap;
+}
+
+/* 무제한 이벤트: "보유 하트 ∞" — 문구가 길어 고정폭 73 을 벗고 내용 폭으로.
+   (좌표 left:58 은 그대로, 오른쪽으로만 늘어남 → .mn-quizbar-lead(left:141) 앞에서 멈춤) */
+.mn-quizbar-free.is-unlimited {
+  width: auto;
+  /* 세로 가운데는 flex 가 담당 → 상하 패딩 제거.
+     패딩 2 + line-height 14 조합은 글자 중심이 뱃지 중심보다 0.5px 위였다.
+     텍스트도 span 으로 감싸(JS) 아이콘과 같은 flex 아이템으로 만들어 중심을 맞춘다. */
+  height: 19px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.mn-quizbar-free-text {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 원본 viewBox 19x9. 폭·높이를 둘 다 지정하면 세로만 더 눌려 가로획이 얇아지므로
+   (17x7 → x0.895 / y0.778, 가로획 1.5→1.17px) 높이만 정하고 폭은 비율에 맡긴다. */
+.mn-quizbar-inf {
+  height: 9px;
+  width: auto;
 }
 
 .mn-quizbar-lead {
@@ -621,6 +678,15 @@ body > .mn-header > .mn-hearts {
   color: #fefaf4;
 }
 
+/* 아직 열리지 않은 요일 선택 시 — "N요일 오픈" 비활성 버튼.
+   박스(60x60)·라운드(12)·폰트(10/14/700)는 퀴즈 풀기와 동일하고 색만 바뀐다
+   (Figma: #EDEBE7, 글자 rgba(136,136,128,.8)). */
+.mn-card-cta.is-locked {
+  background: #edebe7;
+  color: rgba(136, 136, 128, 0.8);
+  cursor: default;
+}
+
 /* 눌렀을 때: 크림 → 노란색 강조 */
 .mn-card-cta:active {
   background: var(--yellow);
@@ -630,6 +696,13 @@ body > .mn-header > .mn-hearts {
    (크림 글자 그대로면 노란 배경 위에서 안 읽힌다) */
 .mn-card-cta.is-done:active {
   color: #5d3300;
+}
+
+/* 비활성이므로 눌림 강조 없음. is-done:active 와 명시도가 같으니 반드시 뒤에 둔다
+   (disabled 라 :active 가 안 걸리는 게 보통이지만, 상태 전환 타이밍 대비) */
+.mn-card-cta.is-locked:active {
+  background: #edebe7;
+  color: rgba(136, 136, 128, 0.8);
 }
 
 /* ── 첫 진입 튜토리얼 코치 ───────────────── */
@@ -749,6 +822,10 @@ body > .mn-header > .mn-hearts {
   font-weight: 700;
   line-height: 18px;
   color: var(--brown-800);
+  /* 줄바꿈은 마크업의 <br> 위치에서만. 자동 줄바꿈을 허용하면
+     "퀴즈 1회 참여 시 하트 1개가 사용되며"(188.9px)가 188px 컬럼을 1px 넘겨
+     두 줄로 쪼개진다. 넘치는 1px 은 마스코트와의 6px 간격 안이라 무해. */
+  white-space: nowrap;
 }
 
 .mn-sheet-mascot {
@@ -1063,6 +1140,178 @@ body > .mn-header > .mn-hearts {
 .mn-hm-btn--go {
   background: var(--orange);
   color: #fff;
+}
+
+/* ── 첫 방문 하트 무제한 모달 ───────────── */
+.mn-first {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mn-first[hidden] {
+  display: none;
+}
+.mn-first-overlay {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.mn-first-card {
+  position: relative;
+  z-index: 1;
+  width: 330px;
+  padding-bottom: 20px;
+  background: #fff;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mn-first-close {
+  align-self: flex-end;
+  /* Figma: 상단 영역 padding 16 / 10 / 10 / 20 */
+  margin: 16px 20px 10px 0;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mn-first-close img {
+  width: 25px;
+  height: 25px;
+}
+
+/* 일러스트 영역 (Figma: 높이 102, 좌표는 330 폭 기준 절대배치) */
+.mn-first-illust {
+  align-self: stretch;
+  position: relative;
+  height: 102px;
+  margin-bottom: 0;
+}
+.mn-first-illust img {
+  position: absolute;
+}
+/* 154x81 원본을 1.05배 (Figma 161.7x85.05) */
+.mn-first-cookie {
+  left: 84px;
+  top: 5px;
+  width: 161.7px;
+  height: 85.05px;
+}
+.mn-first-sparkle--a {
+  left: 95px;
+  top: 1px;
+  width: 22px;
+  height: 22px;
+}
+.mn-first-sparkle--b {
+  left: 225px;
+  top: -1px;
+  width: 18.4px;
+  height: 18.4px;
+}
+.mn-first-sparkle--c {
+  left: 104.7px;
+  top: 76px;
+  width: 14.6px;
+  height: 14.6px;
+}
+/* 무한대 그래픽 — 원본이 2.08:1 (시안 자리 54.25x31 은 1.75:1) 이라
+   폭만 시안에 맞추고 높이는 비율대로. 시안 자리의 세로 중심(73px)은 유지. */
+.mn-first-infinite {
+  left: 200px;
+  top: 65px;
+  width: 40px;
+  height: 20px;
+}
+
+/* 제목·뱃지·설명 그룹 (Figma: gap 8) */
+.mn-first-body {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mn-first-title {
+  align-self: stretch;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #000;
+}
+
+/* 뱃지 — "최초 가입 혜택" / "24:00 남음 ♥ ∞" */
+.mn-first-pill {
+  height: 22px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: var(--cta-bg);
+  color: var(--brown-700);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+/* 타이머 뱃지는 폭 고정(Figma 140) + 아이콘 사이 간격 */
+.mn-first-pill--timer {
+  width: 140px;
+  gap: 6px;
+}
+.mn-first-heart {
+  width: 18px;
+  height: 17px;
+}
+.mn-first-inf {
+  width: 21px;
+  height: 10px;
+}
+
+.mn-first-desc {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000;
+}
+
+.mn-first-actions {
+  align-self: stretch;
+  margin-top: 15px; /* Figma: 버튼 영역 padding-top */
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mn-first-cta {
+  flex: 1;
+  min-height: 56px;
+  padding: 2px 28px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--orange);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
 }
 
 /* ── 친구 초대 모달 (바텀시트) ───────────── */

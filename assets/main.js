@@ -129,6 +129,38 @@
     listEl.hidden = false;
   })();
 
+  // ── 첫날(가입 24시간) 하트 무제한 이벤트 ──────────────────
+  // welcome → main 첫 진입 시점을 기준으로 24시간. 재방문에도 유지되도록
+  // 종료 시각을 localStorage 에 굽는다. 헤더 하트와 "오늘의 퀴즈" 바가 함께 이 상태를 따른다.
+  // 미리보기: ?hearts=inf
+  const HEARTS_PARAM = new URLSearchParams(location.search).get("hearts");
+  const UNLIMITED_HEARTS = (function () {
+    const FIRST_DAY_MS = 24 * 60 * 60 * 1000;
+    if (
+      sessionStorage.getItem("storit.showMainCoach") === "1" &&
+      !localStorage.getItem("storit.firstDayEnd")
+    ) {
+      localStorage.setItem(
+        "storit.firstDayEnd",
+        String(Date.now() + FIRST_DAY_MS),
+      );
+    }
+    const end = Number(localStorage.getItem("storit.firstDayEnd")) || 0;
+    return HEARTS_PARAM === "inf" || Date.now() < end;
+  })();
+
+  // 무제한 이벤트 중에는 "무료 기회 N회" 대신 "보유 하트 ∞"
+  (function initQuizbarFree() {
+    if (!UNLIMITED_HEARTS) return;
+    const free = document.querySelector(".mn-quizbar-free");
+    if (!free) return;
+    free.classList.add("is-unlimited");
+    // 텍스트를 span 으로 감싸 아이콘과 동등한 flex 아이템으로 → 세로 중심 정렬
+    free.innerHTML =
+      `<span class="mn-quizbar-free-text">보유 하트</span>` +
+      `<img class="mn-quizbar-inf" src="assets/bar_infinite.svg" alt="무제한" />`;
+  })();
+
   // ── 헤더 하트 / 리필 타이머 ──────────────────
   // MAX 이면 "하트 MAX!!", 하트가 줄면 채운+빈 하트 + 작은 하트 + "MM:SS 남음" 카운트다운
   (function initHearts() {
@@ -145,7 +177,7 @@
     //   1) URL 쿼리 ?hearts=N  — 상태별 모습 미리보기용(예: main.html?hearts=0)
     //   2) localStorage "storit.hearts" — 백엔드/저장값 연동
     //   3) 미설정 시 데모로 줄어든 상태(1)
-    const paramHearts = new URLSearchParams(location.search).get("hearts");
+    const paramHearts = HEARTS_PARAM;
     const storedHearts = localStorage.getItem("storit.hearts");
     let hearts;
     if (paramHearts !== null) hearts = Number(paramHearts);
@@ -154,7 +186,19 @@
     if (!Number.isFinite(hearts)) hearts = 1;
     hearts = Math.max(0, Math.min(MAX, hearts)); // 0 ~ MAX(2)
 
+    const unlimited = UNLIMITED_HEARTS;
+
     function renderHearts() {
+      // 무제한: 하트 만땅 + 두 번째 하트 가운데에 무한대 마크, 충전(+) 없음
+      if (unlimited) {
+        row.innerHTML =
+          `<img src="assets/icon_heart.svg" alt="" />` +
+          `<span class="mn-heart-inf">` +
+          `<img src="assets/icon_heart.svg" alt="" />` +
+          `<img class="mn-heart-inf-mark" src="assets/header_infinite.svg" alt="무제한" />` +
+          `</span>`;
+        return;
+      }
       let html = "";
       for (let i = 0; i < MAX; i++) {
         const src = i < hearts ? "assets/icon_heart.svg" : "assets/icon_heart_empty.svg";
@@ -233,7 +277,11 @@
     }
 
     renderHearts();
-    if (hearts >= MAX) {
+    if (unlimited) {
+      // 리필 카운트다운 없음 — 소모 자체가 없으므로
+      pill.textContent = "첫날 무제한!";
+      pill.classList.remove("is-timer");
+    } else if (hearts >= MAX) {
       showMax();
     } else {
       tick();
@@ -289,7 +337,33 @@
     coach.querySelector(".mn-sheet-cta").addEventListener("click", () => {
       coach.hidden = true;
       window.removeEventListener("resize", placeCoach);
+      openFirstModal();
     });
+  }
+
+  // ── 첫 방문 하트 무제한 모달 ──
+  // 코치 시트 "알겠어요!" 를 누르면 이어서 표시
+  const firstModal = document.querySelector(".mn-first");
+  function openFirstModal() {
+    if (firstModal) firstModal.hidden = false;
+  }
+  if (firstModal) {
+    firstModal.querySelectorAll("[data-close-first]").forEach((el) => {
+      el.addEventListener("click", () => {
+        firstModal.hidden = true;
+      });
+    });
+    // "퀴즈 풀러 가기" → 첫 카드의 퀴즈 풀기와 동일 동작
+    // (제목·제작자·원작 링크 저장 후 quiz.html 이동 로직을 그대로 재사용)
+    const goBtn = firstModal.querySelector(".mn-first-cta");
+    if (goBtn) {
+      goBtn.addEventListener("click", () => {
+        firstModal.hidden = true;
+      });
+    }
+
+    // 프리뷰: main.html?first → 모달 바로 표시 (디자인 확인용)
+    if (new URLSearchParams(location.search).has("first")) openFirstModal();
   }
 
   // 경험치 획득 모달 (쿠키 획득 완료 화면에서 "홈으로 가기" 로 넘어온 경우)
@@ -368,11 +442,41 @@
   });
 
   // 요일 탭
+  // "전체" 와 오늘 이외의 요일은 아직 열리지 않은 회차 →
+  // 카드 CTA 를 "N요일 오픈" 비활성 버튼으로 바꾼다.
   const days = [...document.querySelectorAll(".mn-day")];
+
+  // 실제 오늘 요일로 초기 탭을 맞춘다 (마크업의 is-active 는 JS 미실행 시 폴백)
+  const DAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
+  const todayLabel = DAY_LABELS[new Date().getDay()];
+  const todayBtn = days.find((b) => b.textContent.trim() === todayLabel);
+  if (todayBtn) {
+    days.forEach((b) => b.classList.remove("is-active"));
+    todayBtn.classList.add("is-active");
+  }
+
+  function applyDayLock(label) {
+    const locked = label !== "전체" && label !== todayLabel;
+    document.querySelectorAll(".mn-list .mn-card-cta").forEach((btn) => {
+      btn.classList.toggle("is-locked", locked);
+      btn.disabled = locked;
+      if (locked) {
+        // 퀴즈 풀기와 같은 60x60 박스라 "퀴즈/풀기" 처럼 두 줄로 끊는다
+        btn.innerHTML = `${label}요일<br>오픈`;
+      } else {
+        // 원래 라벨로 복귀 (이미 푼 작품이면 "결과 보기")
+        const w = WEBTOONS[Number(btn.dataset.idx)];
+        const done = Boolean(quizRecords[w.title]);
+        btn.innerHTML = (done ? DONE_CTA : w.cta).replace("\n", "<br>");
+      }
+    });
+  }
+
   days.forEach((btn) => {
     btn.addEventListener("click", () => {
       days.forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
+      applyDayLock(btn.textContent.trim());
       // TODO: 선택 요일로 목록 필터링
     });
   });

@@ -293,7 +293,7 @@
   content: "";
   width: 42px;
   height: 42px;
-  background: url("basil_logout-solid.svg") center / contain no-repeat;
+  background: url("icon_logout.svg") center / contain no-repeat;
 }
 .se-logout-title {
   margin-top: 20px;

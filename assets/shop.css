@@ -380,7 +380,7 @@
 .sh-sort-caret {
   width: 12px;
   height: 12px;
-  background: url("ooui_next-ltr.svg") center / contain no-repeat;
+  background: url("icon_chevron_down.svg") center / contain no-repeat;
 }
 
 /* ── 정렬 드롭다운 ─────────────────────── */

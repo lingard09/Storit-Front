@@ -130,7 +130,7 @@
   color: var(--muted);
   opacity: 0.4;
 }
-/* 원 없는 filled ✓ (Checkbox(2).svg 경로) — fill 이 currentColor 따라감 */
+/* 원 없는 filled ✓ (터미널 인라인 SVG) — fill 이 currentColor 따라감 */
 .terms-check svg {
   display: block;
   width: 100%;

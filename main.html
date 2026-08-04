@@ -102,8 +102,11 @@
               src="assets/icon_cookie_lg.svg"
               alt=""
             />
-            <p class="mn-quizbar-title">오늘의 퀴즈</p>
-            <span class="mn-quizbar-free">무료 기회 2회</span>
+            <!-- 제목이 아래 뱃지의 가로 중앙에 오도록 한 묶음으로 (뱃지 폭이 상태마다 달라짐) -->
+            <div class="mn-quizbar-today">
+              <p class="mn-quizbar-title">오늘의 퀴즈</p>
+              <span class="mn-quizbar-free">무료 기회 2회</span>
+            </div>
             <p class="mn-quizbar-lead">웹툰 퀴즈 풀면 최대 5,000원!</p>
             <p class="mn-quizbar-sub">30분 마다 무료 기회 1회</p>
             <img class="mn-quizbar-money" src="assets/icon_money.svg" alt="" />
@@ -149,6 +152,9 @@
               </p>
               <p class="mn-sheet-desc">
                 웹툰을 읽고 퀴즈를 풀면<br />점수와 쿠키를 얻을 수 있어요!!
+              </p>
+              <p class="mn-sheet-desc">
+                퀴즈 1회 참여 시 하트 1개가 사용되며<br />하트는 30분마다 1개 충전돼요.
               </p>
             </div>
             <img class="mn-sheet-mascot" src="assets/coach_mascot.svg" alt="" />
@@ -213,7 +219,7 @@
             data-close-heart
             aria-label="닫기"
           >
-            <img src="assets/mingcute_close-gray-fill.svg" alt="" />
+            <img src="assets/icon_close_muted.svg" alt="" />
           </button>
 
           <div class="mn-hm-cookie">
@@ -235,7 +241,7 @@
           </p>
 
           <div class="mn-hm-adcount">
-            <img src="assets/boxicons_movie-play-filled.svg" alt="" />
+            <img src="assets/icon_ad_play.svg" alt="" />
             오늘 남은 광고 충전 횟수 <b>7 / 10</b>
           </div>
 
@@ -249,6 +255,66 @@
             </button>
             <button type="button" class="mn-hm-btn mn-hm-btn--go">
               보러가기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 첫 방문 하트 무제한 모달 (코치 시트 "알겠어요!" 직후) -->
+      <div class="mn-first" hidden>
+        <button
+          type="button"
+          class="mn-first-overlay"
+          data-close-first
+          aria-label="닫기"
+        ></button>
+        <div
+          class="mn-first-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mn-first-title"
+        >
+          <button
+            type="button"
+            class="mn-first-close"
+            data-close-first
+            aria-label="닫기"
+          >
+            <img src="assets/icon_close_muted.svg" alt="" />
+          </button>
+
+          <div class="mn-first-illust" aria-hidden="true">
+            <img class="mn-first-cookie" src="assets/heart_charge_cookie.svg" alt="" />
+            <img class="mn-first-sparkle mn-first-sparkle--a" src="assets/sparkle_lg.svg" alt="" />
+            <img class="mn-first-sparkle mn-first-sparkle--b" src="assets/sparkle_lg.svg" alt="" />
+            <img class="mn-first-sparkle mn-first-sparkle--c" src="assets/sparkle_sm.svg" alt="" />
+            <img class="mn-first-infinite" src="assets/infinite_img.png" alt="" />
+          </div>
+
+          <div class="mn-first-body">
+            <h2 id="mn-first-title" class="mn-first-title">첫날은 하트 무제한!</h2>
+
+            <span class="mn-first-pill">최초 가입 혜택</span>
+
+            <span class="mn-first-pill mn-first-pill--timer">
+              <span class="mn-first-time">24:00 남음</span>
+              <img class="mn-first-heart" src="assets/heart_fill.svg" alt="" />
+              <img
+                class="mn-first-inf"
+                src="assets/infinite_logo.svg"
+                alt="무제한"
+              />
+            </span>
+
+            <p class="mn-first-desc">
+              가입 후 24시간 동안<br />하트 소모 없이 오늘의 퀴즈에<br />무제한으로
+              참여할 수 있어요!
+            </p>
+          </div>
+
+          <div class="mn-first-actions">
+            <button type="button" class="mn-first-cta">
+              오늘의 웹툰 퀴즈 풀러 가기
             </button>
           </div>
         </div>
@@ -275,7 +341,7 @@
             data-close-invite
             aria-label="닫기"
           >
-            <img src="assets/invite_close-fill.svg" alt="" />
+            <img src="assets/icon_close_muted.svg" alt="" />
           </button>
 
           <div class="mn-iv-head">
@@ -294,7 +360,7 @@
 
           <button type="button" class="mn-iv-cta">카카오톡으로 초대하기</button>
           <button type="button" class="mn-iv-reward">
-            친구 초대 별도 보상 보기
+            친구 초대 보상 보기
           </button>
         </div>
       </div>
@@ -319,7 +385,7 @@
             data-close-rg
             aria-label="닫기"
           >
-            <img src="assets/mingcute_close-fill.svg" alt="" />
+            <img src="assets/icon_close.svg" alt="" />
           </button>
           <h2 id="mn-rg-title" class="mn-rg-title">친구 초대 보상 안내</h2>
           <table class="mn-rg-table">
@@ -450,7 +516,7 @@
             <span class="mn-levelup-lv mn-levelup-lv--from">LV 8</span>
             <img
               class="mn-levelup-arrow"
-              src="assets/carbon_next-filled.svg"
+              src="assets/icon_next_fill.svg"
               alt="에서"
             />
             <span class="mn-levelup-lv mn-levelup-lv--to">LV 9</span>

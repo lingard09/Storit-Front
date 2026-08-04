@@ -3,9 +3,9 @@
   // iconOn: 활성(선택) 시 아이콘. 내부가 닫힌 외곽선 아이콘은 네거티브(갈색 채움+크림 디테일)
   // 버전을 쓰고, 그 외(채움형·열린 외곽선)는 원본 유지.
   const CATEGORIES = [
-    { key: "all", label: "전체", icon: "assets/mdi_present-outline.svg", iconOn: "assets/icon_cat_present.svg" },
-    { key: "voucher", label: "상품권", icon: "assets/icon_cat_coupon.svg", iconOn: "assets/mdi_coupon.svg" },
-    { key: "cvs", label: "편의점", icon: "assets/icon_cat_store.svg", iconOn: "assets/material-symbols_local-convenience-store.svg" },
+    { key: "all", label: "전체", icon: "assets/icon_cat_all.svg", iconOn: "assets/icon_cat_all_active.svg" },
+    { key: "voucher", label: "상품권", icon: "assets/icon_cat_coupon.svg", iconOn: "assets/icon_cat_coupon_active.svg" },
+    { key: "cvs", label: "편의점", icon: "assets/icon_cat_store.svg", iconOn: "assets/icon_cat_store_active.svg" },
     { key: "cafe", label: "카페", icon: "assets/icon_cat_coffee.svg", iconOn: "assets/icon_cat_cafe_active.png" },
     { key: "food", label: "음식", icon: "assets/icon_cat_food.svg", iconOn: "assets/icon_cat_food_active.png" },
     { key: "etc", label: "기타", icon: "assets/icon_cat_more.svg", iconOn: "assets/icon_cat_etc_active.png" },
