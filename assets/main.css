@@ -555,6 +555,7 @@ body > .mn-header > .mn-hearts {
   font-weight: 700;
   line-height: 14px;
   color: var(--brown-800);
+  white-space: nowrap;
 }
 
 /* ── 요일 탭 ─────────────────────────────── */

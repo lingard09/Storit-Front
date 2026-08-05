@@ -146,19 +146,53 @@
       );
     }
     const end = Number(localStorage.getItem("storit.firstDayEnd")) || 0;
-    return HEARTS_PARAM === "inf" || Date.now() < end;
+    //return HEARTS_PARAM === "inf" || Date.now() < end;
+    if (HEARTS_PARAM !== null) {
+      return HEARTS_PARAM === "inf";
+    }
+
+return Date.now() < end;
   })();
 
   // 무제한 이벤트 중에는 "무료 기회 N회" 대신 "보유 하트 ∞"
   (function initQuizbarFree() {
     if (!UNLIMITED_HEARTS) return;
+    
     const free = document.querySelector(".mn-quizbar-free");
-    if (!free) return;
+    const sub = document.querySelector(".mn-quizbar-sub");
+    if (!free || !sub) return;
+
     free.classList.add("is-unlimited");
     // 텍스트를 span 으로 감싸 아이콘과 동등한 flex 아이템으로 → 세로 중심 정렬
     free.innerHTML =
       `<span class="mn-quizbar-free-text">보유 하트</span>` +
       `<img class="mn-quizbar-inf" src="assets/bar_infinite.svg" alt="무제한" />`;
+    // 실제 첫날 종료 시각 사용.
+    // ?hearts=inf 미리보기에 저장값 없을 수 있어 24시간 기본값으로 표시 HH:MM 카운트 다운
+    const storedEnd =
+      Number(localStorage.getItem("storit.firstDayEnd")) || 0;
+      
+      const end =
+        storedEnd > Date.now()
+          ? storedEnd
+          : Date.now() + 24 * 60 * 60 * 1000;
+
+      function updateUnlimitedTime() {
+        const totalMinutes = Math.max(
+          0,
+          Math.ceil((end - Date.now()) / (60 * 1000)),
+        );
+
+        if(totalMinutes >= 60) {
+          const hours = Math.floor(totalMinutes / 60);
+          const minutes = totalMinutes % 60;
+          sub.textContent = `무제한 종료까지 ${hours}시간 ${minutes}분`;
+        }else {
+          sub.textContent = `무제한 종료까지 ${totalMinutes}분`;
+        }
+      }
+      updateUnlimitedTime();
+      setInterval(updateUnlimitedTime, 60 * 1000);
   })();
 
   // ── 헤더 하트 / 리필 타이머 ──────────────────
@@ -187,6 +221,20 @@
     hearts = Math.max(0, Math.min(MAX, hearts)); // 0 ~ MAX(2)
 
     const unlimited = UNLIMITED_HEARTS;
+    // 일반 하트 상태의 오늘의 퀴즈 바 표시
+    if (!unlimited) {
+      const quizbarHeart = document.querySelector(".mn-quizbar-free");
+     const quizbarSub = document.querySelector(".mn-quizbar-sub");
+
+     if (quizbarHeart) {
+       quizbarHeart.classList.remove("is-unlimited");
+       quizbarHeart.textContent = `보유 하트 ${hearts}/${MAX}`;
+     }
+
+     if (quizbarSub) {
+       quizbarSub.textContent = "30분마다 하트 1개 충전";
+     }
+   }
 
     function renderHearts() {
       // 무제한: 하트 만땅 + 두 번째 하트 가운데에 무한대 마크, 충전(+) 없음
